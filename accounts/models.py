@@ -21,22 +21,15 @@ class User(AbstractUser):
     is_sales_executive = models.BooleanField(default=False)
     is_merchandiser = models.BooleanField(default=False)
     employe_id = models.CharField(max_length=10, blank=True, null=True)
+    photo = VersatileImageField(
+        "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
+    )
 
     def __str__(self):
         if self.first_name:
             return str(self.first_name)
         return str(self.username)
 
-    # def get_user_photo(self):
-    #     return self.photo.url if self.photo else settings.DEFAULT_AVATAR
-
-    # def get_average_points(self):
-    #     average_points = RewardPoint.objects.filter(is_deleted=False, user=self, status="APPROVED").aggregate(Avg('point'))
-    #     return (average_points)
-
-    # def get_total_points(self):
-    #     total_points = RewardPoint.objects.filter(is_deleted=False, user=self, status="APPROVED").aggregate(Sum('point'))
-    #     return (total_points)
 
 
 

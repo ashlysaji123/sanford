@@ -24,6 +24,7 @@ def create_manager(request):
             name = form.cleaned_data["name"]
             phone = form.cleaned_data["phone"]
             employe_id = form.cleaned_data["employe_id"]
+            photo = form.cleaned_data["photo"]
             if not User.objects.filter(username=phone).exists():
                 password = "enduser"
                 user = User.objects.create_user(
@@ -32,7 +33,8 @@ def create_manager(request):
                     password=password,
                     employe_id=employe_id,
                     is_sales_manager=True,
-                    is_staff=False
+                    is_staff=False,
+                    photo=photo
                 )
                 data.user = user
             data.save()
@@ -265,6 +267,7 @@ def create_coordinator(request):
             name = form.cleaned_data["name"]
             phone = form.cleaned_data["phone"]
             employe_id = form.cleaned_data["employe_id"]
+            photo = form.cleaned_data["photo"]
             if not User.objects.filter(username=phone).exists():
                 password = "enduser"
                 user = User.objects.create_user(
@@ -273,7 +276,8 @@ def create_coordinator(request):
                     password=password,
                     employe_id=employe_id,
                     is_sales_coordinator=True,
-                    is_staff=False
+                    is_staff=False,
+                    photo=photo
                 )
                 data.user = user
             data.save()

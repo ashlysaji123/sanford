@@ -11,6 +11,7 @@ from core.forms import *
 from core.models import *
 from core.functions import get_current_role
 from products.models import Product
+from notifications.models import Notification
 
 
 @login_required
@@ -29,6 +30,10 @@ def app(request):
     is_sales_manager = False
     is_sales_coordinator = False
     is_sales_executive = False
+
+
+    notifications = Notification.objects.filter(is_deleted=False)
+    notifications_count = notifications.count()
 
     if current_role == "superuser":
         is_superuser = True
@@ -50,6 +55,8 @@ def app(request):
         "is_sales_manager": is_sales_manager,
         "is_sales_coordinator":is_sales_coordinator,
         "is_sales_executive":is_sales_executive,
+        "notifications_count":notifications_count,
+        "notifications":notifications,
     }
     if current_role == "superuser":
         context.update({

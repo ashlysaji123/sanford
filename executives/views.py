@@ -23,6 +23,7 @@ def create_executive(request):
             name = form.cleaned_data["name"]
             phone = form.cleaned_data["phone"]
             employe_id = form.cleaned_data["employe_id"]
+            photo = form.cleaned_data["photo"]
             if not User.objects.filter(username=phone).exists():
                 password = "executive"
                 user = User.objects.create_user(
@@ -31,7 +32,8 @@ def create_executive(request):
                     password=password,
                     employe_id=employe_id,
                     is_sales_executive= True,
-                    is_staff=False
+                    is_staff=False,
+                    photo=photo
                 )
                 data.user = user
             data.save()
