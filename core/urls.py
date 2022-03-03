@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 
 from . import views
+from . import superuserviews
 
 app_name = "core"
 
@@ -30,5 +31,10 @@ urlpatterns = [
     path('shop-list', views.shop_list, name='shop_list'),
     re_path(r'^update-shop/(?P<pk>.*)/', views.update_shop ,name='update_shop'),
     re_path(r'^delete-shop/(?P<pk>.*)/', views.delete_shop, name='delete_shop'),
+
+    # Dashbord urlpatterns
+    path('last-month-sales', superuserviews.last_month_sales, name='last_month_sales'),
+    
+
 
 ]
