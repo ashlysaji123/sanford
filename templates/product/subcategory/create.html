@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+	<div class="col-lg-12">
+		<div class="card card-custom">
+			<div class="card-header">
+				<h3 class="card-title">
+					{{title}}
+				</h3>
+			</div>
+
+			<form class="form ajax redirect" method="POST" action="{{url}}">
+				{%csrf_token%}
+				<div class="card-body">
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.category.label}}
+								{% if form.category.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.category.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.category.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.category}}
+							{% if form.category.errors %}
+							<label class="error">{{ form.category.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-6">
+							<label>{{form.name.label}}
+								{% if form.name.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.name.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.name.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.name}}
+							{% if form.name.errors %}
+							<label class="error">{{ form.name.errors.as_text }}</label>
+							{% endif %}
+						</div>
+						<div class="form-group col-lg-6">
+							<label>{{form.code.label}}
+								{% if form.code.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.code.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.code.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.code}}
+							{% if form.code.errors %}
+							<label class="error">{{ form.code.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	$(function () {
+		$("#datepicker").datepicker();
+	});
+</script>
+
+{{form.media}}
+
+{% endblock %}

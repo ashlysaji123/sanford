@@ -1,0 +1,170 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+	<div class="col-lg-12">
+		<div class="card card-custom">
+			<div class="card-header">
+				<h3 class="card-title">
+					{{title}}
+				</h3>
+			</div>
+
+			<form class="form ajax redirect" method="POST" action="">
+				{%csrf_token%}
+				<div class="card-body">
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.name.label}}
+
+								{% if form.name.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.name.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.name.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.name}}
+							{% if form.name.errors %}
+							<label class="error">{{ form.name.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.location.label}}
+
+								{% if form.location.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.location.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.location.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.location}}
+							{% if form.location.errors %}
+							<label class="error">{{ form.location.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.contact_number.label}}
+
+								{% if form.contact_number.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.contact_number.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.contact_number.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.contact_number}}
+							{% if form.contact_number.errors %}
+							<label class="error">{{ form.contact_number.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.contact_number2.label}}
+
+								{% if form.contact_number2.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.contact_number2.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.contact_number2.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.contact_number2}}
+							{% if form.contact_number2.errors %}
+							<label class="error">{{ form.contact_number2.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.country.label}}
+
+								{% if form.country.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.country.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.country.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.country}}
+							{% if form.country.errors %}
+							<label class="error">{{ form.country.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.state.label}}
+
+								{% if form.state.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.state.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.state.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+
+							{{form.state}}
+							{% if form.state.errors %}
+							<label class="error">{{ form.state.errors.as_text }}</label>
+							{% endif %}
+
+						</div>
+					</div>
+					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		$("#datepicker").datepicker();
+	});
+</script>
+
+{{form.media}}
+
+{% endblock %}

@@ -1,0 +1,902 @@
+{% load static %}
+<!--begin::Aside menu-->
+<div id="kt_aside_menu_wrapper" class="w-100 hover-scroll-overlay-y scroll-ps d-flex" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu" data-kt-scroll-offset="0">
+	<div id="kt_aside_menu" class="menu menu-column menu-title-gray-600 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-icon-gray-400 menu-arrow-gray-400 fw-bold fs-6 my-auto" data-kt-menu="true">
+		
+        <!--Base data Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Base Data" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z" fill="black" />
+							<path d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z" fill="black" />
+							<path opacity="0.3" d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Base Data</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Region</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:add_region' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:region_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Language</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:add_language' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:language_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Country</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:add_country' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:country_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">State</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:add_state' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:state_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Shop</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:add_shop' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'core:shop_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Menu card end -->
+		<!-- Staff Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Staff Management" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Manager</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Manager</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_manager' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:manager_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Manager task</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_manager_task' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:manager_task_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Manager Target</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_manager_target' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:manager_target_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Coordinator  -->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Coordinator</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Coordinator</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_coordinator' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:coordinator_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Coordinator task</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_coordinator_task' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:coordinator_task_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Coordinators Target</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:create_coordinator_target' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'coordinators:coordinator_target_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--Sales executives-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales executives</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Executive</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:create_executive' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:executive_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Executive task</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:create_executive_task' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:executive_task_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Executive Target</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:create_executive_target' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'executives:executive_target_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Merchandiser-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Merchandiser</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Merchandiser</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:create_merchandiser' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:merchandiser_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Merchandiser task</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:create_merchandiser_task' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:merchandiser_task_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Merchandiser Target</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:create_merchandiser_target' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'merchandiser:merchandiser_target_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Sale data Menu card end -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Sales Data" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path opacity="0.3" d="M2.10001 10C3.00001 5.6 6.69998 2.3 11.2 2L8.79999 4.39999L11.1 7C9.60001 7.3 8.30001 8.19999 7.60001 9.59999L4.5 12.4L2.10001 10ZM19.3 11.5L16.4 14C15.7 15.5 14.4 16.6 12.7 16.9L15 19.5L12.6 21.9C17.1 21.6 20.8 18.2 21.7 13.9L19.3 11.5Z" fill="black" />
+							<path d="M13.8 2.09998C18.2 2.99998 21.5 6.69998 21.8 11.2L19.4 8.79997L16.8 11C16.5 9.39998 15.5 8.09998 14 7.39998L11.4 4.39998L13.8 2.09998ZM12.3 19.4L9.69998 16.4C8.29998 15.7 7.3 14.4 7 12.8L4.39999 15.1L2 12.7C2.3 17.2 5.7 20.9 10 21.8L12.3 19.4Z" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Sales Data</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'sales:total_sales' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+        <!-- Menu card end -->
+
+		<!-- Attendance Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Attendance" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path opacity="0.3" d="M21 10.7192H3C2.4 10.7192 2 11.1192 2 11.7192C2 12.3192 2.4 12.7192 3 12.7192H6V14.7192C6 18.0192 8.7 20.7192 12 20.7192C15.3 20.7192 18 18.0192 18 14.7192V12.7192H21C21.6 12.7192 22 12.3192 22 11.7192C22 11.1192 21.6 10.7192 21 10.7192Z" fill="black"></path>
+							<path d="M11.6 21.9192C11.4 21.9192 11.2 21.8192 11 21.7192C10.6 21.4192 10.5 20.7191 10.8 20.3191C11.7 19.1191 12.3 17.8191 12.7 16.3191C12.8 15.8191 13.4 15.4192 13.9 15.6192C14.4 15.7192 14.8 16.3191 14.6 16.8191C14.2 18.5191 13.4 20.1192 12.4 21.5192C12.2 21.7192 11.9 21.9192 11.6 21.9192ZM8.7 19.7192C10.2 18.1192 11 15.9192 11 13.7192V8.71917C11 8.11917 11.4 7.71917 12 7.71917C12.6 7.71917 13 8.11917 13 8.71917V13.0192C13 13.6192 13.4 14.0192 14 14.0192C14.6 14.0192 15 13.6192 15 13.0192V8.71917C15 7.01917 13.7 5.71917 12 5.71917C10.3 5.71917 9 7.01917 9 8.71917V13.7192C9 15.4192 8.4 17.1191 7.2 18.3191C6.8 18.7191 6.9 19.3192 7.3 19.7192C7.5 19.9192 7.7 20.0192 8 20.0192C8.3 20.0192 8.5 19.9192 8.7 19.7192ZM6 16.7192C6.5 16.7192 7 16.2192 7 15.7192V8.71917C7 8.11917 7.1 7.51918 7.3 6.91918C7.5 6.41918 7.2 5.8192 6.7 5.6192C6.2 5.4192 5.59999 5.71917 5.39999 6.21917C5.09999 7.01917 5 7.81917 5 8.71917V15.7192V15.8191C5 16.3191 5.5 16.7192 6 16.7192ZM9 4.71917C9.5 4.31917 10.1 4.11918 10.7 3.91918C11.2 3.81918 11.5 3.21917 11.4 2.71917C11.3 2.21917 10.7 1.91916 10.2 2.01916C9.4 2.21916 8.59999 2.6192 7.89999 3.1192C7.49999 3.4192 7.4 4.11916 7.7 4.51916C7.9 4.81916 8.2 4.91918 8.5 4.91918C8.6 4.91918 8.8 4.81917 9 4.71917ZM18.2 18.9192C18.7 17.2192 19 15.5192 19 13.7192V8.71917C19 5.71917 17.1 3.1192 14.3 2.1192C13.8 1.9192 13.2 2.21917 13 2.71917C12.8 3.21917 13.1 3.81916 13.6 4.01916C15.6 4.71916 17 6.61917 17 8.71917V13.7192C17 15.3192 16.8 16.8191 16.3 18.3191C16.1 18.8191 16.4 19.4192 16.9 19.6192C17 19.6192 17.1 19.6192 17.2 19.6192C17.7 19.6192 18 19.3192 18.2 18.9192Z" fill="black"></path>
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Attendance</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Attendance</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'attendance:register_book'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">register book</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Leave Request</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Pending requests</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'leave:leave_request_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Approved requests</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'leave:approved_leave_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+        <!-- Menu card end -->
+		
+		<!-- Products Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Products" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black" />
+							<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Products</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Product Category</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:create_product_category' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:product_category_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Product Sub category</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:create_product_sub_category' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:product_sub_category_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Product Group</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:create_product_group' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:product_group_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Product</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:create_product' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:product_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Menu card end -->
+		<!-- Notifications Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Notifications" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path opacity="0.3" d="M4.05424 15.1982C8.34524 7.76818 13.5782 3.26318 20.9282 2.01418C21.0729 1.98837 21.2216 1.99789 21.3618 2.04193C21.502 2.08597 21.6294 2.16323 21.7333 2.26712C21.8372 2.37101 21.9144 2.49846 21.9585 2.63863C22.0025 2.7788 22.012 2.92754 21.9862 3.07218C20.7372 10.4222 16.2322 15.6552 8.80224 19.9462L4.05424 15.1982ZM3.81924 17.3372L2.63324 20.4482C2.58427 20.5765 2.5735 20.7163 2.6022 20.8507C2.63091 20.9851 2.69788 21.1082 2.79503 21.2054C2.89218 21.3025 3.01536 21.3695 3.14972 21.3982C3.28408 21.4269 3.42387 21.4161 3.55224 21.3672L6.66524 20.1802L3.81924 17.3372ZM16.5002 5.99818C16.2036 5.99818 15.9136 6.08615 15.6669 6.25097C15.4202 6.41579 15.228 6.65006 15.1144 6.92415C15.0009 7.19824 14.9712 7.49984 15.0291 7.79081C15.0869 8.08178 15.2298 8.34906 15.4396 8.55884C15.6494 8.76862 15.9166 8.91148 16.2076 8.96935C16.4986 9.02723 16.8002 8.99753 17.0743 8.884C17.3484 8.77046 17.5826 8.5782 17.7474 8.33153C17.9123 8.08486 18.0002 7.79485 18.0002 7.49818C18.0002 7.10035 17.8422 6.71882 17.5609 6.43752C17.2796 6.15621 16.8981 5.99818 16.5002 5.99818Z" fill="black"></path>
+							<path d="M4.05423 15.1982L2.24723 13.3912C2.15505 13.299 2.08547 13.1867 2.04395 13.0632C2.00243 12.9396 1.9901 12.8081 2.00793 12.679C2.02575 12.5498 2.07325 12.4266 2.14669 12.3189C2.22013 12.2112 2.31752 12.1219 2.43123 12.0582L9.15323 8.28918C7.17353 10.3717 5.4607 12.6926 4.05423 15.1982ZM8.80023 19.9442L10.6072 21.7512C10.6994 21.8434 10.8117 21.9129 10.9352 21.9545C11.0588 21.996 11.1903 22.0083 11.3195 21.9905C11.4486 21.9727 11.5718 21.9252 11.6795 21.8517C11.7872 21.7783 11.8765 21.6809 11.9402 21.5672L15.7092 14.8442C13.6269 16.8245 11.3061 18.5377 8.80023 19.9442ZM7.04023 18.1832L12.5832 12.6402C12.7381 12.4759 12.8228 12.2577 12.8195 12.032C12.8161 11.8063 12.725 11.5907 12.5653 11.4311C12.4057 11.2714 12.1901 11.1803 11.9644 11.1769C11.7387 11.1736 11.5205 11.2583 11.3562 11.4132L5.81323 16.9562L7.04023 18.1832Z" fill="black"></path>
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Notifications</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Notifications</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'notifications:create_notification' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'notifications:notification_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Rewards</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Reward</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'rewards:reward_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Opening Stocks</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Opening stock</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'sales:create_opening_stock'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'sales:opening_stock_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Menu card end -->
+	</div>
+</div>
+<!--end::Aside menu-->

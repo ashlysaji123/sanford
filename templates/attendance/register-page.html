@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% load static %} 
+{% block content %} 
+
+<div class="container-xxl" id="kt_content_container">
+    <div class="col-lg-12">
+        <div class="card card-custom">
+            <div class="card-header">
+                <div class="card-title">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </div>
+                <div class="card-toolbar">
+                    <div class="d-flex flex-stack">
+                        <div class="symbol symbol-30px me-4">
+                            <div class="symbol-label fs-2 fw-bold bg-danger"></div>
+                        </div>
+                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                            <div class="flex-grow-1 me-2">
+                                <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Leave</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-stack">
+                        <div class="symbol symbol-30px me-4">
+                            <div class="symbol-label fs-2 fw-bold bg-warning"></div>
+                        </div>
+                        <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                            <div class="flex-grow-1 me-2">
+                                <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Late</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover table-checkable table-rounded" id="datatable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Staff</th>
+                            <th>Employ ID</th>
+                            <th>Working hours</th>
+                            <th>Missing hours</th>
+                            <th>Is Late entry</th>
+                            <th>Is Leave</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in attendances %}
+                        <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{%endif%}">
+                            <td>{{forloop.counter}}</td>
+                            {%if a.user.first_name%}
+                            <td>{{a.user.first_name}}</td>
+                            {%else%}
+                            <td>{{a.user.username}}</td>
+                            {%endif%}
+                            <td>{{a.user.employ_id}}</td>
+                            <td>{{a.working_hours}}</td>
+                            <td>{{a.missing_hours}}</td>
+                            <td>{{a.is_late}}</td>
+                            <td>{{a.is_leave}}</td>
+                        </tr>
+                        {%endfor%}                 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

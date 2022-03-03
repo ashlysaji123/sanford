@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+{% load static %} 
+{% block content %} 
+
+<div class="container-xxl" id="kt_content_container">
+    <div class="col-lg-12">
+        <div class="card card-custom">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon">
+                        <i class="flaticon2-heart-rate-monitor text-primary"></i>
+                    </span>
+                    <h3 class="card-label">{{title}}</h3>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="col-lg-12 mb-3">
+                    <label class="fs-6 form-label fw-bolder text-dark">Select Region</label>
+                    <!--begin::Select-->
+                    <select class="form-select form-select-solid select2-hidden-accessible" id="region" data-control="select2" data-placeholder="In Progress" data-hide-search="true" tabindex="-1" aria-hidden="true">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <!--end::Select-->
+                </div>
+                <!--end::Input group-->
+                <div class="col-lg-12">
+                    <label class="fs-6 form-label fw-bolder text-dark">Select Staff</label>
+                    <!--begin::Select-->
+                    <select class="form-select form-select-solid select2-hidden-accessible" id="staff" data-control="select2" data-placeholder="In Progress" data-hide-search="true" tabindex="-1" aria-hidden="true">
+                        <option value=""></option>
+                        <option value="M">Sales Manager</option>
+                        <option value="C">Sales Coordinators</option>
+                        <option value="E">Sales Executives</option>
+                        <option value="MER"> Merchandiser</option>
+                        <option value="ALL" selected="selected">All</option>
+                    </select>
+                    <!--end::Select-->
+                </div>
+                <!--end::Col-->
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Fetch Attendance Date</a>
+                </div>
+                <!--end:Action-->
+                <div class="card-footer" id="attendance_data">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        //Fetching Attendance Date
+        $("#fetch_attendance").click(function(){
+            var region = $("#region").val()
+            var staff = $("#staff").val()
+
+            $.ajax({
+                url:'#',
+                type:'POST',
+                data:{region:region, staff:staff},
+            })
+            
+            .done(function(response){
+                var json_data=JSON.parse(response);
+                console.log(json_data)
+                //Displaying Attendance Date Input and Students Attendance
+                var div_data="<div class='form-group'><label>Attendance: </label></div>"
+                div_data+="<div class='form-group'><div class='row'>"
+
+                for(key in json_data)
+                {
+                    div_data+="<div class='col-lg-3'><div class='form-check'>";
+
+                    div_data+="<label class='form-check-label'>"+ json_data[key]['name']+" </label> ";
+                    
+                    // Displaying Present and Absent
+
+                    if(json_data[key]['status'])
+                    {
+                        div_data+="<b>[ Present ]</b>";
+                    }
+                    else
+                    {
+                        div_data+="<b>[ Absent ]</b>";
+                    }
+                    //Displaying Present and Absent Ends Here
+                    
+
+                    div_data+="</div></div> ";
+                }
+                div_data+="</div></div>";
+                
+                $("#attendance_data").html(div_data);
+
+            })
+            .fail(function(){
+                alert("Error in Fetching Students.")
+            })     
+        })
+    })
+
+</script>
+{% endblock %}
+

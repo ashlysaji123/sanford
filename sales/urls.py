@@ -1,0 +1,19 @@
+from django.urls import path, re_path
+
+from . import views
+
+
+app_name = "sales"
+
+urlpatterns = [
+    # Opening stock
+    path('create-opening-stock', views.create_opening_stock, name='create_opening_stock'),
+    path('opening-stock-list', views.opening_stock_list, name='opening_stock_list'),
+    re_path(r'^update-opening-stock/(?P<pk>.*)/', views.update_opening_stock ,name='update_opening_stock'),
+    re_path(r'^delete-opening-stock/(?P<pk>.*)/', views.delete_opening_stock, name='delete_opening_stock'),
+
+
+    path('total-sales-list', views.total_sales, name='total_sales'),
+    re_path(r'^sale-single/(?P<pk>.*)/', views.sales_single ,name='sales_single'),
+    
+]

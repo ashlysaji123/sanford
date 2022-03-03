@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <!--begin::Container-->
+    <div class="container-xxl" id="kt_content_container">
+        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+            <div class="card-header cursor-pointer">
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">Details</h3>
+                </div>
+            </div>
+            <div class="card-body p-9">
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">User</label>
+                    <div class="col-lg-8">
+                        {% if instance.user.first_name %}
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
+                        {%else%}
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Employe ID</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Total amount</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.total_amount}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Approved</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Rejected</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::details View-->
+    </div>
+    <!--end::Container-->
+
+    <div class="container-xxl" id="kt_content_container">
+        <div class="col-lg-12">
+            <div class="card card-custom">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">
+                            <i class="flaticon2-heart-rate-monitor text-primary"></i>
+                        </span>
+                        <h3 class="card-label">Sale Items</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-checkable table-striped table-rounded" id="datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in sale_items %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.product}}</td>
+                                <td>{{i.qty}}</td>
+                                <td>{{i.total_items_amount}}</td>
+                                
+                            </tr>  
+                            {%endfor%}                  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

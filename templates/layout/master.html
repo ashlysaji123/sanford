@@ -1,0 +1,55 @@
+{% load static %}
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
+	<!--begin::Page-->
+	<div class="page d-flex flex-row flex-column-fluid">
+		<!-- Left side menu item -->
+		{% include 'layout/aside/_base.html' %}
+		<!-- Left side menu item end -->
+		
+		<!--begin::Wrapper-->
+		<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+
+			{% include 'layout/_header-mobile.html' %}
+
+			<!-- Header -->
+			{% include 'layout/_header.html' %}
+			<!-- Header end -->
+
+			<!--begin::Content-->
+			<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
+				{% block content %}
+				<!-- Base content page -->
+				{% if is_superuser %}
+					{% include 'layout/contents/superuser-content.html' %}
+				{% endif %}
+				{% if is_sales_manager %}
+					{% include 'layout/contents/manager-content.html' %}
+				{% endif %}
+				{% if is_sales_coordinator %}
+					{% include 'layout/contents/coodinator-content.html' %}
+				{% endif %}
+				{% if is_sales_executive %}
+					{% include 'layout/contents/ececutive-content.html' %}
+				{% endif %}
+				<!-- end base page -->
+				{% endblock %}
+			</div>
+			<!--end::Content-->
+
+				{% include 'layout/_footer.html' %}
+
+		</div>
+		<!--end::Wrapper-->
+	</div>
+	<!--end::Page-->
+</div>
+<!--end::Root-->
+<!--begin::Drawers-->
+
+
+
+<!--end::Drawers-->
+<!--end::Main-->

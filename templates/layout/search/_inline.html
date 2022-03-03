@@ -1,0 +1,31 @@
+{% load static %}
+<!--begin::Search-->
+<div id="kt_header_search" class="d-flex align-items-center w-lg-250px" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="false" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
+
+{% include 'layout/search/partials/_form-inline.html' %}
+
+	<!--begin::Menu-->
+	<div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown w-300px w-md-350px py-7 px-7 overflow-hidden">
+		<!--begin::Wrapper-->
+		<div data-kt-search-element="wrapper">
+
+{% include 'layout/search/partials/_results.html' %}
+
+
+{% include 'layout/search/partials/_main.html' %}
+
+
+{% include 'layout/search/partials/_empty.html' %}
+
+		</div>
+		<!--end::Wrapper-->
+
+{% include 'layout/search/partials/_advanced-options.html' %}
+
+
+{% include 'layout/search/partials/_preferences.html' %}
+
+	</div>
+	<!--end::Menu-->
+</div>
+<!--end::Search-->
