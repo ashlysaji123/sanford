@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'merchandiser',
     'notifications',
     'products',
-    'purchase',
     'rewards',
     'sales',
     'coordinators',

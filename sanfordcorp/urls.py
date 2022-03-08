@@ -38,7 +38,6 @@ urlpatterns = (
         path("executives/", include("executives.urls", namespace="executives")),
         path("notifications/", include("notifications.urls", namespace="notifications")),
         path("products/", include("products.urls", namespace="products")),
-        path("purchase/", include("purchase.urls", namespace="purchase")),
         path("sales/", include("sales.urls", namespace="sales")),
         path("rewards/", include("rewards.urls", namespace="rewards")),
 
