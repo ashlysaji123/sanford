@@ -21,18 +21,6 @@ class OpeningStock(BaseModel):
         return str(f"{self.merchandiser} - {self.product} with {self.count} stock")
 
 
-# class Target(BaseModel):
-#     YEAR_CHOICES = [(y,y) for y in range(1950, datetime.date.today().year+2)]
-#     MONTH_CHOICE = [(m,m) for m in range(1,13)]
-
-#     user = models.ForeignKey('accounts.User',limit_choices_to={'is_active': True}, on_delete=models.CASCADE)
-#     year = models.PositiveIntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year,)
-#     month = models.PositiveIntegerField(choices=MONTH_CHOICE, default=datetime.datetime.now().month,)
-#     amount = models.PositiveIntegerField(default=0)
-
-#     def __str__(self):
-#         return str(f"{self.month}/{self.year} with {self.amount} target to {self.user}")
-
 
 class Sales(BaseModel):
     user = models.ForeignKey('accounts.User',limit_choices_to={'is_active': True}, on_delete=models.CASCADE)

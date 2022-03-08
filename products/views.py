@@ -217,6 +217,7 @@ def create_product(request):
             data = form.save(commit=False)
             data.creator = request.user
             data.save()
+            form.save_m2m()
             response_data = get_response_data(
                 1, redirect_url=reverse('products:product_list'), message="Added Successfully.")
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')

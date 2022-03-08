@@ -27,7 +27,10 @@ def get_regions(request):
 
 @login_required
 def register_book(request):
-    differed_qs = DailyAttendance.objects.distinct('date__year')
+    if request.user.is_superuser:
+        differed_qs = DailyAttendance.objects.distinct('date__year')
+    else:
+        differed_qs = DailyAttendance.objects.filter(user__region=request.user.region).distinct('date__year')
     years = [i.date.strftime('%Y') for i in differed_qs]
     context = {
         "is_need_calander": True,
@@ -41,7 +44,10 @@ def register_book(request):
 def register_page(request):
     date = request.GET.get('date')
 
-    qs = DailyAttendance.objects.filter(date=date)
+    if request.user.is_superuser:
+        qs = DailyAttendance.objects.filter(date=date)
+    else:
+        qs = DailyAttendance.objects.filter(date=date,user__region=request.user.region)
 
     context = {
         "is_need_datatable": True,

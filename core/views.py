@@ -12,58 +12,9 @@ from core.models import *
 from core.functions import get_current_role
 from products.models import Product
 from notifications.models import Notification
-
-
-@login_required
-def app(request):
-    datetime.date.today()
-    role_data = get_current_role(request)
-    current_role = None
-    if role_data:
-        for key, value in role_data.items():
-            if key == "role":
-                current_role = value
-            elif key == "user":
-                user = value
-
-    is_superuser = False
-    is_sales_manager = False
-    is_sales_coordinator = False
-    is_sales_executive = False
-
-
-    notifications = Notification.objects.filter(is_deleted=False)
-    notifications_count = notifications.count()
-
-    if current_role == "superuser":
-        is_superuser = True
-        hot_products = Product.objects.filter(is_hot_product=True).order_by('-created')[:5]
-    elif current_role == "salesmanager":
-        is_sales_manager = True
-    elif current_role == "salescoordinator":
-        is_sales_coordinator = True
-    elif current_role == "salesexecutive":
-        is_sales_executive = True
-
-    context = {
-       "domain" : request.build_absolute_uri('/')[:-1],
-        "current_path": request.get_full_path(),
-        "site_title": "sanfordcorp Portal",
-
-        "current_role": current_role,
-        "is_superuser": is_superuser,
-        "is_sales_manager": is_sales_manager,
-        "is_sales_coordinator":is_sales_coordinator,
-        "is_sales_executive":is_sales_executive,
-        "notifications_count":notifications_count,
-        "notifications":notifications,
-    }
-    if current_role == "superuser":
-        context.update({
-            "hot_products": hot_products,
-        })
-
-    return render(request, "index.html", context)
+from coordinators.models import SalesManager,SalesCoordinator
+from executives.models import SalesExecutive
+from merchandiser.models import Merchandiser
 
 
 
@@ -363,7 +314,10 @@ def add_shop(request):
 
 @login_required
 def shop_list(request):
-    query_set = Shop.objects.filter(is_deleted=False)
+    if request.user.is_superuser:
+        query_set = Shop.objects.filter(is_deleted=False)
+    else:
+        query_set = Shop.objects.filter(is_deleted=False,country__region=request.user.region)
     context = {
         "is_need_datatable": True,
         "title": "Shop",
@@ -402,3 +356,34 @@ def delete_shop(request,pk):
     return HttpResponse(json.dumps(response_data), content_type='application/javascript')
 
 """Shop"""
+
+
+
+
+
+@login_required
+def my_profile(request):
+    if request.user.salesmanager:
+        instance = SalesManager.objects.get(user=request.user)
+        context = {
+            "title": "Sales manager :- " + instance.name,
+            "instance": instance
+        }
+        return render(request, 'manager/single.htm', context)
+    elif request.user.salescoordinator:
+        instance = SalesCoordinator.objects.get(user=request.user)
+        context = {
+            "title": "Sales Coordinator :- " + instance.name,
+            "instance": instance
+        }
+        return render(request, 'coordinator/single.htm', context)
+    elif request.user.salesexecutive:
+        instance = SalesExecutive.objects.get(user=request.user)
+        context = {
+            "title": "Sales Executive :- " + instance.name,
+            "instance": instance
+        }
+        return render(request, 'executive/single.htm', context)
+
+
+    

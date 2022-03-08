@@ -16,8 +16,9 @@ from .models import *
 """Opening stock """
 @login_required
 def create_opening_stock(request):
+    user = request.user
     if request.method == "POST":
-        form = OpeningStockForm(request.POST)
+        form = OpeningStockForm(user,request.POST)
         if form.is_valid():
             product = form.cleaned_data["product"]
             qty = form.cleaned_data["count"]
@@ -39,7 +40,7 @@ def create_opening_stock(request):
             response_data = get_response_data(0, message=message)
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = OpeningStockForm()
+        form = OpeningStockForm(user)
         context = {
             "form": form,
             "title": "Add Opening stock",
@@ -59,9 +60,10 @@ def opening_stock_list(request):
 
 @login_required
 def update_opening_stock(request, pk):
+    user = request.user
     instance = get_object_or_404(OpeningStock, pk=pk)
     if request.method == 'POST':
-        form = OpeningStockForm(request.POST, instance=instance)
+        form = OpeningStockForm(user,request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -71,7 +73,7 @@ def update_opening_stock(request, pk):
             response_data = get_response_data(0, message=message)
         return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = OpeningStockForm(instance=instance)
+        form = OpeningStockForm(user,instance=instance)
         context = {
             "title": "Edit Opening stock",
             "form": form,
@@ -98,11 +100,20 @@ def total_sales(request):
     query = request.GET.get('q')
 
     if query is None or query == "T":
-        query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__date=today)
+        if request.user.is_superuser:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__date=today)
+        else:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__date=today,user__region=request.user.region)
     elif query == "M":
-        query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__month=current_month)
+        if request.user.is_superuser:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__month=current_month)
+        else:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__month=current_month,user__region=request.user.region)
     elif query == "Y":
-        query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__year=current_year)
+        if request.user.is_superuser:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__year=current_year)
+        else:
+            query_set = Sales.objects.filter(is_deleted=False,is_approved=True,created__year=current_year,user__region=request.user.region)
 
     context = {
         "is_need_datatable": True,

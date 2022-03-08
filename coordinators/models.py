@@ -4,6 +4,8 @@ from versatileimagefield.fields import VersatileImageField
 import datetime
 
 from core.models import BaseModel
+from accounts.models import User
+from coordinators.utils import generate_password
 
 TARGET_TYPE_CHOICE = (
         ("PRIMARY", "PRIMARY"),("SECONDARY", "SECONDARY")
@@ -11,12 +13,12 @@ TARGET_TYPE_CHOICE = (
 
 class SalesManager(BaseModel):
     name = models.CharField(max_length=128)
-    employe_id = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField("Phone Number", max_length=30, blank=True, null=True)
+    employe_id = models.CharField(max_length=128,unique=True)
+    phone = models.CharField("Phone Number", max_length=30,unique=True)
     location = PlainLocationField(based_fields=["city"], zoom=1, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     address = models.TextField("User Adress", blank=True, null=True)
-    dob = models.DateField("Date of Birth", null=True, blank=True)
+    dob = models.DateField("Date of Birth")
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
@@ -31,6 +33,32 @@ class SalesManager(BaseModel):
 
     def __str__(self):
         return str(self.name)
+    
+    def save(self, *args, **kwargs):
+        # set the value of the read_only_field using the regular field
+        if not User.objects.filter(username=self.phone).exists():
+            password = generate_password()
+            print(password,"mmmmmmmmmm")
+            user = User.objects.create_user(
+                    username=self.phone,
+                    first_name=self.name,
+                    employe_id=self.employe_id,
+                    photo=self.photo,
+                    region=self.region,
+                    password=password,
+                    is_sales_manager=True,
+                    is_staff=False,
+                )
+            self.user = user
+        else:
+            user = User.objects.get(username=self.phone)
+            user.first_name=self.name
+            user.employe_id=self.employe_id
+            user.photo=self.photo
+            user.region=self.region
+            user.save()
+        # call the save() method of the parent
+        super().save(*args, **kwargs)
 
 class SalesManagerTarget(BaseModel):
     YEAR_CHOICES = [(y,y) for y in range(1950, datetime.date.today().year+2)]
@@ -59,12 +87,12 @@ class SalesManagerTask(BaseModel):
 
 class SalesCoordinator(BaseModel):
     name = models.CharField(max_length=128)
-    employe_id = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField("Phone Number", max_length=30, blank=True, null=True)
+    employe_id = models.CharField(max_length=128, unique=True)
+    phone = models.CharField("Phone Number", max_length=30,unique=True)
     location = PlainLocationField(based_fields=["city"], zoom=1)
     city = models.CharField(max_length=255, blank=True, null=True)
     address = models.TextField("User Adress", blank=True, null=True)
-    dob = models.DateField("Date of Birth", null=True, blank=True)
+    dob = models.DateField("Date of Birth")
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
@@ -79,6 +107,32 @@ class SalesCoordinator(BaseModel):
 
     def __str__(self):
         return str(self.name)
+
+    def save(self, *args, **kwargs):
+        # set the value of the read_only_field using the regular field
+        if not User.objects.filter(username=self.phone).exists():
+            password = generate_password()
+            print(password,"mmmmmmmm")  
+            user = User.objects.create_user(
+                    username=self.phone,
+                    first_name=self.name,
+                    employe_id=self.employe_id,
+                    photo=self.photo,
+                    region=self.region,
+                    password=password,
+                    is_sales_coordinator=True,
+                    is_staff=False,
+                )
+            self.user = user
+        else:
+            user = User.objects.get(username=self.phone)
+            user.first_name=self.name
+            user.employe_id=self.employe_id
+            user.photo=self.photo
+            user.region=self.region
+            user.save()
+        # call the save() method of the parent
+        super().save(*args, **kwargs)
 
 
 class SalesCoordinatorTarget(BaseModel):

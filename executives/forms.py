@@ -3,7 +3,7 @@ from django.forms.widgets import (DateInput, EmailInput, FileInput, Select,
                                   Textarea, TextInput,NumberInput)
 
 from .models import *
-
+from accounts.models import User
 
 
 class SalesExecutiveForm(forms.ModelForm):
@@ -16,7 +16,7 @@ class SalesExecutiveForm(forms.ModelForm):
 			'phone' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Phone'}),
 			'city' :TextInput(attrs={'class': ' form-control', 'placeholder': 'City'}),
 			'address' :Textarea(attrs={'class': ' form-control', 'placeholder': 'Address'}),
-            'dob': DateInput(attrs={'class': 'form-control', 'placeholder': 'Date of Birth', 'id': 'Date', 'name': 'date', 'type': 'date'}),
+            'dob': DateInput(attrs={'class': 'required form-control', 'placeholder': 'Date of Birth', 'id': 'Date', 'name': 'date', 'type': 'date'}),
             'photo': FileInput(attrs={'class': 'form-control'}),
 			'visa_number' :TextInput(attrs={'class': 'form-control', 'placeholder': 'Visa number'}),
             'visa_expiry': DateInput(attrs={'class': 'form-control', 'placeholder': 'Visa expiry', 'id': 'Date', 'name': 'date', 'type': 'date'}),
@@ -37,6 +37,10 @@ class SalesExecutiveTargetForm(forms.ModelForm):
 			'target_amount' :NumberInput(attrs={'class': 'required form-control', 'placeholder': 'Target amount'}),
 			'target_type' :Select(attrs={'class': 'required form-control tt-select2'}),
 		}
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		if not user.is_superuser:
+			self.fields['user'].queryset = User.objects.filter(region=user.region,is_sales_executive=True)
 
 class SalesExecutiveTaskForm(forms.ModelForm):
 	class Meta:
@@ -46,4 +50,8 @@ class SalesExecutiveTaskForm(forms.ModelForm):
 			'task' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Task'}),
             'user' :Select(attrs={'class': 'required form-control tt-select2'}),
 		}
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		if not user.is_superuser:
+			self.fields['user'].queryset = User.objects.filter(region=user.region,is_sales_executive=True)
 

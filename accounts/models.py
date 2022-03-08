@@ -7,7 +7,7 @@ from django.db.models import Avg, Sum
 from location_field.models.plain import PlainLocationField
 from versatileimagefield.fields import VersatileImageField
 
-from core.models import BaseModel
+from core.models import BaseModel,Region
 from rewards.models import RewardPoint
 
 
@@ -20,10 +20,16 @@ class User(AbstractUser):
     is_sales_coordinator = models.BooleanField(default=False)
     is_sales_executive = models.BooleanField(default=False)
     is_merchandiser = models.BooleanField(default=False)
-    employe_id = models.CharField(max_length=10, blank=True, null=True)
+    employe_id = models.CharField(max_length=128)
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
+    region = models.ForeignKey(
+            Region,
+            limit_choices_to={"is_deleted": False},
+            on_delete=models.CASCADE,
+            null=True
+        )
 
     def __str__(self):
         if self.first_name:

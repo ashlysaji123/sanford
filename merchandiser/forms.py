@@ -3,6 +3,7 @@ from django.forms.widgets import (DateInput, EmailInput, FileInput, Select,
                                   Textarea, TextInput,NumberInput)
 
 from .models import *
+from accounts.models import User
 
 
 
@@ -16,7 +17,7 @@ class MerchandiserForm(forms.ModelForm):
 			'phone' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Phone'}),
 			'city' :TextInput(attrs={'class': ' form-control', 'placeholder': 'City'}),
 			'address' :Textarea(attrs={'class': ' form-control', 'placeholder': 'Address'}),
-            'dob': DateInput(attrs={'class': 'form-control', 'placeholder': 'Date of Birth', 'id': 'Date', 'name': 'date', 'type': 'date'}),
+            'dob': DateInput(attrs={'class': 'required form-control', 'placeholder': 'Date of Birth', 'id': 'Date', 'name': 'date', 'type': 'date'}),
             'photo': FileInput(attrs={'class': 'form-control'}),
 			'location' :TextInput(attrs={'class': 'form-control', 'placeholder': 'Location'}),
 			'visa_number' :TextInput(attrs={'class': 'form-control', 'placeholder': 'Visa number'}),
@@ -38,6 +39,10 @@ class MerchandiserTargetForm(forms.ModelForm):
 			'target_amount' :NumberInput(attrs={'class': 'required form-control', 'placeholder': 'Target amount'}),
 			'target_type' :Select(attrs={'class': 'required form-control tt-select2'}),
 		}
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		if not user.is_superuser:
+			self.fields['user'].queryset = User.objects.filter(region=user.region,is_merchandiser=True)
 
 class MerchandiserTaskForm(forms.ModelForm):
 	class Meta:
@@ -47,4 +52,8 @@ class MerchandiserTaskForm(forms.ModelForm):
 			'task' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Task'}),
             'user' :Select(attrs={'class': 'required form-control tt-select2'}),
 		}
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		if not user.is_superuser:
+			self.fields['user'].queryset = User.objects.filter(region=user.region,is_merchandiser=True)
 

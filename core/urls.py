@@ -34,6 +34,7 @@ urlpatterns = [
 
     # Dashbord urlpatterns
     path('last-month-sales', superuserviews.last_month_sales, name='last_month_sales'),
+    path('my-profile', views.my_profile, name='my_profile'),
     
 
 

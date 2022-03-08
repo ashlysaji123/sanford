@@ -1,0 +1,223 @@
+{% load static %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<!--begin::Container-->
+<div class="container-xxl" id="kt_content_container">
+	<div class="row g-5 g-xl-8">
+		<!--Left side ::Row-->
+		<div class="col-xl-4">
+			<!--begin::Misc Widget 1-->
+			<div class="row mb-5 mb-xl-8 g-5 g-xl-8">
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'coordinators:coordinator_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Shield-user.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
+										<path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z" fill="#000000" opacity="0.3"/>
+										<path d="M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 C14.5228466,17 11.463736,17 7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{coordinator_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Coordinators</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'executives:executive_list' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+						
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+										<path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{executive_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Executives</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'merchandiser:merchandiser_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"/>
+										<path d="M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z M21,8 L17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L21,6 C21.5522847,6 22,6.44771525 22,7 C22,7.55228475 21.5522847,8 21,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+										<path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{merchandiser_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Merchandisers</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'products:product_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+						
+							<span class="svg-icon svg-icon-2x mb-5">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path d="M21 10H13V11C13 11.6 12.6 12 12 12C11.4 12 11 11.6 11 11V10H3C2.4 10 2 10.4 2 11V13H22V11C22 10.4 21.6 10 21 10Z" fill="black"></path>
+									<path opacity="0.3" d="M12 12C11.4 12 11 11.6 11 11V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V11C13 11.6 12.6 12 12 12Z" fill="black"></path>
+									<path opacity="0.3" d="M18.1 21H5.9C5.4 21 4.9 20.6 4.8 20.1L3 13H21L19.2 20.1C19.1 20.6 18.6 21 18.1 21ZM13 18V15C13 14.4 12.6 14 12 14C11.4 14 11 14.4 11 15V18C11 18.6 11.4 19 12 19C12.6 19 13 18.6 13 18ZM17 18V15C17 14.4 16.6 14 16 14C15.4 14 15 14.4 15 15V18C15 18.6 15.4 19 16 19C16.6 19 17 18.6 17 18ZM9 18V15C9 14.4 8.6 14 8 14C7.4 14 7 14.4 7 15V18C7 18.6 7.4 19 8 19C8.6 19 9 18.6 9 18Z" fill="black"></path>
+								</svg>
+								<span class="badge badge-light-primary fs-small">{{product_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Products</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'attendance:register_book'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							
+							<span class="svg-icon svg-icon-2x mb-5">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M21 10.7192H3C2.4 10.7192 2 11.1192 2 11.7192C2 12.3192 2.4 12.7192 3 12.7192H6V14.7192C6 18.0192 8.7 20.7192 12 20.7192C15.3 20.7192 18 18.0192 18 14.7192V12.7192H21C21.6 12.7192 22 12.3192 22 11.7192C22 11.1192 21.6 10.7192 21 10.7192Z" fill="black"></path>
+									<path d="M11.6 21.9192C11.4 21.9192 11.2 21.8192 11 21.7192C10.6 21.4192 10.5 20.7191 10.8 20.3191C11.7 19.1191 12.3 17.8191 12.7 16.3191C12.8 15.8191 13.4 15.4192 13.9 15.6192C14.4 15.7192 14.8 16.3191 14.6 16.8191C14.2 18.5191 13.4 20.1192 12.4 21.5192C12.2 21.7192 11.9 21.9192 11.6 21.9192ZM8.7 19.7192C10.2 18.1192 11 15.9192 11 13.7192V8.71917C11 8.11917 11.4 7.71917 12 7.71917C12.6 7.71917 13 8.11917 13 8.71917V13.0192C13 13.6192 13.4 14.0192 14 14.0192C14.6 14.0192 15 13.6192 15 13.0192V8.71917C15 7.01917 13.7 5.71917 12 5.71917C10.3 5.71917 9 7.01917 9 8.71917V13.7192C9 15.4192 8.4 17.1191 7.2 18.3191C6.8 18.7191 6.9 19.3192 7.3 19.7192C7.5 19.9192 7.7 20.0192 8 20.0192C8.3 20.0192 8.5 19.9192 8.7 19.7192ZM6 16.7192C6.5 16.7192 7 16.2192 7 15.7192V8.71917C7 8.11917 7.1 7.51918 7.3 6.91918C7.5 6.41918 7.2 5.8192 6.7 5.6192C6.2 5.4192 5.59999 5.71917 5.39999 6.21917C5.09999 7.01917 5 7.81917 5 8.71917V15.7192V15.8191C5 16.3191 5.5 16.7192 6 16.7192ZM9 4.71917C9.5 4.31917 10.1 4.11918 10.7 3.91918C11.2 3.81918 11.5 3.21917 11.4 2.71917C11.3 2.21917 10.7 1.91916 10.2 2.01916C9.4 2.21916 8.59999 2.6192 7.89999 3.1192C7.49999 3.4192 7.4 4.11916 7.7 4.51916C7.9 4.81916 8.2 4.91918 8.5 4.91918C8.6 4.91918 8.8 4.81917 9 4.71917ZM18.2 18.9192C18.7 17.2192 19 15.5192 19 13.7192V8.71917C19 5.71917 17.1 3.1192 14.3 2.1192C13.8 1.9192 13.2 2.21917 13 2.71917C12.8 3.21917 13.1 3.81916 13.6 4.01916C15.6 4.71916 17 6.61917 17 8.71917V13.7192C17 15.3192 16.8 16.8191 16.3 18.3191C16.1 18.8191 16.4 19.4192 16.9 19.6192C17 19.6192 17.1 19.6192 17.2 19.6192C17.7 19.6192 18 19.3192 18.2 18.9192Z" fill="black"></path>
+								</svg>
+							</span>
+							<span class="fs-4 fw-bolder">Attendance</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'core:shop_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M3.95709826,8.41510662 L11.47855,3.81866389 C11.7986624,3.62303967 12.2013376,3.62303967 12.52145,3.81866389 L20.0429,8.41510557 C20.6374094,8.77841684 21,9.42493654 21,10.1216692 L21,19.0000642 C21,20.1046337 20.1045695,21.0000642 19,21.0000642 L4.99998155,21.0000673 C3.89541205,21.0000673 2.99998155,20.1046368 2.99998155,19.0000673 L2.99999828,10.1216672 C2.99999935,9.42493561 3.36258984,8.77841732 3.95709826,8.41510662 Z M10,13 C9.44771525,13 9,13.4477153 9,14 L9,17 C9,17.5522847 9.44771525,18 10,18 L14,18 C14.5522847,18 15,17.5522847 15,17 L15,14 C15,13.4477153 14.5522847,13 14,13 L10,13 Z" fill="#000000"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{shope_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Shops</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'sales:total_sales' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M3,4 L20,4 C20.5522847,4 21,4.44771525 21,5 L21,7 C21,7.55228475 20.5522847,8 20,8 L3,8 C2.44771525,8 2,7.55228475 2,7 L2,5 C2,4.44771525 2.44771525,4 3,4 Z M3,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z" fill="#000000"/>
+										<rect fill="#000000" opacity="0.3" x="16" y="10" width="5" height="10" rx="1"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+							</span>
+							<span class="fs-4 fw-bolder">Sales</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'leave:leave_request_list' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M3,4 L20,4 C20.5522847,4 21,4.44771525 21,5 L21,7 C21,7.55228475 20.5522847,8 20,8 L3,8 C2.44771525,8 2,7.55228475 2,7 L2,5 C2,4.44771525 2.44771525,4 3,4 Z M3,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z" fill="#000000"/>
+										<rect fill="#000000" opacity="0.3" x="16" y="10" width="5" height="10" rx="1"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{pending_leave_request}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Leave requests</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--begin::List Widget 4-->
+			<div class="card mb-5 mb-xl-8">
+				<div class="card-header border-0 pt-5">
+					<h3 class="card-title align-items-start flex-column">
+						<span class="card-label fw-bolder text-dark">Hot products</span>
+					</h3>
+				</div>
+				<div class="card-body pt-5">
+					{% for p in hot_products %}
+					<div class="d-flex align-items-sm-center mb-7">
+						<div class="symbol symbol-50px me-5">
+							<span class="symbol-label">
+								<img src="{{p.primary_image.url}}" class="h-50 align-self-center" alt="">
+							</span>
+						</div>
+						<div class="d-flex align-items-center flex-row-fluid flex-wrap">
+							<div class="flex-grow-1 me-2">
+								<a href="{% url 'products:product_single' pk=p.pk %}" class="text-gray-800 text-hover-primary fs-6 fw-bolder">{{p.name}}</a>
+								<span class="text-muted fw-bold d-block fs-7">Barcode - {{p.barcode}}</span>
+							</div>
+							<span class="badge badge-light fw-bolder my-2">Rs. {{p.list_price}}</span>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<!-- Right side column -->
+		<div class="col-xl-8">
+			<!--begin::Card-->
+			<div class="card card-custom gutter-b ">
+				<div class="card-header">
+					<div class="card-title">
+						<h3 class="card-label">Last six month sales</h3>
+					</div>
+				</div>
+				<div class="card-body">
+					<canvas id="myChart" data-url="{% url 'core:last_month_sales' %}"></canvas>
+				</div>
+			</div>
+			<script>
+				$(function () {
+
+					var $myChart = $("#myChart");
+					$.ajax({
+						url: $myChart.data("url"),
+						success: function (data) {
+
+							var ctx = $myChart[0].getContext("2d");
+
+							new Chart(ctx, {
+								type: 'bar',
+								data: {
+									labels: data.labels,
+									datasets: [{
+										label: '# Sales',
+										data: data.revenue_list,
+										backgroundColor: [
+											'rgba(3,155,229 ,1)',
+										],
+										borderWidth: 2,
+        								barThickness: 45,
+									},]
+								},
+								options: {
+									responsive: true,
+									legend: {
+										position: 'top',
+									},
+								}
+							});
+						}
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+<!--end::Container-->

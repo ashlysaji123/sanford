@@ -19,24 +19,7 @@ def create_executive(request):
     if request.method == "POST":
         form = SalesExecutiveForm(request.POST,request.FILES)
         if form.is_valid():
-            data = form.save(commit=False)
-            name = form.cleaned_data["name"]
-            phone = form.cleaned_data["phone"]
-            employe_id = form.cleaned_data["employe_id"]
-            photo = form.cleaned_data["photo"]
-            if not User.objects.filter(username=phone).exists():
-                password = "executive"
-                user = User.objects.create_user(
-                    username=phone,
-                    first_name=name,
-                    password=password,
-                    employe_id=employe_id,
-                    is_sales_executive= True,
-                    is_staff=False,
-                    photo=photo
-                )
-                data.user = user
-            data.save()
+            form.save()
             response_data = get_response_data(
                 1, redirect_url=reverse('executives:executive_list') ,message="Added Successfully.")
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
@@ -56,7 +39,11 @@ def create_executive(request):
 
 @login_required
 def executive_list(request):
-    query_set = SalesExecutive.objects.filter(is_deleted=False)
+    if request.user.is_superuser:
+        query_set = SalesExecutive.objects.filter(is_deleted=False)
+    else:
+        query_set = SalesExecutive.objects.filter(is_deleted=False,region=request.user.region)
+
     context = {
         "is_need_datatable": True,
         "title": "Sales executive list",
@@ -112,8 +99,9 @@ def delete_executive(request,pk):
 """Executive Task"""
 @login_required
 def create_executive_task(request):
+    user = request.user
     if request.method == "POST":
-        form = SalesExecutiveTaskForm(request.POST)
+        form = SalesExecutiveTaskForm(user,request.POST)
         if form.is_valid():
             data = form.save(commit=False)
             data.creator = request.user
@@ -126,7 +114,7 @@ def create_executive_task(request):
             response_data = get_response_data(0, message=message)
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesExecutiveTaskForm()
+        form = SalesExecutiveTaskForm(user)
         context = {
             "form": form,
             "title": "Add Task",
@@ -137,7 +125,11 @@ def create_executive_task(request):
 
 @login_required
 def executive_task_list(request):
-    query_set = SalesExecutiveTask.objects.filter(is_deleted=False,is_completed=False)
+    if request.user.is_superuser:
+        query_set = SalesExecutiveTask.objects.filter(is_deleted=False,is_completed=False)
+    else:
+        query_set = SalesExecutiveTask.objects.filter(is_deleted=False,is_completed=False,user__region=request.user.region)
+
     context = {
         "is_need_datatable": True,
         "title": "Task list",
@@ -148,9 +140,10 @@ def executive_task_list(request):
 
 @login_required
 def update_executive_task(request, pk):
+    user = request.user
     instance = get_object_or_404(SalesExecutiveTask, pk=pk)
     if request.method == 'POST':
-        form = SalesExecutiveTaskForm(request.POST, instance=instance)
+        form = SalesExecutiveTaskForm(user,request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -160,7 +153,7 @@ def update_executive_task(request, pk):
             response_data = get_response_data(0, message=message)
         return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesExecutiveTaskForm(instance=instance)
+        form = SalesExecutiveTaskForm(user,instance=instance)
         context = {
             "title": "Edit Task ",
             "form": form,
@@ -181,8 +174,9 @@ def delete_executive_task(request, pk):
 """Executive Target"""
 @login_required
 def create_executive_target(request):
+    user = request.user
     if request.method == "POST":
-        form = SalesExecutiveTargetForm(request.POST)
+        form = SalesExecutiveTargetForm(user,request.POST)
         if form.is_valid():
             data = form.save(commit=False)
             data.creator = request.user
@@ -195,7 +189,7 @@ def create_executive_target(request):
             response_data = get_response_data(0, message=message)
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesExecutiveTargetForm()
+        form = SalesExecutiveTargetForm(user)
         context = {
             "form": form,
             "title": "Add Target",
@@ -209,7 +203,10 @@ def executive_target_list(request):
     today = datetime.datetime.now().date()
     month = today.month
     year = today.year
-    query_set = SalesExecutiveTarget.objects.filter(is_deleted=False,year=year,month=month)
+    if request.user.is_superuser:
+        query_set = SalesExecutiveTarget.objects.filter(is_deleted=False,year=year,month=month)
+    else:
+        query_set = SalesExecutiveTarget.objects.filter(is_deleted=False,year=year,month=month,user__region=request.user.region)
     context = {
         "is_need_datatable": True,
         "title": "Target list",
@@ -220,9 +217,10 @@ def executive_target_list(request):
 
 @login_required
 def update_executive_target(request, pk):
+    user= request.user
     instance = get_object_or_404(SalesExecutiveTarget, pk=pk)
     if request.method == 'POST':
-        form = SalesExecutiveTargetForm(request.POST, instance=instance)
+        form = SalesExecutiveTargetForm(user,request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -232,7 +230,7 @@ def update_executive_target(request, pk):
             response_data = get_response_data(0, message=message)
         return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesExecutiveTargetForm(instance=instance)
+        form = SalesExecutiveTargetForm(user,instance=instance)
         context = {
             "title": "Edit Target ",
             "form": form,

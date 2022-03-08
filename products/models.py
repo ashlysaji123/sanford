@@ -5,7 +5,7 @@ from django.db import models
 from tinymce.models import HTMLField
 from versatileimagefield.fields import VersatileImageField
 
-from core.models import BaseModel
+from core.models import BaseModel,Region
 
 class Category(BaseModel):
     name = models.CharField(max_length=128)
@@ -71,10 +71,10 @@ class Product(BaseModel):
         default=0.0,
         decimal_places=2,
         max_digits=15,
-        validators=[MinValueValidator(Decimal("0.00"))],
+        validators=[MinValueValidator(Decimal("0.00"))]
     )
     available_regions = models.ManyToManyField(
-        "core.Region",limit_choices_to={'is_deleted': False}, related_name="product_availableregions"
+        Region,limit_choices_to={'is_deleted': False}, related_name="product_availableregions"
     )
     primary_image = VersatileImageField(
         "Primary Product Image", upload_to="images/products/products/primary_image/"

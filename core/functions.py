@@ -1,4 +1,7 @@
 import math
+import string
+import random
+
 from executives.models import SalesExecutive
 from coordinators.models import SalesCoordinator,SalesManager
 
@@ -123,4 +126,5 @@ def get_response_data(status_code, **kwargs):
 	else:
 		raise AssertionError("improper status_code.Valid codes are 1 or 0.")
 	return _response_data
+
 

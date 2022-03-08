@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path,re_path
 from django.views.generic import TemplateView
-from core import views as core
+from core import dashboardview as dashboard
 
 from .swagger import schema_view
 
@@ -17,7 +17,7 @@ urlpatterns = (
         path('accounts/', include('registration.backends.default.urls')),
 
         # path("", TemplateView.as_view(template_name="core/region/create.html")),
-        path('', core.app, name='app'),
+        path('', dashboard.app, name='app'),
 
         path("api/v1/accounts/", include("api.v1.accounts.urls", namespace="api_v1_accounts")),
         path("api/v1/attendance/", include("api.v1.attendance.urls", namespace="api_v1_attendance")),

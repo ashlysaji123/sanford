@@ -41,10 +41,10 @@ class ProductGroupForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
-    available_regions = forms.ModelMultipleChoiceField(
-        queryset=Region.objects.filter(is_deleted=False),
-        widget=forms.CheckboxSelectMultiple
-    )
+    # available_regions = forms.ModelMultipleChoiceField(
+    #     queryset=Region.objects.filter(is_deleted=False),
+    #     widget=forms.CheckboxSelectMultiple
+    # )
     class Meta:
         model = Product
         exclude = ('user','is_deleted','creator')
@@ -59,9 +59,10 @@ class ProductForm(forms.ModelForm):
             'primary_image': FileInput(attrs={'class': 'required form-control'}),
             'feature_graphic': FileInput(attrs={'class': 'required form-control'}),
             'product_pdf': FileInput(attrs={'class': 'form-control'}),
-            'is_hot_product': CheckboxInput(attrs={'class': 'form-control my-checkbox'}),
-            'is_new_arrival': CheckboxInput(attrs={'class': 'form-control my-checkbox'}),
-            'is_out_of_stock': CheckboxInput(attrs={'class': 'form-control my-checkbox'}),
+            'is_hot_product': CheckboxInput(attrs={'class': ''}),
+            'is_new_arrival': CheckboxInput(attrs={'class': ''}),
+            'is_out_of_stock': CheckboxInput(attrs={'class': ''}),
+            'available_regions': forms.CheckboxSelectMultiple(attrs={'class': ''}),
         }
 
 

@@ -31,7 +31,7 @@ class CountryForm(forms.ModelForm):
 		model = Country
 		fields = ('name','country_code','region',)
 		widgets = {
-			'name' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Region Name'}),
+			'name' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Name'}),
 			'country_code' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Country code'}),
 			'region' :Select(attrs={'class': 'required form-control tt_select2'}),
 		}
@@ -41,7 +41,7 @@ class StateForm(forms.ModelForm):
 		model = State
 		fields = ('name','type','country','state_code','tin_number')
 		widgets = {
-			'name' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Region Name'}),
+			'name' :TextInput(attrs={'class': 'required form-control', 'placeholder': 'Name'}),
 			'type' :Select(attrs={'class': 'required form-control tt_select2'}),
 			'country' :Select(attrs={'class': 'required form-control tt_select2'}),
 			'state_code' :TextInput(attrs={'class': 'form-control', 'placeholder': 'State code'}),

@@ -20,24 +20,7 @@ def create_manager(request):
     if request.method == "POST":
         form = SalesManagerForm(request.POST, request.FILES)
         if form.is_valid():
-            data = form.save(commit=False)
-            name = form.cleaned_data["name"]
-            phone = form.cleaned_data["phone"]
-            employe_id = form.cleaned_data["employe_id"]
-            photo = form.cleaned_data["photo"]
-            if not User.objects.filter(username=phone).exists():
-                password = "enduser"
-                user = User.objects.create_user(
-                    username=phone,
-                    first_name=name,
-                    password=password,
-                    employe_id=employe_id,
-                    is_sales_manager=True,
-                    is_staff=False,
-                    photo=photo
-                )
-                data.user = user
-            data.save()
+            form.save()
             response_data = get_response_data(
                 1, redirect_url=reverse('coordinators:manager_list'), message="Added Successfully.")
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
@@ -263,24 +246,7 @@ def create_coordinator(request):
     if request.method == "POST":
         form = SalesCoordinatorForm(request.POST, request.FILES)
         if form.is_valid():
-            data = form.save(commit=False)
-            name = form.cleaned_data["name"]
-            phone = form.cleaned_data["phone"]
-            employe_id = form.cleaned_data["employe_id"]
-            photo = form.cleaned_data["photo"]
-            if not User.objects.filter(username=phone).exists():
-                password = "enduser"
-                user = User.objects.create_user(
-                    username=phone,
-                    first_name=name,
-                    password=password,
-                    employe_id=employe_id,
-                    is_sales_coordinator=True,
-                    is_staff=False,
-                    photo=photo
-                )
-                data.user = user
-            data.save()
+            form.save()
             response_data = get_response_data(
                 1, redirect_url=reverse('coordinators:coordinator_list'), message="Added Successfully.")
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
@@ -300,7 +266,11 @@ def create_coordinator(request):
 
 @login_required
 def coordinator_list(request):
-    query_set = SalesCoordinator.objects.filter(is_deleted=False)
+    if request.user.is_superuser:
+        query_set = SalesCoordinator.objects.filter(is_deleted=False)
+    else:
+        query_set = SalesCoordinator.objects.filter(is_deleted=False,region=request.user.region)
+        
     context = {
         "is_need_datatable": True,
         "title": "Sales Coordinator list",
@@ -355,8 +325,9 @@ def delete_coordinator(request, pk):
 """Coordinator Task"""
 @login_required
 def create_coordinator_task(request):
+    user = request.user
     if request.method == "POST":
-        form = SalesCoordinatorTaskForm(request.POST)
+        form = SalesCoordinatorTaskForm(user,request.POST)
         if form.is_valid():
             data = form.save(commit=False)
             data.creator = request.user
@@ -369,7 +340,7 @@ def create_coordinator_task(request):
             response_data = get_response_data(0, message=message)
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesCoordinatorTaskForm()
+        form = SalesCoordinatorTaskForm(user)
         context = {
             "form": form,
             "title": "Add Task",
@@ -380,7 +351,10 @@ def create_coordinator_task(request):
 
 @login_required
 def coordinator_task_list(request):
-    query_set = SalesCoordinatorTask.objects.filter(is_deleted=False,is_completed=False)
+    if request.user.is_superuser:
+        query_set = SalesCoordinatorTask.objects.filter(is_deleted=False,is_completed=False)
+    else:
+        query_set = SalesCoordinatorTask.objects.filter(is_deleted=False,is_completed=False,user__region=request.user.region)
     context = {
         "is_need_datatable": True,
         "title": "Task list",
@@ -391,9 +365,10 @@ def coordinator_task_list(request):
 
 @login_required
 def update_coordinator_task(request, pk):
+    user = request.user
     instance = get_object_or_404(SalesCoordinatorTask, pk=pk)
     if request.method == 'POST':
-        form = SalesCoordinatorTaskForm(request.POST, instance=instance)
+        form = SalesCoordinatorTaskForm(user,request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -403,7 +378,7 @@ def update_coordinator_task(request, pk):
             response_data = get_response_data(0, message=message)
         return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesCoordinatorTaskForm(instance=instance)
+        form = SalesCoordinatorTaskForm(user,instance=instance)
         context = {
             "title": "Edit Task ",
             "form": form,
@@ -424,8 +399,9 @@ def delete_coordinator_task(request, pk):
 """Coordinator Target"""
 @login_required
 def create_coordinator_target(request):
+    user = request.user
     if request.method == "POST":
-        form = SalesCoordinatorTargetForm(request.POST)
+        form = SalesCoordinatorTargetForm(user,request.POST)
         if form.is_valid():
             data = form.save(commit=False)
             data.creator = request.user
@@ -438,7 +414,7 @@ def create_coordinator_target(request):
             response_data = get_response_data(0, message=message)
             return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesCoordinatorTargetForm()
+        form = SalesCoordinatorTargetForm(user)
         context = {
             "form": form,
             "title": "Add Target",
@@ -452,7 +428,12 @@ def coordinator_target_list(request):
     today = datetime.datetime.now().date()
     month = today.month
     year = today.year
-    query_set = SalesCoordinatorTarget.objects.filter(is_deleted=False,year=year,month=month)
+
+    if request.user.is_superuser:
+        query_set = SalesCoordinatorTarget.objects.filter(is_deleted=False,year=year,month=month)
+    else:
+        query_set = SalesCoordinatorTarget.objects.filter(is_deleted=False,year=year,month=month,user__region=request.user.region)
+    
     context = {
         "is_need_datatable": True,
         "title": "Target list",
@@ -463,9 +444,10 @@ def coordinator_target_list(request):
 
 @login_required
 def update_coordinator_target(request, pk):
+    user = request.user
     instance = get_object_or_404(SalesCoordinatorTarget, pk=pk)
     if request.method == 'POST':
-        form = SalesCoordinatorTargetForm(request.POST, instance=instance)
+        form = SalesCoordinatorTargetForm(user,request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -475,7 +457,7 @@ def update_coordinator_target(request, pk):
             response_data = get_response_data(0, message=message)
         return HttpResponse(json.dumps(response_data), content_type='application/javascript')
     else:
-        form = SalesCoordinatorTargetForm(instance=instance)
+        form = SalesCoordinatorTargetForm(user,instance=instance)
         context = {
             "title": "Edit Target ",
             "form": form,

@@ -25,11 +25,20 @@ def leave_request_list(request):
     query = request.GET.get('q')
 
     if query is None or query == "T":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__date=today)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__date=today)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__date=today,user__region=request.user.region)
     elif query == "M":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__month=current_month)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__month=current_month)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__month=current_month,user__region=request.user.region)
     elif query == "Y":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__year=current_year)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__year=current_year)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,created__year=current_year,user__region=request.user.region)
 
     context = {
         "is_need_datatable": True,
@@ -44,11 +53,20 @@ def approved_leave_list(request):
     query = request.GET.get('q')
 
     if query is None or query == "T":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__date=today)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__date=today)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__date=today,user__region=request.user.region)
     elif query == "M":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__month=current_month)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__month=current_month)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__month=current_month,user__region=request.user.region)
     elif query == "Y":
-        query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__year=current_year)
+        if request.user.is_superuser:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__year=current_year)
+        else:
+            query_set = LeaveRequest.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,created__year=current_year,user__region=request.user.region)
 
     context = {
         "is_need_datatable": True,
