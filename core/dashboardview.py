@@ -39,10 +39,10 @@ def app(request):
     notifications = Notification.objects.filter(is_deleted=False)
     notifications_count = notifications.count()
     product_count = Product.objects.filter(is_deleted=False).count()
+    hot_products = Product.objects.filter(is_hot_product=True).order_by('-created')[:5]
 
     if current_role == "superuser":
         is_superuser = True
-        hot_products = Product.objects.filter(is_hot_product=True).order_by('-created')[:5]
         manager_count = SalesManager.objects.filter(is_deleted=False).count()
         coordinator_count = SalesCoordinator.objects.filter(is_deleted=False).count()
         executive_count = SalesExecutive.objects.filter(is_deleted=False).count()
@@ -53,7 +53,7 @@ def app(request):
         coordinator_count = SalesCoordinator.objects.filter(is_deleted=False,region=request.user.region).count()
         executive_count = SalesExecutive.objects.filter(is_deleted=False,region=request.user.region).count()
         merchandiser_count = Merchandiser.objects.filter(is_deleted=False,state__country__region=request.user.region).count()
-        pending_leave_request = LeaveRequest.objects.filter(is_deleted=False,user__region=request.user.region).count()
+        pending_leave_request = LeaveRequest.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,user__region=request.user.region).count()
     elif current_role == "salescoordinator":
         is_sales_coordinator = True
     elif current_role == "salesexecutive":
@@ -72,10 +72,10 @@ def app(request):
         "notifications_count":notifications_count,
         "notifications":notifications,
         "product_count":product_count,
+        "hot_products": hot_products,
     }
     if current_role == "superuser":
         context.update({
-            "hot_products": hot_products,
             "merchandiser_count":merchandiser_count,
             "executive_count":executive_count,
             "coordinator_count":coordinator_count,
@@ -84,12 +84,10 @@ def app(request):
         })
     elif current_role == "salesmanager":
         context.update({
-            # "hot_products": hot_products,
             "merchandiser_count":merchandiser_count,
             "executive_count":executive_count,
             "coordinator_count":coordinator_count,
             "pending_leave_request":pending_leave_request,
-            # "shope_count":shope_count,
         })
 
     return render(request, "index.html", context)

@@ -9,17 +9,33 @@
                 <div class="card-title m-0">
                     <h3 class="fw-bolder m-0">Details</h3>
                 </div>
+                <div class="card-toolbar">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-del-btn" href="{% url 'leave:accept_leave' pk=instance.pk %}">Accept</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-del-btn" href="{% url 'leave:reject_leave' pk=instance.pk %}">Reject</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">User</label>
+                    <label class="col-lg-4 fw-bold text-muted">Employee Name</label>
                     <div class="col-lg-8">
                         {% if instance.user.first_name %}
                         <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
                         {%else%}
                         <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
                         {%endif%}
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Embloyee ID</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
                     </div>
                 </div>
                 <div class="row mb-7">

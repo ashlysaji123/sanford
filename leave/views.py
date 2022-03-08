@@ -86,3 +86,20 @@ def leave_single(request, pk):
     }
     return render(request, 'leave/single.htm', context)
 
+
+
+@login_required
+def accept_leave(request, pk):
+    LeaveRequest.objects.filter(pk=pk).update(is_approved=True)
+    response_data = get_response_data(1, redirect_url=reverse(
+        'leave:leave_request_list'), message="Approved")
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
+
+
+@login_required
+def reject_leave(request, pk):
+    LeaveRequest.objects.filter(pk=pk).update(is_rejected=True)
+    response_data = get_response_data(1, redirect_url=reverse(
+        'leave:leave_request_list'), message="Rejected")
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
