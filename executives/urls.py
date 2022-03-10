@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from . import views
 
@@ -8,18 +8,18 @@ urlpatterns = [
     # Executive
     path("create-executive", views.create_executive, name="create_executive"),
     path("executive-list", views.executive_list, name="executive_list"),
-    re_path(
-        r"^single-executive/(?P<pk>.*)/",
+    path(
+        "single-executive/<str:pk>/",
         views.executive_single,
         name="executive_single",
     ),
-    re_path(
-        r"^update-executive/(?P<pk>.*)/",
+    path(
+        "update-executive/<str:pk>/",
         views.update_executive,
         name="update_executive",
     ),
-    re_path(
-        r"^delete-executive/(?P<pk>.*)/",
+    path(
+        "delete-executive/<str:pk>/",
         views.delete_executive,
         name="delete_executive",
     ),
@@ -30,13 +30,13 @@ urlpatterns = [
         name="create_executive_task",
     ),
     path("executive-task-list", views.executive_task_list, name="executive_task_list"),
-    re_path(
-        r"^update-executive-task/(?P<pk>.*)/",
+    path(
+        "update-executive-task/<str:pk>/",
         views.update_executive_task,
         name="update_executive_task",
     ),
-    re_path(
-        r"^delete-executive-task/(?P<pk>.*)/",
+    path(
+        "delete-executive-task/<str:pk>/",
         views.delete_executive_task,
         name="delete_executive_task",
     ),
@@ -51,13 +51,13 @@ urlpatterns = [
         views.executive_target_list,
         name="executive_target_list",
     ),
-    re_path(
-        r"^update-executive-target/(?P<pk>.*)/",
+    path(
+        "update-executive-target/<str:pk>/",
         views.update_executive_target,
         name="update_executive_target",
     ),
-    re_path(
-        r"^delete-executive-target/(?P<pk>.*)/",
+    path(
+        "delete-executive-target/<str:pk>/",
         views.delete_executive_target,
         name="delete_executive_target",
     ),

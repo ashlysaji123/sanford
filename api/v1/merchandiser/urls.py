@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -30,7 +30,7 @@ urlpatterns = [
     ),
     path("merchandiser-target/", views.merchandiser_target),
     path("merchandiser-tasks/", views.merchandiser_task),
-    re_path(r"^merchandiser-mark-tasks/(?P<pk>.*)/", views.merchandiser_mark_task),
+    path("merchandiser-mark-tasks/<str:pk>/", views.merchandiser_mark_task),
     path("merchandiser-completed-tasks/", views.merchandiser_completed_task),
     path("merchandiser-profile/", views.merchandiser_profile),
     path("merchandiser-sale-status/", views.merchandiser_sale_status),

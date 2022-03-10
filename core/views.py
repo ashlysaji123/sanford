@@ -3,375 +3,224 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
 from coordinators.models import SalesCoordinator, SalesManager
-from core.forms import CountryForm, LanguageForm, RegionForm, ShopForm, StateForm
 from core.functions import generate_form_errors, get_response_data
-from core.models import Country, Language, Region, Shop, State
+from core.models import Country, Language, Region, Shop, State, Year
 from executives.models import SalesExecutive
 
-"""Region"""
+
+class YearList(ListView):
+    queryset = Year.objects.filter(is_deleted=False)
 
 
-@login_required
-def add_region(request):
-    if request.method == "POST":
-        form = RegionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("core:region_list"),
-                message="Added Successfully.",
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-        else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = RegionForm()
-        context = {"form": form, "title": "Add Region", "alert_type": "showalert"}
-        return render(request, "core/region/create.html", context)
+class YearDetail(DetailView):
+    model = Year
 
 
-@login_required
-def region_list(request):
-    query_set = Region.objects.filter(is_deleted=False)
-    context = {"title": "Regions", "instances": query_set}
-    return render(request, "core/region/list.html", context)
+class YearForm(CreateView):
+    model = Year
+    fields = ["name"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Year"
+        return context
 
 
-@login_required
-def update_region(request, pk):
-    instance = get_object_or_404(Region, pk=pk)
-    if request.method == "POST":
-        form = RegionForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:region_list"), message="Updated"
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = RegionForm(instance=instance)
-        context = {"title": "Edit Region", "form": form, "instance": instance}
-        return render(request, "core/region/create.html", context)
+class YearUpdate(UpdateView):
+    model = Year
+    fields = ["name"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Year -"
+        return context
 
 
-@login_required
-def delete_region(request, pk):
-    Region.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("core:region_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
+class YearDelete(DeleteView):
+    model = Year
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:year_list")
 
 
-"""Region"""
+class RegionList(ListView):
+    queryset = Region.objects.filter(is_deleted=False)
 
 
-"""Language"""
+class RegionDetail(DetailView):
+    model = Region
 
 
-@login_required
-def add_language(request):
-    if request.method == "POST":
-        form = LanguageForm(request.POST)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("core:language_list"),
-                message="Added Successfully.",
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-        else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = LanguageForm()
-        context = {"form": form, "title": "Add Language", "alert_type": "showalert"}
-        return render(request, "core/language/create.html", context)
+class RegionForm(CreateView):
+    model = Region
+    fields = ["name"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Region"
+        return context
 
 
-@login_required
-def language_list(request):
-    query_set = Language.objects.filter(is_deleted=False)
-    context = {"title": "Language", "instances": query_set}
-    return render(request, "core/language/list.html", context)
+class RegionUpdate(UpdateView):
+    model = Region
+    fields = ["name"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Region -"
+        return context
 
 
-@login_required
-def update_language(request, pk):
-    instance = get_object_or_404(Language, pk=pk)
-    if request.method == "POST":
-        form = LanguageForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:language_list"), message="Updated"
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = LanguageForm(instance=instance)
-        context = {"title": "Edit language", "form": form, "instance": instance}
-        return render(request, "core/language/create.html", context)
+class RegionDelete(DeleteView):
+    model = Region
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:region_list")
 
 
-@login_required
-def delete_language(request, pk):
-    Language.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("core:language_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
+class LanguageList(ListView):
+    queryset = Language.objects.filter(is_deleted=False)
 
 
-"""language"""
+class LanguageDetail(DetailView):
+    model = Language
 
 
-"""country"""
+class LanguageForm(CreateView):
+    model = Language
+    fields = ["family","native_name","lang_code"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Language"
+        return context
 
 
-@login_required
-def add_country(request):
-    if request.method == "POST":
-        form = CountryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("core:country_list"),
-                message="Added Successfully.",
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-        else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = CountryForm()
-        context = {"form": form, "title": "Add Country", "alert_type": "showalert"}
-        return render(request, "core/country/create.html", context)
+class LanguageUpdate(UpdateView):
+    model = Language
+    fields = ["family","native_name","lang_code"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Language -"
+        return context
 
 
-@login_required
-def country_list(request):
-    query_set = Country.objects.filter(is_deleted=False)
-    context = {"title": "Country", "instances": query_set}
-    return render(request, "core/country/list.html", context)
+class LanguageDelete(DeleteView):
+    model = Language
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:language_list")
 
 
-@login_required
-def update_country(request, pk):
-    instance = get_object_or_404(Country, pk=pk)
-    if request.method == "POST":
-        form = CountryForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:country_list"), message="Updated"
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = CountryForm(instance=instance)
-        context = {"title": "Edit Country", "form": form, "instance": instance}
-        return render(request, "core/country/create.html", context)
+class CountryList(ListView):
+    queryset = Country.objects.filter(is_deleted=False)
 
 
-@login_required
-def delete_country(request, pk):
-    Country.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("core:country_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
+class CountryDetail(DetailView):
+    model = Country
 
 
-"""country"""
+class CountryForm(CreateView):
+    model = Country
+    fields = ["name","country_code","region"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Country"
+        return context
 
 
-"""State"""
+class CountryUpdate(UpdateView):
+    model = Country
+    fields = ["name","country_code","region"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Country -"
+        return context
 
 
-@login_required
-def add_state(request):
-    if request.method == "POST":
-        form = StateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("core:state_list"),
-                message="Added Successfully.",
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-        else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = StateForm()
-        context = {"form": form, "title": "Add State", "alert_type": "showalert"}
-        return render(request, "core/state/create.html", context)
+class CountryDelete(DeleteView):
+    model = Country
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:country_list")
 
 
-@login_required
-def state_list(request):
-    query_set = State.objects.filter(is_deleted=False)
-    context = {"title": "State", "instances": query_set}
-    return render(request, "core/state/list.html", context)
+class ShopList(ListView):
+    queryset = Shop.objects.filter(is_deleted=False)
 
 
-@login_required
-def update_state(request, pk):
-    instance = get_object_or_404(State, pk=pk)
-    if request.method == "POST":
-        form = StateForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:state_list"), message="Updated"
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = StateForm(instance=instance)
-        context = {"title": "Edit State", "form": form, "instance": instance}
-        return render(request, "core/state/create.html", context)
+class ShopDetail(DetailView):
+    model = Shop
 
 
-@login_required
-def delete_state(request, pk):
-    State.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("core:state_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
+class ShopForm(CreateView):
+    model = Shop
+    fields = ["name","location", "contact_number", "contact_number2", "country", "state"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Shop"
+        return context
 
 
-"""State"""
+class ShopUpdate(UpdateView):
+    model = Shop
+    fields = ["name","location", "contact_number", "contact_number2", "country", "state"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Shop -"
+        return context
 
 
-"""Shop"""
+class ShopDelete(DeleteView):
+    model = Shop
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:shop_list")
 
 
-@login_required
-def add_shop(request):
-    if request.method == "POST":
-        form = ShopForm(request.POST)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:shop_list"), message="Added Successfully."
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-        else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = ShopForm()
-        context = {"form": form, "title": "Add Shop", "alert_type": "showalert"}
-        return render(request, "core/shop/create.html", context)
+class StateList(ListView):
+    queryset = State.objects.filter(is_deleted=False)
 
 
-@login_required
-def shop_list(request):
-    if request.user.is_superuser:
-        query_set = Shop.objects.filter(is_deleted=False)
-    else:
-        query_set = Shop.objects.filter(
-            is_deleted=False, country__region=request.user.region
-        )
-    context = {"title": "Shop", "instances": query_set}
-    return render(request, "core/shop/list.html", context)
+class StateDetail(DetailView):
+    model = State
 
 
-@login_required
-def update_shop(request, pk):
-    instance = get_object_or_404(Shop, pk=pk)
-    if request.method == "POST":
-        form = ShopForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1, redirect_url=reverse("core:shop_list"), message="Updated"
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = ShopForm(instance=instance)
-        context = {"title": "Edit Shop", "form": form, "instance": instance}
-        return render(request, "core/shop/create.html", context)
+class StateForm(CreateView):
+    model = State
+    fields = ["name","type", "country", "state_code", "tin_number"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New State"
+        return context
 
 
-@login_required
-def delete_shop(request, pk):
-    Shop.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("core:shop_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
+class StateUpdate(UpdateView):
+    model = State
+    fields = ["name","type", "country", "state_code", "tin_number"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit State -"
+        return context
 
 
-"""Shop"""
+class StateDelete(DeleteView):
+    model = State
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:state_list")
 
 
 @login_required

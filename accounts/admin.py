@@ -36,5 +36,6 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    
+
+
 admin.site.register(User, MyUserAdmin)

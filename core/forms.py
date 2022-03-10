@@ -32,7 +32,6 @@ class StateForm(forms.ModelForm):
         fields = ("name", "type", "country", "state_code", "tin_number")
 
 
-
 class ShopForm(forms.ModelForm):
     class Meta:
         model = Shop

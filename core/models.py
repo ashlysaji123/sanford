@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse
 from location_field.models.plain import PlainLocationField
 
 
@@ -31,6 +32,15 @@ class BaseModel(models.Model):
 class Year(BaseModel):
     name = models.CharField(max_length=128)
 
+    def get_absolute_url(self):
+        return reverse("core:view_year", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_year", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_year", kwargs={"pk": self.pk})
+
     def __str__(self):
         return str(self.name)
 
@@ -40,6 +50,15 @@ class Language(BaseModel):
     name = models.CharField(max_length=128)
     native_name = models.CharField(max_length=128, blank=True, null=True)
     lang_code = models.CharField(max_length=128, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse("core:view_language", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_language", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_language", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
@@ -51,8 +70,17 @@ class Region(BaseModel):
     class Meta:
         ordering = ("name",)
 
+    def get_absolute_url(self):
+        return reverse("core:view_region", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_region", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_region", kwargs={"pk": self.pk})
+
     def __str__(self):
-        return str(f"{self.name}")
+        return str(self.name)
 
 
 class Country(BaseModel):
@@ -72,6 +100,15 @@ class Country(BaseModel):
         ordering = ("name",)
         verbose_name = "Country"
         verbose_name_plural = "Countries"
+
+    def get_absolute_url(self):
+        return reverse("core:view_country", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_country", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_country", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
@@ -100,6 +137,15 @@ class State(BaseModel):
 
     class Meta:
         ordering = ("name",)
+
+    def get_absolute_url(self):
+        return reverse("core:view_state", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_state", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_state", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
@@ -138,6 +184,15 @@ class Shop(BaseModel):
 
     class Meta:
         ordering = ("name",)
+
+    def get_absolute_url(self):
+        return reverse("core:view_shop", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_shop", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_shop", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
