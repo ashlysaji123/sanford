@@ -93,7 +93,7 @@
 								{% if form.target_amount.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
-								region	{% if form.target_amount.help_text %}
+								{% if form.target_amount.help_text %}
 								<span data-original-title="Field Info" title=""
 									data-content="{{ form.target_amount.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"

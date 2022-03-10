@@ -139,11 +139,12 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="{% static 'app/js/jquery.formset.js' %}"></script>
 
+<script type="text/javascript" src="{% static 'app/js/jquery.formset.js' %}"></script>
 <script type="text/javascript">
-    // Formset sscript
+    // Formset script
     $(document).ready(function(){
+		console.log("Formset loaded")
         $('input[type=text]').focus(function () {
             $(this).select();
         });
@@ -156,12 +157,5 @@
     });
 
 </script>
-<script>
-	$(function () {
-		$("#datepicker").datepicker();
-	});
-</script>
-
-{{form.media}}
 
 {% endblock %}
