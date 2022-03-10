@@ -6,8 +6,7 @@ from django.shortcuts import render
 
 from core.models import Region
 
-from .forms import *
-from .models import *
+from .models import DailyAttendance
 
 # Create your views here.
 

@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from coordinators.models import SalesCoordinator, SalesManager
-from core.forms import *
+from core.forms import CountryForm, LanguageForm, RegionForm, ShopForm, StateForm
 from core.functions import generate_form_errors, get_response_data
-from core.models import *
+from core.models import Country, Language, Region, Shop, State
 from executives.models import SalesExecutive
 
 """Region"""

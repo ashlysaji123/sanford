@@ -8,8 +8,8 @@ from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import *
-from .models import *
+from .forms import SalesExecutiveForm, SalesExecutiveTargetForm, SalesExecutiveTaskForm
+from .models import SalesExecutive, SalesExecutiveTarget, SalesExecutiveTask
 
 """Executive"""
 

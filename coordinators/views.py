@@ -6,8 +6,22 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from coordinators.forms import *
-from coordinators.models import *
+from coordinators.forms import (
+    SalesCoordinatorForm,
+    SalesCoordinatorTargetForm,
+    SalesCoordinatorTaskForm,
+    SalesManagerForm,
+    SalesManagerTargetForm,
+    SalesManagerTaskForm,
+)
+from coordinators.models import (
+    SalesCoordinator,
+    SalesCoordinatorTarget,
+    SalesCoordinatorTask,
+    SalesManager,
+    SalesManagerTarget,
+    SalesManagerTask,
+)
 from core.functions import generate_form_errors, get_response_data
 
 """Manager"""
@@ -262,7 +276,7 @@ def delete_manager_target(request, pk):
 
 
 """
-Sales Coordinators Creation and task adding  
+Sales Coordinators Creation and task adding
 target creations vies below
 """
 

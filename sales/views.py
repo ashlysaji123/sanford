@@ -8,8 +8,8 @@ from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import *
-from .models import *
+from .forms import OpeningStockForm
+from .models import OpeningStock, SaleItems, Sales
 
 # Create your views here.
 

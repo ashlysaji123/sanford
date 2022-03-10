@@ -4,9 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from coordinators.models import SalesCoordinator, SalesManager
-from core.forms import *
 from core.functions import get_current_role
-from core.models import *
+from core.models import Shop
 from executives.models import SalesExecutive
 from leave.models import LeaveRequest
 from merchandiser.models import Merchandiser

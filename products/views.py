@@ -7,8 +7,8 @@ from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import *
-from .models import *
+from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm
+from .models import Category, Product, ProductGroup, SubCategory
 
 # Create your views here.
 
