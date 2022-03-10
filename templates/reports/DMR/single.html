@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -20,7 +20,7 @@
                         </li>
                     </ul>
                 </div>
-                {%endif%}
+                {% endif %}
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->
@@ -29,9 +29,9 @@
                     <div class="col-lg-8">
                         {% if instance.user.first_name %}
                         <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
-                        {%else%}
+                        {% else %}
                         <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-7">

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{% load static %}
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Primary Meta Tags -->
+	<title>SANFORD - SUSTAINABILITY THROUGH WIDEST RANGE OF PRODUCTS</title>
+	<meta name="title" content="SANFORD - SUSTAINABILITY THROUGH WIDEST RANGE OF PRODUCTS">
+	<meta name="description" content="We put our end users in front and center of product innovations starting with understanding their needs and aspirations. We use best-in-class research facilities and agencies to validate and ensure that our product innovations are designed around people’s needs and aspirations, easy to experience, and touch your life every day">
+	<meta name="keywords" content="We put our end users in front and center of product innovations starting with understanding their needs and aspirations. We use best-in-class research facilities and agencies to validate and ensure that our product innovations are designed around people’s needs and aspirations, easy to experience, and touch your life every day" />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:site_name" content="SANFORD - SUSTAINABILITY THROUGH WIDEST RANGE OF PRODUCTS" />
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:url" content="https://sanfordcorp.in/">
+	<meta property="og:title" content="SANFORD - SUSTAINABILITY THROUGH WIDEST RANGE OF PRODUCTS">
+	<meta property="og:description" content="We put our end users in front and center of product innovations starting with understanding their needs and aspirations. We use best-in-class research facilities and agencies to validate and ensure that our product innovations are designed around people’s needs and aspirations, easy to experience, and touch your life every day">
+	<meta property="og:image" content="https://i.postimg.cc/MGY8NwcF/logo-desktop.jpg">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://sanfordcorp.in/">
+	<meta property="twitter:title" content="SANFORD - SUSTAINABILITY THROUGH WIDEST RANGE OF PRODUCTS">
+	<meta property="twitter:description" content="We put our end users in front and center of product innovations starting with understanding their needs and aspirations. We use best-in-class research facilities and agencies to validate and ensure that our product innovations are designed around people’s needs and aspirations, easy to experience, and touch your life every day">
+	<meta property="twitter:image" content="https://i.postimg.cc/MGY8NwcF/logo-desktop.jpg">
+
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'app/media/favicons/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/media/favicons/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/media/favicons/favicon-16x16.png' %}">
+	<link rel="manifest" href="{% static 'app/media/favicons/site.webmanifest' %}">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+
+	{% block vendor_css %}{% endblock vendor_css %}
+	<!-- Global Stylesheets Bundle(used by all pages) -->
+	<link href="{% static 'app/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'app/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'app/css/custom.css' %}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body id="kt_body" class="page-loading-enabled page-loading header-fixed aside-fixed aside-secondary-disabled">
+
+	{% include 'layout/_loader.html' %}
+
+    <div class="d-flex flex-column flex-root">
+        <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({% static 'app/media/illustrations/sigma-1/auth.png' %})">
+            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+                <a href="/" class="mb-12">
+                    <img alt="Logo" src="{% static 'app/media/logos/logo-1.svg' %}" class="h-40px" />
+                </a>
+                <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                    {% block content %}
+
+                    {% endblock content %}
+                </div>
+            </div>
+            <div class="d-flex flex-center flex-column-auto p-10">
+                <div class="d-flex align-items-center fw-bold fs-6">
+                    <a href="#" class="text-muted text-hover-primary px-2">Support</a>
+                    <a href="#" class="text-muted text-hover-primary px-2">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	{% include 'layout/_scrolltop.html' %}
+
+	<script>
+		var hostUrl = "{% static 'app/' %}";
+	</script>
+	<script src="{% static 'app/plugins/global/plugins.bundle.js' %}"></script>
+	<script src="{% static 'app/js/scripts.bundle.js' %}"></script>
+	<script src="{% static 'app/js/custom.js' %}"></script>
+	{% block vendor_js %}{% endblock vendor_js %}
+	{% block custom_js %}{% endblock custom_js %}
+	{% block javascript %}{% endblock javascript %}
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 import datetime
-from django.http import Http404
+
 from django.db.models import Avg
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -83,7 +84,7 @@ def merchandiser_mark_task(request, pk):
     """
     Marking task as a Completed task
     """
-    user = request.user
+    request.user
     try:
         task = MerchandiserTask.objects.get(pk=pk)
         task.is_completed = True

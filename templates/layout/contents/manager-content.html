@@ -1,6 +1,5 @@
 {% load static %}
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 <!--begin::Container-->
 <div class="container-xxl" id="kt_content_container">
 	<div class="row g-5 g-xl-8">
@@ -29,7 +28,7 @@
 				<div class="col-6">
 					<div class="card card-stretch">
 						<a href="{% url 'executives:executive_list' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
-						
+
 							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -47,7 +46,7 @@
 				<div class="col-6">
 					<div class="card card-stretch">
 						<a href="{% url 'merchandiser:merchandiser_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
-							
+
 							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -65,7 +64,7 @@
 				<div class="col-6">
 					<div class="card card-stretch">
 						<a href="{% url 'products:product_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
-						
+
 							<span class="svg-icon svg-icon-2x mb-5">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path d="M21 10H13V11C13 11.6 12.6 12 12 12C11.4 12 11 11.6 11 11V10H3C2.4 10 2 10.4 2 11V13H22V11C22 10.4 21.6 10 21 10Z" fill="black"></path>
@@ -81,7 +80,7 @@
 				<div class="col-6">
 					<div class="card card-stretch">
 						<a href="{% url 'attendance:register_book'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
-							
+
 							<span class="svg-icon svg-icon-2x mb-5">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path opacity="0.3" d="M21 10.7192H3C2.4 10.7192 2 11.1192 2 11.7192C2 12.3192 2.4 12.7192 3 12.7192H6V14.7192C6 18.0192 8.7 20.7192 12 20.7192C15.3 20.7192 18 18.0192 18 14.7192V12.7192H21C21.6 12.7192 22 12.3192 22 11.7192C22 11.1192 21.6 10.7192 21 10.7192Z" fill="black"></path>
@@ -143,31 +142,7 @@
 				</div>
 			</div>
 			<!--begin::List Widget 4-->
-			<div class="card mb-5 mb-xl-8">
-				<div class="card-header border-0 pt-5">
-					<h3 class="card-title align-items-start flex-column">
-						<span class="card-label fw-bolder text-dark">Hot products</span>
-					</h3>
-				</div>
-				<div class="card-body pt-5">
-					{% for p in hot_products %}
-					<div class="d-flex align-items-sm-center mb-7">
-						<div class="symbol symbol-50px me-5">
-							<span class="symbol-label">
-								<img src="{{p.primary_image.url}}" class="h-50 align-self-center" alt="">
-							</span>
-						</div>
-						<div class="d-flex align-items-center flex-row-fluid flex-wrap">
-							<div class="flex-grow-1 me-2">
-								<a href="{% url 'products:product_single' pk=p.pk %}" class="text-gray-800 text-hover-primary fs-6 fw-bolder">{{p.name}}</a>
-								<span class="text-muted fw-bold d-block fs-7">Barcode - {{p.barcode}}</span>
-							</div>
-							<span class="badge badge-light fw-bolder my-2">Rs. {{p.list_price}}</span>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-			</div>
+
 		</div>
 		<!-- Right side column -->
 		<div class="col-xl-8">
@@ -182,42 +157,38 @@
 					<canvas id="myChart" data-url="{% url 'core:last_month_sales' %}"></canvas>
 				</div>
 			</div>
-			<script>
-				$(function () {
 
-					var $myChart = $("#myChart");
-					$.ajax({
-						url: $myChart.data("url"),
-						success: function (data) {
-
-							var ctx = $myChart[0].getContext("2d");
-
-							new Chart(ctx, {
-								type: 'bar',
-								data: {
-									labels: data.labels,
-									datasets: [{
-										label: '# Sales',
-										data: data.revenue_list,
-										backgroundColor: [
-											'rgba(3,155,229 ,1)',
-										],
-										borderWidth: 2,
-        								barThickness: 45,
-									},]
-								},
-								options: {
-									responsive: true,
-									legend: {
-										position: 'top',
-									},
-								}
-							});
-						}
-					});
-				});
-			</script>
 		</div>
+
+		{% if hot_products %}
+		<div class="card mb-5 mb-xl-8">
+			<div class="card-header border-0 pt-5">
+				<h3 class="card-title align-items-start flex-column">
+					<span class="card-label fw-bolder text-dark">Hot products</span>
+				</h3>
+			</div>
+			<div class="card-body pt-5">
+				{% for p in hot_products %}
+				<div class="d-flex align-items-sm-center mb-7">
+					<div class="symbol symbol-50px me-5">
+						<span class="symbol-label">
+							<img src="{{p.primary_image.url}}" class="h-50 align-self-center" alt="">
+						</span>
+					</div>
+					<div class="d-flex align-items-center flex-row-fluid flex-wrap">
+						<div class="flex-grow-1 me-2">
+							<a href="{% url 'products:product_single' pk=p.pk %}" class="text-gray-800 text-hover-primary fs-6 fw-bolder">{{p.name}}</a>
+							<span class="text-muted fw-bold d-block fs-7">Barcode - {{p.barcode}}</span>
+						</div>
+						<span class="badge badge-light fw-bolder my-2">Rs. {{p.list_price}}</span>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+
+
 	</div>
 </div>
 <!--end::Container-->

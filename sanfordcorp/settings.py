@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_yasg",
+    "crispy_forms",
     "location_field",
     "tinymce",
     "django.contrib.admin",
@@ -89,20 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "sanfordcorp.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'sanforcorp_db',
-#         'USER': 'sanforcorp_dbuser',
-#         'PASSWORD': 'SFXXUZ7UHFFHWG8UY',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
@@ -114,12 +101,12 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -225,6 +212,8 @@ SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
 ARCHIVE_DIRECTORY = BASE_DIR / "backup"
 ARCHIVE_FORMAT = archivers.ZIP
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

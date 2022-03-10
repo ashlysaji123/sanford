@@ -1,6 +1,15 @@
-{% extends 'index.html' %}
-{% load static %} 
-{% block content %} 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block vendor_css %}
+<link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+{% endblock vendor_css %}
+{% block vendor_js %}
+<script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
 
 <div class="container-xxl" id="kt_content_container">
     <div class="col-lg-12">
@@ -50,20 +59,20 @@
                     </thead>
                     <tbody>
                         {% for a in attendances %}
-                        <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{%endif%}">
+                        <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{% endif %}">
                             <td>{{forloop.counter}}</td>
                             {%if a.user.first_name%}
                             <td>{{a.user.first_name}}</td>
-                            {%else%}
+                            {% else %}
                             <td>{{a.user.username}}</td>
-                            {%endif%}
+                            {% endif %}
                             <td>{{a.user.employe_id}}</td>
                             <td>{{a.working_hours}}</td>
                             <td>{{a.missing_hours}}</td>
                             <td>{{a.is_late}}</td>
                             <td>{{a.is_leave}}</td>
                         </tr>
-                        {%endfor%}                 
+                        {%endfor%}
                     </tbody>
                 </table>
             </div>
@@ -72,4 +81,4 @@
 </div>
 
 
-{%endblock%}
+{% endblock %}

@@ -1,27 +1,18 @@
-{% extends "registration/auth_base.html" %}
+{% extends "registration/registration_base.html" %}
 {% load i18n %}
 
-{% block title %} Registration complete {% endblock %}
+{% block title %}{% trans "Activation email sent" %}{% endblock %}
 
 {% block content %}
-<div class="l-block toggled" id="l-login">
-    <div class="lb-header palette-Purple bg">
-        <i class="zmdi zmdi-check"></i>
-        Registration complete
-    </div>
-
-    <div class="lb-body">
-    	<p class="message success">
-			Account activation email has been sent to your inbox. If you do not receive the email in your inbox please check your "spam" or "junk" folder before writing to us. 
-		</p>
-    </div>
-</div>   
+<p class="text-center">{% trans "Please check your email to complete the registration process." %}</p>
 {% endblock %}
 
-{% block static %}
-<script>
-	$(document).ready(function(){
-		$('div.login').attr('data-lbg','purple');
-	});
-</script>
-{% endblock %}
+
+{% comment %}
+**registration/registration_complete.html**
+
+Used after successful completion of the registration form. This
+template has no context variables of its own, and should simply inform
+the user that an email containing account-activation information has
+been sent.
+{% endcomment %}

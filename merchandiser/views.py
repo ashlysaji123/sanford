@@ -49,18 +49,17 @@ def merchandiser_list(request):
             is_deleted=False, state__country__region=request.user.region
         )
     context = {
-        "is_need_datatable": True,
         "title": "Merchandiser list",
         "instances": query_set,
     }
-    return render(request, "merchandiser/list.htm", context)
+    return render(request, "merchandiser/list.html", context)
 
 
 @login_required
 def merchandiser_single(request, pk):
     instance = get_object_or_404(Merchandiser, pk=pk)
     context = {"title": "Merchandiser :- " + instance.name, "instance": instance}
-    return render(request, "merchandiser/single.htm", context)
+    return render(request, "merchandiser/single.html", context)
 
 
 @login_required
@@ -148,8 +147,8 @@ def merchandiser_task_list(request):
             is_completed=False,
             user__state__country__region=request.user.region,
         )
-    context = {"is_need_datatable": True, "title": "Task list", "instances": query_set}
-    return render(request, "merchandiser/task/list.htm", context)
+    context = {"title": "Task list", "instances": query_set}
+    return render(request, "merchandiser/task/list.html", context)
 
 
 @login_required
@@ -241,11 +240,10 @@ def merchandiser_target_list(request):
             user__state__country__region=request.user.region,
         )
     context = {
-        "is_need_datatable": True,
         "title": "Target list",
         "instances": query_set,
     }
-    return render(request, "merchandiser/target/list.htm", context)
+    return render(request, "merchandiser/target/list.html", context)
 
 
 @login_required

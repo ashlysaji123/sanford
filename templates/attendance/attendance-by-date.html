@@ -1,6 +1,6 @@
-{% extends 'index.html' %}
-{% load static %} 
-{% block content %} 
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
 <div class="container-xxl" id="kt_content_container">
     <div class="col-lg-12">
@@ -20,7 +20,7 @@
                     <!--begin::Select-->
                     <select class="form-select form-select-solid select2-hidden-accessible" id="region" data-control="select2" data-placeholder="In Progress" data-hide-search="true" tabindex="-1" aria-hidden="true">
                         {% for region in regions %}
-                            <option value="{{ region.id }}">{{ region.name }}</option>
+                        <option value="{{ region.id }}">{{ region.name }}</option>
                         {% endfor %}
                     </select>
                     <!--end::Select-->
@@ -50,59 +50,32 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        //Fetching Attendance Date
-        $("#fetch_attendance").click(function(){
-            var region = $("#region").val()
-            var staff = $("#staff").val()
-
-            $.ajax({
-                url:'#',
-                type:'POST',
-                data:{region:region, staff:staff},
-            })
-            
-            .done(function(response){
-                var json_data=JSON.parse(response);
-                console.log(json_data)
-                //Displaying Attendance Date Input and Students Attendance
-                var div_data="<div class='form-group'><label>Attendance: </label></div>"
-                div_data+="<div class='form-group'><div class='row'>"
-
-                for(key in json_data)
-                {
-                    div_data+="<div class='col-lg-3'><div class='form-check'>";
-
-                    div_data+="<label class='form-check-label'>"+ json_data[key]['name']+" </label> ";
-                    
-                    // Displaying Present and Absent
-
-                    if(json_data[key]['status'])
-                    {
-                        div_data+="<b>[ Present ]</b>";
-                    }
-                    else
-                    {
-                        div_data+="<b>[ Absent ]</b>";
-                    }
-                    //Displaying Present and Absent Ends Here
-                    
-
-                    div_data+="</div></div> ";
-                }
-                div_data+="</div></div>";
-                
-                $("#attendance_data").html(div_data);
-
-            })
-            .fail(function(){
-                alert("Error in Fetching Students.")
-            })     
-        })
-    })
-
-</script>
 {% endblock %}
 
+{% block javascript %}
+<script>
+    $(document).ready(function() {
+        $("#fetch_attendance").click(function() {
+            var a = $("#region").val(),
+                e = $("#staff").val();
+            $.ajax({
+                url: "#",
+                type: "POST",
+                data: {
+                    region: a,
+                    staff: e
+                }
+            }).done(function(a) {
+                var e = JSON.parse(a);
+                console.log(e);
+                var l = "<div class='form-group'><label>Attendance: </label></div>";
+                for (key in l += "<div class='form-group'><div class='row'>", e) l += "<div class='col-lg-3'><div class='form-check'>", l += "<label class='form-check-label'>" + e[key].name + " </label> ", e[key].status ? l +=
+                    "<b>[ Present ]</b>" : l += "<b>[ Absent ]</b>", l += "</div></div> ";
+                l += "</div></div>", $("#attendance_data").html(l)
+            }).fail(function() {
+                alert("Error in Fetching Students.")
+            })
+        })
+    });
+</script>
+{% endblock javascript %}

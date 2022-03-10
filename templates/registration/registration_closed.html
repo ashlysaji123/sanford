@@ -1,27 +1,8 @@
-{% extends "registration/auth_base.html" %}
+{% extends "registration/registration_base.html" %}
 {% load i18n %}
 
-{% block title %} Registration closed {% endblock %}
+{% block title %}{% trans "Registration is closed" %}{% endblock %}
 
 {% block content %}
-<div class="l-block toggled" id="l-login">
-    <div class="lb-header palette-Indigo bg">
-        <i class="zmdi zmdi-block"></i>
-        Registration closed
-    </div>
-
-    <div class="lb-body">
-    	<p class="message error">{% trans "Registration is currently closed." %}</p>
-    </div>
-</div>
-
-            
-{% endblock %}
-
-{% block static %}
-<script>
-	$(document).ready(function(){
-		$('div.login').attr('data-lbg','indigo');
-	});
-</script>
+<p class="text-center">{% trans "Sorry, but registration is closed at this moment. Come back later." %}</p>
 {% endblock %}

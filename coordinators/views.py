@@ -61,18 +61,17 @@ def create_manager(request):
 def manager_list(request):
     query_set = SalesManager.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Sales Manger list",
         "instances": query_set,
     }
-    return render(request, "manager/list.htm", context)
+    return render(request, "manager/list.html", context)
 
 
 @login_required
 def manager_single(request, pk):
     instance = get_object_or_404(SalesManager, pk=pk)
     context = {"title": "Sales manager :- " + instance.name, "instance": instance}
-    return render(request, "manager/single.htm", context)
+    return render(request, "manager/single.html", context)
 
 
 @login_required
@@ -149,8 +148,8 @@ def create_manager_task(request):
 @login_required
 def manager_task_list(request):
     query_set = SalesManagerTask.objects.filter(is_deleted=False, is_completed=False)
-    context = {"is_need_datatable": True, "title": "Task list", "instances": query_set}
-    return render(request, "manager/task/list.htm", context)
+    context = {"title": "Task list", "instances": query_set}
+    return render(request, "manager/task/list.html", context)
 
 
 @login_required
@@ -230,11 +229,10 @@ def manager_target_list(request):
         is_deleted=False, year=year, month=month
     )
     context = {
-        "is_need_datatable": True,
         "title": "Target list",
         "instances": query_set,
     }
-    return render(request, "manager/target/list.htm", context)
+    return render(request, "manager/target/list.html", context)
 
 
 @login_required
@@ -323,18 +321,17 @@ def coordinator_list(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Sales Coordinator list",
         "instances": query_set,
     }
-    return render(request, "coordinator/list.htm", context)
+    return render(request, "coordinator/list.html", context)
 
 
 @login_required
 def coordinator_single(request, pk):
     instance = get_object_or_404(SalesCoordinator, pk=pk)
     context = {"title": "Sales Coordinator :- " + instance.name, "instance": instance}
-    return render(request, "coordinator/single.htm", context)
+    return render(request, "coordinator/single.html", context)
 
 
 @login_required
@@ -420,8 +417,8 @@ def coordinator_task_list(request):
         query_set = SalesCoordinatorTask.objects.filter(
             is_deleted=False, is_completed=False, user__region=request.user.region
         )
-    context = {"is_need_datatable": True, "title": "Task list", "instances": query_set}
-    return render(request, "coordinator/task/list.htm", context)
+    context = {"title": "Task list", "instances": query_set}
+    return render(request, "coordinator/task/list.html", context)
 
 
 @login_required
@@ -510,11 +507,10 @@ def coordinator_target_list(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Target list",
         "instances": query_set,
     }
-    return render(request, "coordinator/target/list.htm", context)
+    return render(request, "coordinator/target/list.html", context)
 
 
 @login_required

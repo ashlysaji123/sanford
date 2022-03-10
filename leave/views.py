@@ -12,7 +12,6 @@ from core.functions import get_response_data
 
 from .models import LeaveRequest
 
-
 """ 
     global variables
     for multiple functions
@@ -76,11 +75,10 @@ def leave_request_list(request):
             )
 
     context = {
-        "is_need_datatable": True,
         "title": "Leave requests",
         "instances": query_set,
     }
-    return render(request, "leave/pending/list.htm", context)
+    return render(request, "leave/pending/list.html", context)
 
 
 @login_required
@@ -137,11 +135,10 @@ def approved_leave_list(request):
             )
 
     context = {
-        "is_need_datatable": True,
         "title": "Approved Leave requests",
         "instances": query_set,
     }
-    return render(request, "leave/approved/list.htm", context)
+    return render(request, "leave/approved/list.html", context)
 
 
 @login_required
@@ -151,7 +148,7 @@ def leave_single(request, pk):
         "title": "Leave Request :- " + instance.user.first_name,
         "instance": instance,
     }
-    return render(request, "leave/single.htm", context)
+    return render(request, "leave/single.html", context)
 
 
 @login_required

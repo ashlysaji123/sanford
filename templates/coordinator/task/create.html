@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -54,19 +54,16 @@
 							{% endif %}
 						</div>
 					</div>
-					
+
 					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<script>
-	$(function () {
-		$("#datepicker").datepicker();
-	});
-</script>
+{% endblock %}
+
+{% block javascript %}
 
 {{form.media}}
-
 {% endblock %}

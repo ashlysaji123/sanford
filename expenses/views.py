@@ -25,11 +25,10 @@ def pending_claim_requests(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Expense Claims",
         "instances": query_set,
     }
-    return render(request, "expenses/pending/list.htm", context)
+    return render(request, "expenses/pending/list.html", context)
 
 
 @login_required
@@ -47,11 +46,10 @@ def approved_expense_list(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Approved Expenses",
         "instances": query_set,
     }
-    return render(request, "expenses/approved/list.htm", context)
+    return render(request, "expenses/approved/list.html", context)
 
 
 def approve_claim_request(request, pk):
@@ -78,4 +76,4 @@ def reject_claim_request(request, pk):
 def expense_claim_single(request, pk):
     instance = get_object_or_404(Expenses, pk=pk)
     context = {"title": "Expense Claim ", "instance": instance}
-    return render(request, "expenses/single.htm", context)
+    return render(request, "expenses/single.html", context)

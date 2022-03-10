@@ -44,7 +44,6 @@ def register_page(request):
         qs = DailyAttendance.objects.filter(date=date, user__region=request.user.region)
 
     context = {
-        "is_need_datatable": True,
         "title": f"Register Book for {date}",
         "attendances": qs,
     }
@@ -60,7 +59,6 @@ def register_page_date(request):
     c = Calendar()
     dates = [x for x in c.itermonthdates(year, month) if x.month == month]
     context = {
-        "is_need_datatable": True,
         "title": f"Register Book for {year} - {month_name}",
         "dates": dates,
         "year": year,

@@ -47,11 +47,10 @@ def create_notification(request):
 def notification_list(request):
     query_set = Notification.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Notification list",
         "instances": query_set,
     }
-    return render(request, "notification/list.htm", context)
+    return render(request, "notification/list.html", context)
 
 
 @login_required

@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -124,7 +124,7 @@
 							{% endif %}
 						</div>
 					</div>
-					
+
 					<div class="row mb-2">
 						<div class="form-group col-lg-6">
 							<label>{{form.primary_image.label}}
@@ -295,12 +295,9 @@
 		</div>
 	</div>
 </div>
-<script>
-	$(function () {
-		$("#datepicker").datepicker();
-	});
-</script>
+{% endblock %}
+
+{% block javascript %}
 
 {{form.media}}
-
 {% endblock %}

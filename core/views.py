@@ -43,8 +43,8 @@ def add_region(request):
 @login_required
 def region_list(request):
     query_set = Region.objects.filter(is_deleted=False)
-    context = {"is_need_datatable": True, "title": "Regions", "instances": query_set}
-    return render(request, "core/region/list.htm", context)
+    context = {"title": "Regions", "instances": query_set}
+    return render(request, "core/region/list.html", context)
 
 
 @login_required
@@ -115,8 +115,8 @@ def add_language(request):
 @login_required
 def language_list(request):
     query_set = Language.objects.filter(is_deleted=False)
-    context = {"is_need_datatable": True, "title": "Language", "instances": query_set}
-    return render(request, "core/language/list.htm", context)
+    context = {"title": "Language", "instances": query_set}
+    return render(request, "core/language/list.html", context)
 
 
 @login_required
@@ -187,8 +187,8 @@ def add_country(request):
 @login_required
 def country_list(request):
     query_set = Country.objects.filter(is_deleted=False)
-    context = {"is_need_datatable": True, "title": "Country", "instances": query_set}
-    return render(request, "core/country/list.htm", context)
+    context = {"title": "Country", "instances": query_set}
+    return render(request, "core/country/list.html", context)
 
 
 @login_required
@@ -259,8 +259,8 @@ def add_state(request):
 @login_required
 def state_list(request):
     query_set = State.objects.filter(is_deleted=False)
-    context = {"is_need_datatable": True, "title": "State", "instances": query_set}
-    return render(request, "core/state/list.htm", context)
+    context = {"title": "State", "instances": query_set}
+    return render(request, "core/state/list.html", context)
 
 
 @login_required
@@ -334,8 +334,8 @@ def shop_list(request):
         query_set = Shop.objects.filter(
             is_deleted=False, country__region=request.user.region
         )
-    context = {"is_need_datatable": True, "title": "Shop", "instances": query_set}
-    return render(request, "core/shop/list.htm", context)
+    context = {"title": "Shop", "instances": query_set}
+    return render(request, "core/shop/list.html", context)
 
 
 @login_required
@@ -379,15 +379,15 @@ def my_profile(request):
     if request.user.salesmanager:
         instance = SalesManager.objects.get(user=request.user)
         context = {"title": "Sales manager :- " + instance.name, "instance": instance}
-        return render(request, "manager/single.htm", context)
+        return render(request, "manager/single.html", context)
     elif request.user.salescoordinator:
         instance = SalesCoordinator.objects.get(user=request.user)
         context = {
             "title": "Sales Coordinator :- " + instance.name,
             "instance": instance,
         }
-        return render(request, "coordinator/single.htm", context)
+        return render(request, "coordinator/single.html", context)
     elif request.user.salesexecutive:
         instance = SalesExecutive.objects.get(user=request.user)
         context = {"title": "Sales Executive :- " + instance.name, "instance": instance}
-        return render(request, "executive/single.htm", context)
+        return render(request, "executive/single.html", context)

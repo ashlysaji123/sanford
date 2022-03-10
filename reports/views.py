@@ -3,12 +3,13 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.forms.formsets import formset_factory
 from django.forms.models import inlineformset_factory
+from django.forms.widgets import TextInput
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.forms.widgets import TextInput
 
 from core.functions import generate_form_errors, get_response_data
+
 from .forms import DARNotesForm, DARTaskForm
 from .models import DARNotes, DARTask
 
@@ -55,7 +56,7 @@ def create_DAR(request):
             "form": form,
             "DAR_formset": DAR_formset,
         }
-        return render(request, "reports/DAR/create.htm", context)
+        return render(request, "reports/DAR/create.html", context)
 
 
 @login_required
@@ -115,7 +116,7 @@ def update_DAR(request, pk):
             "DAR_formset": DAR_formset,
             "instance": instance,
         }
-        return render(request, "reports/DAR/create.htm", context)
+        return render(request, "reports/DAR/create.html", context)
 
 
 @login_required
@@ -136,10 +137,9 @@ def DAR_single(request, pk):
     context = {
         "instance": DAR,
         "DAR_data": DAR_data,
-        "is_need_datatable": True,
         "title": "DAR Single Page",
     }
-    return render(request, "reports/DAR/single.htm", context)
+    return render(request, "reports/DAR/single.html", context)
 
 
 @login_required
@@ -147,8 +147,8 @@ def DAR_list(request):
     query_set = DARTask.objects.filter(
         is_deleted=False, executive__region=request.user.region
     ).order_by("-created")
-    context = {"is_need_datatable": True, "title": "DAR List", "instances": query_set}
-    return render(request, "reports/DAR/list.htm", context)
+    context = {"title": "DAR List", "instances": query_set}
+    return render(request, "reports/DAR/list.html", context)
 
 
 """DAR"""

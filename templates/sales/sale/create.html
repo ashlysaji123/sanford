@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -74,13 +74,9 @@
 		</form>
 	</div>
 </div>
+{% endblock %}
 
-<script>
-	$(function () {
-		$("#datepicker").datepicker();
-	});
-</script>
+{% block javascript %}
 
 {{form.media}}
-
 {% endblock %}

@@ -15,9 +15,9 @@
 			<div class="d-flex flex-column">
 				{% if request.user.is_superuser %}
 				<div class="fw-bolder d-flex align-items-center fs-4">Name : {{request.user.username}}</div>
-				{%else%}
+				{% else %}
 				<div class="fw-bolder d-flex align-items-center fs-4">Name : {{request.user.first_name}}</div>
-				{%endif%}
+				{% endif %}
 				<div class="fw-bolder d-flex align-items-center fs-4">ID :
 					<span class="badge badge-light-success fw-bolder fs-6 px-2 py-1 ms-2">{{request.user.employe_id}}</span>
 				</div>
@@ -34,7 +34,7 @@
 	<div class="menu-item px-5">
 		<a href="{% url 'core:my_profile' %}" class="menu-link px-5">My Profile</a>
 	</div>
-	{%endif%}
+	{% endif %}
 	<!--end::Menu item-->
 	<!--begin::Menu item-->
 	<div class="menu-item px-5">

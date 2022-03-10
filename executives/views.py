@@ -54,18 +54,17 @@ def executive_list(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Sales executive list",
         "instances": query_set,
     }
-    return render(request, "executive/list.htm", context)
+    return render(request, "executive/list.html", context)
 
 
 @login_required
 def executive_single(request, pk):
     instance = get_object_or_404(SalesExecutive, pk=pk)
     context = {"title": "Sales Executive :- " + instance.name, "instance": instance}
-    return render(request, "executive/single.htm", context)
+    return render(request, "executive/single.html", context)
 
 
 @login_required
@@ -151,8 +150,8 @@ def executive_task_list(request):
             is_deleted=False, is_completed=False, user__region=request.user.region
         )
 
-    context = {"is_need_datatable": True, "title": "Task list", "instances": query_set}
-    return render(request, "executive/task/list.htm", context)
+    context = {"title": "Task list", "instances": query_set}
+    return render(request, "executive/task/list.html", context)
 
 
 @login_required
@@ -239,11 +238,10 @@ def executive_target_list(request):
             is_deleted=False, year=year, month=month, user__region=request.user.region
         )
     context = {
-        "is_need_datatable": True,
         "title": "Target list",
         "instances": query_set,
     }
-    return render(request, "executive/target/list.htm", context)
+    return render(request, "executive/target/list.html", context)
 
 
 @login_required

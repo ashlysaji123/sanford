@@ -65,6 +65,7 @@ class ProductGroupForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=TinyMCE(attrs={"cols": 80, "rows": 30}))
+
     class Meta:
         model = Product
         exclude = ("user", "is_deleted", "creator")

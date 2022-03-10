@@ -66,11 +66,10 @@ def create_opening_stock(request):
 def opening_stock_list(request):
     query_set = OpeningStock.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Opening stock list",
         "instances": query_set,
     }
-    return render(request, "sales/stock/list.htm", context)
+    return render(request, "sales/stock/list.html", context)
 
 
 @login_required
@@ -157,11 +156,10 @@ def total_sales(request):
             )
 
     context = {
-        "is_need_datatable": True,
         "title": "Sales Data ",
         "instances": query_set,
     }
-    return render(request, "sales/sale/list.htm", context)
+    return render(request, "sales/sale/list.html", context)
 
 
 @login_required
@@ -173,7 +171,7 @@ def sales_single(request, pk):
         "instance": instance,
         "sale_items": sale_items,
     }
-    return render(request, "sales/sale/single.htm", context)
+    return render(request, "sales/sale/single.html", context)
 
 
 """ sales data """
@@ -194,11 +192,10 @@ def pending_sales_requests(request):
         )
 
     context = {
-        "is_need_datatable": True,
         "title": "Pending Sales",
         "instances": query_set,
     }
-    return render(request, "sales/pending/list.htm", context)
+    return render(request, "sales/pending/list.html", context)
 
 
 @login_required

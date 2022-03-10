@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
@@ -44,6 +44,9 @@
 	</div>
 </div>
 
-{{form.media}}
+{% endblock %}
 
+{% block javascript %}
+
+{{form.media}}
 {% endblock %}

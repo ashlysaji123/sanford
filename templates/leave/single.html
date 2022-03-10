@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!--begin::Container-->
+    <div class="container-xxl" id="kt_content_container">
+        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+            <div class="card-header cursor-pointer">
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">{{title}}</h3>
+                </div>
+                {% if not request.user.is_superuser %}
+                <div class="card-toolbar">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'leave:accept_leave' pk=instance.pk %}">Accept</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'leave:reject_leave' pk=instance.pk %}">Reject</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card-body p-9">
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Employee Name</label>
+                    <div class="col-lg-8">
+                        {% if instance.user.first_name %}
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
+                        {% else %}
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Embloyee ID</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Start Date</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.startdate}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">End Date</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.enddate}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Leave days</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.leave_days}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Leave type</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.leavetype}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Reason</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.reason}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Approved</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Rejected</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::details View-->
+    </div>
+    <!--end::Container-->
+
+{% endblock %}

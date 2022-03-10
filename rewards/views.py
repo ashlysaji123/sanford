@@ -15,8 +15,7 @@ def reward_list(request):
     year = today.year
     query_set = RewardPoint.objects.filter(is_deleted=False, year=year, month=month)
     context = {
-        "is_need_datatable": True,
         "title": "Reward list",
         "instances": query_set,
     }
-    return render(request, "reward/list.htm", context)
+    return render(request, "reward/list.html", context)

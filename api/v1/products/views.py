@@ -64,8 +64,6 @@ class ProductWishListView(APIView):
         return Response(serializer.data)
 
 
-
-
 class AddToWishlist(APIView):
     def get_object(self, pk):
         # Returns an object instance that should

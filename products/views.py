@@ -46,11 +46,10 @@ def create_product_category(request):
 def product_category_list(request):
     query_set = Category.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Category list",
         "instances": query_set,
     }
-    return render(request, "product/category/list.htm", context)
+    return render(request, "product/category/list.html", context)
 
 
 @login_required
@@ -124,11 +123,10 @@ def create_product_sub_category(request):
 def product_sub_category_list(request):
     query_set = SubCategory.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Sub Category list",
         "instances": query_set,
     }
-    return render(request, "product/subcategory/list.htm", context)
+    return render(request, "product/subcategory/list.html", context)
 
 
 @login_required
@@ -204,8 +202,8 @@ def create_product_group(request):
 @login_required
 def product_group_list(request):
     query_set = ProductGroup.objects.filter(is_deleted=False)
-    context = {"is_need_datatable": True, "title": "Group list", "instances": query_set}
-    return render(request, "product/group/list.htm", context)
+    context = {"title": "Group list", "instances": query_set}
+    return render(request, "product/group/list.html", context)
 
 
 @login_required
@@ -282,11 +280,10 @@ def create_product(request):
 def product_list(request):
     query_set = Product.objects.filter(is_deleted=False)
     context = {
-        "is_need_datatable": True,
         "title": "Product list",
         "instances": query_set,
     }
-    return render(request, "product/list.htm", context)
+    return render(request, "product/list.html", context)
 
 
 @login_required
@@ -299,7 +296,7 @@ def product_single(request, pk):
         "instance": instance,
         "available_regions": available_regions,
     }
-    return render(request, "product/single.htm", context)
+    return render(request, "product/single.html", context)
 
 
 @login_required

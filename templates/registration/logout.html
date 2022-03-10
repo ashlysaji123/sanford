@@ -1,31 +1,16 @@
-{% extends "registration/auth_base.html" %}
+{% extends "registration/registration_base.html" %}
 {% load i18n %}
 
-{% block title %} Login {% endblock %}
+{% block title %}{% trans "Logged out" %}{% endblock %}
 
 {% block content %}
-
-<div class="bg-body p-10 p-lg-15 mx-auto" style="display:flex; flex-direction:column; justify-content:center; align-items:center; minheight:100vh">
-        <div class="mb-10 text-center">
-                <!--begin::Title-->
-                <h1 class="text-dark mb-3">Success fully Loged out</h1>
-                <h1 class="text-dark mb-3">Log In again!</h1>
-                <div class="text-gray-400 fw-bold fs-4">Already have an account?
-                <a href="{% url 'auth_login' %}" class="link-primary fw-bolder">Click here</a></div>
-                <!--end::Link-->
-        </div>
+<div class="text-center">
+    <h1>Successfully logged out</h1>
+    <a href="{% url 'auth_login' %}" id="kt_sign_in_submit" class="btn btn-lg btn-primary mt-5">
+            <span class="indicator-label">Login Again</span>
+            <span class="indicator-progress">Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+        </a>
 </div>
-{% comment %} <div class="text-center">
 
-        <h3>See you again !</h3>
-
-        <p class="text-muted font-13"> You are now successfully sign out. </p>
-            
-
-    </div>
-    <div class="row mt-4">
-            <div class="col-sm-12 text-center">
-                    <p class="text-muted">Back to <a href="{% url 'auth_login' %}" class="text-muted ml-1 mb-4"><b class="font-weight-semibold">Sign In</b></a></p>
-            </div>
-        </div> {% endcomment %}
 {% endblock %}
