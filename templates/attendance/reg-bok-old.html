@@ -43,7 +43,7 @@
                                 <th scope="col">Is Leave</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="fw-bold text-gray-600">
                         {% for a in attendances %}
                             {%if a.date == d%}
                             <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{% endif %}">

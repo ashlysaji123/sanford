@@ -36,21 +36,5 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    fieldsets = UserAdmin.fieldsets + (
-        (
-            "More Info",
-            {
-                "fields": (
-                    "designation",
-                    "user_type",
-                    "is_sales_manager",
-                    "is_sales_coordinator",
-                    "is_sales_exicutive",
-                    "is_merchandiser",
-                )
-            },
-        ),
-    )
-
-
+    
 admin.site.register(User, MyUserAdmin)

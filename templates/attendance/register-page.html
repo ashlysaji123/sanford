@@ -57,7 +57,7 @@
                             <th class="min-w-125px">Is Leave</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="fw-bold text-gray-600">
                         {% for a in attendances %}
                         <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{% endif %}">
                             <td>{{forloop.counter}}</td>
