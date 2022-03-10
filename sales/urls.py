@@ -15,5 +15,10 @@ urlpatterns = [
 
     path('total-sales-list', views.total_sales, name='total_sales'),
     re_path(r'^sale-single/(?P<pk>.*)/', views.sales_single ,name='sales_single'),
+
+    path('pending-sales', views.pending_sales_requests, name='pending_sales_requests'),
+    re_path(r'^pending-sale-single/(?P<pk>.*)/', views.sales_single_pending ,name='sales_single_pending'),
+    re_path(r'^accept-sale/(?P<pk>.*)/', views.accept_sales ,name='accept_sales'),
+    re_path(r'^reject-sale/(?P<pk>.*)/', views.reject_sales ,name='reject_sales'),
     
 ]

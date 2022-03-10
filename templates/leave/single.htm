@@ -1,24 +1,25 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-
     <!--begin::Container-->
     <div class="container-xxl" id="kt_content_container">
         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
             <div class="card-header cursor-pointer">
                 <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Details</h3>
+                    <h3 class="fw-bolder m-0">{{title}}</h3>
                 </div>
+                {% if not request.user.is_superuser %}
                 <div class="card-toolbar">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-del-btn" href="{% url 'leave:accept_leave' pk=instance.pk %}">Accept</a>
+                            <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'leave:accept_leave' pk=instance.pk %}">Accept</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-del-btn" href="{% url 'leave:reject_leave' pk=instance.pk %}">Reject</a>
+                            <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'leave:reject_leave' pk=instance.pk %}">Reject</a>
                         </li>
                     </ul>
                 </div>
+                {%endif%}
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->

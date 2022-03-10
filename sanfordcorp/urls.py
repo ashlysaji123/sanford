@@ -40,6 +40,8 @@ urlpatterns = (
         path("products/", include("products.urls", namespace="products")),
         path("sales/", include("sales.urls", namespace="sales")),
         path("rewards/", include("rewards.urls", namespace="rewards")),
+        path("expenses/", include("expenses.urls", namespace="expenses")),
+        path("reports/", include("reports.urls", namespace="reports")),
 
         path("tinymce/", include("tinymce.urls")),
     ]

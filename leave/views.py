@@ -5,10 +5,11 @@ from django.urls import reverse
 import datetime
 import json
 import sys
+from datetime import date, timedelta
 
 from core.functions import generate_form_errors, get_response_data
 from .models import *
-
+from attendance.models import DailyAttendance
 
 
 """ 
@@ -81,7 +82,7 @@ def approved_leave_list(request):
 def leave_single(request, pk):
     instance = get_object_or_404(LeaveRequest, pk=pk)
     context = {
-        "title": "Leave Request :- " + instance.user.username,
+        "title": "Leave Request :- " + instance.user.first_name,
         "instance": instance
     }
     return render(request, 'leave/single.htm', context)
@@ -90,16 +91,35 @@ def leave_single(request, pk):
 
 @login_required
 def accept_leave(request, pk):
-    LeaveRequest.objects.filter(pk=pk).update(is_approved=True)
+    leave_data = get_object_or_404(LeaveRequest,pk=pk)
+    startdate = leave_data.startdate
+    enddate = leave_data.enddate
+    if startdate > enddate:
+        response_data = get_response_data(0, message="Please check the date!.")
+        return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+    """ function for updating attandance model """
+    delta = enddate - startdate  
+    for i in range(delta.days + 1):
+        day = startdate + timedelta(days=i)
+        attandance = DailyAttendance(
+                user=leave_data.user,
+                date=day,
+                is_leave=True
+            )
+        attandance.save()
+
+    leave_data.is_approved = True
+    leave_data.is_rejected = False
+    leave_data.save()
     response_data = get_response_data(1, redirect_url=reverse(
-        'leave:leave_request_list'), message="Approved")
+        'leave:approved_leave_list'), message="Approved")
     return HttpResponse(json.dumps(response_data), content_type='application/javascript')
 
 
 
 @login_required
 def reject_leave(request, pk):
-    LeaveRequest.objects.filter(pk=pk).update(is_rejected=True)
+    LeaveRequest.objects.filter(pk=pk).update(is_rejected=True,is_approved=False)
     response_data = get_response_data(1, redirect_url=reverse(
         'leave:leave_request_list'), message="Rejected")
     return HttpResponse(json.dumps(response_data), content_type='application/javascript')

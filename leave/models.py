@@ -15,9 +15,9 @@ class LeaveRequest(BaseModel):
 	)
 
 	user = models.ForeignKey('accounts.User', limit_choices_to={'is_active': True}, on_delete=models.CASCADE,default=1)
-	startdate = models.DateField(verbose_name=_('Start Date'),help_text='leave start date is on ..',null=True,blank=False)
-	enddate = models.DateField(verbose_name=_('End Date'),help_text='coming back on ...',null=True,blank=False)
-	leavetype = models.CharField(choices=LEAVE_TYPE,max_length=25,default='sick',null=True,blank=False)
+	startdate = models.DateField(verbose_name=_('Start Date'),help_text='leave start date is on ..')
+	enddate = models.DateField(verbose_name=_('End Date'),help_text='coming back on ...')
+	leavetype = models.CharField(choices=LEAVE_TYPE,max_length=25,default='sick')
 	reason = models.TextField(verbose_name=_('Reason for Leave'),help_text='add additional information for leave',null=True,blank=True)
 	is_approved = models.BooleanField(default=False)
 	is_rejected = models.BooleanField(default=False)

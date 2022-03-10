@@ -193,27 +193,7 @@
 						</div>
 					</div>
 				</div>
-				
-			</div>
-		</div>
 
-
-		<!-- Merchant Menu card -->
-		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-			<span class="menu-link" title="Merchandiser" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-				<span class="menu-icon">
-					<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
-					<span class="svg-icon svg-icon-2x">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path d="M16.925 3.90078V8.00077L12.025 10.8008V5.10078L15.525 3.10078C16.125 2.80078 16.925 3.20078 16.925 3.90078ZM2.525 13.5008L6.025 15.5008L10.925 12.7008L6.025 9.90078L2.525 11.9008C1.825 12.3008 1.825 13.2008 2.525 13.5008ZM18.025 19.7008V15.6008L13.125 12.8008V18.5008L16.625 20.5008C17.225 20.8008 18.025 20.4008 18.025 19.7008Z" fill="black"></path>
-							<path opacity="0.3" d="M8.52499 3.10078L12.025 5.10078V10.8008L7.125 8.00077V3.90078C7.125 3.20078 7.92499 2.80078 8.52499 3.10078ZM7.42499 20.5008L10.925 18.5008V12.8008L6.02499 15.6008V19.7008C6.02499 20.4008 6.82499 20.8008 7.42499 20.5008ZM21.525 11.9008L18.025 9.90078L13.125 12.7008L18.025 15.5008L21.525 13.5008C22.225 13.2008 22.225 12.3008 21.525 11.9008Z" fill="black"></path>
-						</svg>
-					</span>
-					<!--end::Svg Icon-->
-				</span>
-			</span>
-			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
-				<!-- Merchandiser-->
 				<div class="menu-item">
 					<div class="menu-content">
 						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Merchandiser</span>
@@ -302,7 +282,171 @@
 					</div>
 				</div>
 			</div>
-			
+		</div>
+
+		<!-- Merchant Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="DAR/DMR" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M16.925 3.90078V8.00077L12.025 10.8008V5.10078L15.525 3.10078C16.125 2.80078 16.925 3.20078 16.925 3.90078ZM2.525 13.5008L6.025 15.5008L10.925 12.7008L6.025 9.90078L2.525 11.9008C1.825 12.3008 1.825 13.2008 2.525 13.5008ZM18.025 19.7008V15.6008L13.125 12.8008V18.5008L16.625 20.5008C17.225 20.8008 18.025 20.4008 18.025 19.7008Z" fill="black"></path>
+							<path opacity="0.3" d="M8.52499 3.10078L12.025 5.10078V10.8008L7.125 8.00077V3.90078C7.125 3.20078 7.92499 2.80078 8.52499 3.10078ZM7.42499 20.5008L10.925 18.5008V12.8008L6.02499 15.6008V19.7008C6.02499 20.4008 6.82499 20.8008 7.42499 20.5008ZM21.525 11.9008L18.025 9.90078L13.125 12.7008L18.025 15.5008L21.525 13.5008C22.225 13.2008 22.225 12.3008 21.525 11.9008Z" fill="black"></path>
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<!-- DAR -->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">DAR</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DAR</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:create_DAR' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:DAR_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DAR Reschedule</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Reschedule requests</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Approved requests</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--DMR-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">DMR</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DMR</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title"> task</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Executive Target</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="#">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
         <!-- Menu card end -->
 
@@ -331,17 +475,57 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title">Sales Data</span>
+						<span class="menu-title">Sales data</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'sales:pending_sales_requests' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Pending Sales requests</span>
+							</a>
+						</div>
 						<div class="menu-item">
 							<a class="menu-link" href="{% url 'sales:total_sales' %}">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">list</span>
+								<span class="menu-title">Total Sales</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- expenses -->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Expenses</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Expese claim</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'expenses:pending_claim_requests' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Pending requests</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'expenses:approved_expense_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Approved requests</span>
 							</a>
 						</div>
 					</div>
@@ -401,7 +585,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title">Pending requests</span>
+						<span class="menu-title">Leave requests</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -410,24 +594,17 @@
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">list</span>
+								<span class="menu-title">Pending leave requests</span>
 							</a>
 						</div>
 					</div>
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title">Approved requests</span>
-						<span class="menu-arrow"></span>
-					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
 						<div class="menu-item">
 							<a class="menu-link" href="{% url 'leave:approved_leave_list'%}">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">list</span>
+								<span class="menu-title">Approved leave requests</span>
 							</a>
 						</div>
 					</div>

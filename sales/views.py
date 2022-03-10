@@ -91,7 +91,6 @@ def delete_opening_stock(request, pk):
 """Opening stock"""
 
 """ sales data """
-
 @login_required
 def total_sales(request):
     today = datetime.datetime.now().date()
@@ -122,12 +121,10 @@ def total_sales(request):
     }
     return render(request, 'sales/sale/list.htm', context)
 
-
-
 @login_required
 def sales_single(request, pk):
     instance = get_object_or_404(Sales, pk=pk)
-    sale_items = SaleItems.objects.filter(sale=instance)
+    sale_items = SaleItems.objects.filter(sale=instance).distinct('product')
     context = {
         "title": "Sale single page ",
         "instance": instance,
@@ -135,7 +132,53 @@ def sales_single(request, pk):
     }
     return render(request, 'sales/sale/single.htm', context)
 
-
-
-
 """ sales data """
+
+
+@login_required
+def pending_sales_requests(request):
+    if request.user.is_superuser:
+        query_set = Sales.objects.filter(is_deleted=False,is_approved=False,is_rejected=False)
+    else:
+        query_set = Sales.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,user__region=request.user.region)
+
+    context = {
+        "is_need_datatable": True,
+        "title": "Pending Sales",
+        "instances": query_set
+    }
+    return render(request, 'sales/pending/list.htm', context)
+
+
+
+@login_required
+def sales_single_pending(request, pk):
+    instance = get_object_or_404(Sales, pk=pk)
+    sale_items = SaleItems.objects.filter(sale=instance).distinct('product')
+    context = {
+        "title": "Sale single page ",
+        "instance": instance,
+        "sale_items":sale_items
+    }
+    return render(request, 'sales/pending/single.html', context)
+
+
+@login_required
+def accept_sales(request, pk):
+    Sales.objects.filter(pk=pk).update(is_rejected=False,is_approved=True)
+    response_data = get_response_data(1, redirect_url=reverse(
+        'sales:pending_sales_requests'), message="Approved")
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
+
+@login_required
+def reject_sales(request, pk):
+    Sales.objects.filter(pk=pk).update(is_rejected=True,is_approved=False)
+    response_data = get_response_data(1, redirect_url=reverse(
+        'sales:pending_sales_requests'), message="Rejected")
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
+
+
+
+
