@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from merchandiser.models import Merchandiser, MerchandiserTarget, MerchandiserTask
-from sales.models import Http404, Sales
+from sales.models import  Sales
 
 from .serializers import (
     MerchandiserProfileSerializer,

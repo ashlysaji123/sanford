@@ -1,3 +1,11 @@
+$(function() {
+    $('.form-group label').addClass('form-label fw-bolder text-dark fs-6');
+    $('.form-group').addClass('fv-row mb-7 fv-plugins-icon-container');
+    $('.form-group input').addClass('form-control form-control-lg form-control-solid');
+    $('.form-group select').addClass('form-control form-control-lg form-control-solid');
+    $('.form-group textarea').addClass('form-control form-control-lg form-control-solid');
+});
+
 
 function getCookie(name) {
 	var cookieValue = null;
