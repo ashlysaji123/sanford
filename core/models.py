@@ -1,6 +1,8 @@
 import uuid
+
 from django.db import models
 from location_field.models.plain import PlainLocationField
+
 
 class BaseModel(models.Model):
     BOOL_CHOICES = ((True, "Yes"), (False, "No"))
@@ -11,7 +13,8 @@ class BaseModel(models.Model):
     created = models.DateTimeField(db_index=True, auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(
-        "accounts.User",limit_choices_to={'is_active': True},
+        "accounts.User",
+        limit_choices_to={"is_active": True},
         blank=True,
         null=True,
         related_name="creator_%(class)s_objects",
@@ -51,18 +54,20 @@ class Region(BaseModel):
     def __str__(self):
         return str(f"{self.name}")
 
+
 class Country(BaseModel):
     name = models.CharField(max_length=128)
     slug = models.SlugField(unique=True, blank=True, null=True)
     country_code = models.CharField(max_length=128, blank=True, null=True)
     region = models.ForeignKey(
-            Region,
-            blank=True,
-            null=True,
-            limit_choices_to={"is_deleted": False},
-            on_delete=models.PROTECT,
-            related_name="region",
-        )
+        Region,
+        blank=True,
+        null=True,
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.PROTECT,
+        related_name="region",
+    )
+
     class Meta:
         ordering = ("name",)
         verbose_name = "Country"
@@ -104,13 +109,11 @@ class State(BaseModel):
         return self.country.name
 
 
-
 class BlockedIP(BaseModel):
     ip_address = models.GenericIPAddressField()
 
     def __str__(self):
         return str(f"{self.ip_address}")
-
 
 
 class Shop(BaseModel):
@@ -142,4 +145,3 @@ class Shop(BaseModel):
     @property
     def country_name(self):
         return self.country.name
-

@@ -1,12 +1,13 @@
 from django.contrib import admin
-from import_export.admin import ImportExportActionModelAdmin
 
-from core.actions import mark_active, mark_deleted
-
-from .models import SalesManager,SalesManagerTarget,SalesCoordinator,SalesCoordinatorTarget,SalesCoordinatorTask,SalesManagerTask
-
-
-
+from .models import (
+    SalesCoordinator,
+    SalesCoordinatorTarget,
+    SalesCoordinatorTask,
+    SalesManager,
+    SalesManagerTarget,
+    SalesManagerTask,
+)
 
 admin.site.register(SalesManager)
 admin.site.register(SalesManagerTarget)

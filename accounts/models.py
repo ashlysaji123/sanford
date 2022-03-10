@@ -1,14 +1,10 @@
 import uuid
 
-from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import Avg, Sum
-from location_field.models.plain import PlainLocationField
 from versatileimagefield.fields import VersatileImageField
 
-from core.models import BaseModel,Region
-from rewards.models import RewardPoint
+from core.models import BaseModel, Region
 
 
 class User(AbstractUser):
@@ -25,11 +21,11 @@ class User(AbstractUser):
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
     region = models.ForeignKey(
-            Region,
-            limit_choices_to={"is_deleted": False},
-            on_delete=models.CASCADE,
-            null=True
-        )
+        Region,
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
     def __str__(self):
         if self.first_name:
@@ -37,13 +33,16 @@ class User(AbstractUser):
         return str(self.username)
 
 
-
-
-
-
 class FavouriteGroup(BaseModel):
-    user = models.ForeignKey('accounts.User',limit_choices_to={'is_active': True}, on_delete=models.CASCADE)
-    group = models.ForeignKey( "products.ProductGroup",limit_choices_to={'is_deleted': False}, related_name="accounts_favourite_group", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
+    )
+    group = models.ForeignKey(
+        "products.ProductGroup",
+        limit_choices_to={"is_deleted": False},
+        related_name="accounts_favourite_group",
+        on_delete=models.CASCADE,
+    )
     is_active = models.BooleanField("Mark as Active", default=False)
 
     def __str__(self):

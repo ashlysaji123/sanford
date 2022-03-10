@@ -1,10 +1,6 @@
 from django.contrib import admin
-from import_export.admin import ImportExportActionModelAdmin
 
-from core.actions import mark_active, mark_deleted
-
-from .models import Attendance,DailyAttendance
-
+from .models import Attendance, DailyAttendance
 
 # @admin.register(Attendance)
 # class AttendanceAdmin(ImportExportActionModelAdmin):

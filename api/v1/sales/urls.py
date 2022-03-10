@@ -1,4 +1,4 @@
-from django.urls import path,re_path
+from django.urls import path, re_path
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -35,7 +35,7 @@ urlpatterns = [
             queryset=OpeningStock.objects.filter(is_deleted=False),
             serializer_class=OpeningStockSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -43,12 +43,11 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=OpeningStock.objects.filter(is_deleted=False),
             serializer_class=OpeningStockSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
-
     path("create-sales/", views.create_sales),
     path("update-sales/", views.update_sale),
-    re_path(r'^update-sales/(?P<pk>.*)/', views.update_sale),
+    re_path(r"^update-sales/(?P<pk>.*)/", views.update_sale),
     path("my-sales/", views.my_sales),
 ]

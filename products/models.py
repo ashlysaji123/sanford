@@ -5,7 +5,8 @@ from django.db import models
 from tinymce.models import HTMLField
 from versatileimagefield.fields import VersatileImageField
 
-from core.models import BaseModel,Region
+from core.models import BaseModel, Region
+
 
 class Category(BaseModel):
     name = models.CharField(max_length=128)
@@ -27,7 +28,10 @@ class Category(BaseModel):
 
 class SubCategory(BaseModel):
     category = models.ForeignKey(
-        "Category",limit_choices_to={'is_deleted': False}, related_name="subcategory_category", on_delete=models.CASCADE
+        "Category",
+        limit_choices_to={"is_deleted": False},
+        related_name="subcategory_category",
+        on_delete=models.CASCADE,
     )
     code = models.CharField(max_length=128, unique=True)
     name = models.CharField(max_length=128)
@@ -62,19 +66,27 @@ class Product(BaseModel):
     summary = models.TextField(blank=True, null=True)
     description = HTMLField(blank=True, null=True)
     group = models.ForeignKey(
-        "ProductGroup",limit_choices_to={'is_deleted': False}, related_name="product_productgroup", on_delete=models.CASCADE
+        "ProductGroup",
+        limit_choices_to={"is_deleted": False},
+        related_name="product_productgroup",
+        on_delete=models.CASCADE,
     )
     subcategory = models.ForeignKey(
-        "SubCategory",limit_choices_to={'is_deleted': False}, related_name="product_subcategory", on_delete=models.CASCADE
+        "SubCategory",
+        limit_choices_to={"is_deleted": False},
+        related_name="product_subcategory",
+        on_delete=models.CASCADE,
     )
     list_price = models.DecimalField(
         default=0.0,
         decimal_places=2,
         max_digits=15,
-        validators=[MinValueValidator(Decimal("0.00"))]
+        validators=[MinValueValidator(Decimal("0.00"))],
     )
     available_regions = models.ManyToManyField(
-        Region,limit_choices_to={'is_deleted': False}, related_name="product_availableregions"
+        Region,
+        limit_choices_to={"is_deleted": False},
+        related_name="product_availableregions",
     )
     primary_image = VersatileImageField(
         "Primary Product Image", upload_to="images/products/products/primary_image/"
@@ -100,8 +112,11 @@ class Product(BaseModel):
 
 
 class ProductWishList(models.Model):
-    user = models.ForeignKey('accounts.User',limit_choices_to={'is_active': True}, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = "Product WishList"
         verbose_name_plural = "Product WishList items"

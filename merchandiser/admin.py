@@ -1,12 +1,6 @@
 from django.contrib import admin
-from import_export.admin import ImportExportActionModelAdmin
 
-from core.actions import mark_active, mark_deleted
-
-from .models import Merchandiser,MerchandiserTarget,MerchandiserTask
-
-
-
+from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
 
 admin.site.register(Merchandiser)
 admin.site.register(MerchandiserTarget)

@@ -17,7 +17,7 @@ urlpatterns = [
             queryset=RewardPoint.objects.filter(is_deleted=False),
             serializer_class=RewardPointSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -25,7 +25,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=RewardPoint.objects.filter(is_deleted=False),
             serializer_class=RewardPointSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path("myreport/", views.RewardSummaryView.as_view()),

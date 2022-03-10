@@ -5,8 +5,13 @@ from rest_framework.permissions import IsAuthenticated
 from core.models import Country, Language, Region, State, Year
 from core.pagination import StandardResultsSetPagination
 
-from .serializers import (CountrySerializer, LanguageSerializer,
-                          RegionSerializer, StateSerializer, YearSerializer)
+from .serializers import (
+    CountrySerializer,
+    LanguageSerializer,
+    RegionSerializer,
+    StateSerializer,
+    YearSerializer,
+)
 
 app_name = "core"
 
@@ -17,7 +22,7 @@ urlpatterns = [
             queryset=Country.objects.filter(is_deleted=False),
             serializer_class=CountrySerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -26,7 +31,7 @@ urlpatterns = [
             queryset=State.objects.filter(is_deleted=False),
             serializer_class=StateSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -35,7 +40,7 @@ urlpatterns = [
             queryset=Region.objects.filter(is_deleted=False),
             serializer_class=RegionSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -44,7 +49,7 @@ urlpatterns = [
             queryset=Language.objects.filter(is_deleted=False),
             serializer_class=LanguageSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -53,7 +58,7 @@ urlpatterns = [
             queryset=Year.objects.filter(is_deleted=False),
             serializer_class=YearSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -61,7 +66,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Country.objects.filter(is_deleted=False),
             serializer_class=CountrySerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -69,7 +74,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=State.objects.filter(is_deleted=False),
             serializer_class=StateSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -77,7 +82,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Region.objects.filter(is_deleted=False),
             serializer_class=RegionSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -85,7 +90,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Language.objects.filter(is_deleted=False),
             serializer_class=LanguageSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -93,7 +98,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Year.objects.filter(is_deleted=False),
             serializer_class=YearSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
 ]

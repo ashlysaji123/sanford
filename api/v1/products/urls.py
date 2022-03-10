@@ -1,14 +1,18 @@
 from django.urls import path
-from rest_framework.filters import OrderingFilter,SearchFilter
+from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from core.pagination import StandardResultsSetPagination
-from products.models import Category, Product, ProductGroup, SubCategory,ProductWishList
-from .views import ProductWishListView,AddToWishlist,ProductFilterView
+from products.models import Category, Product, ProductGroup, SubCategory
 
-from .serializers import (CategorySerializer, ProductGroupSerializer,
-                          ProductSerializer, SubCategorySerializer,ProductWishListSerializer)
+from .serializers import (
+    CategorySerializer,
+    ProductGroupSerializer,
+    ProductSerializer,
+    SubCategorySerializer,
+)
+from .views import AddToWishlist, ProductFilterView, ProductWishListView
 
 app_name = "products"
 
@@ -19,7 +23,7 @@ urlpatterns = [
             queryset=Category.objects.filter(is_deleted=False),
             serializer_class=CategorySerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -28,7 +32,7 @@ urlpatterns = [
             queryset=SubCategory.objects.filter(is_deleted=False),
             serializer_class=SubCategorySerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -37,7 +41,7 @@ urlpatterns = [
             queryset=ProductGroup.objects.filter(is_deleted=False),
             serializer_class=ProductGroupSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -46,8 +50,8 @@ urlpatterns = [
             queryset=Product.objects.filter(is_deleted=False),
             serializer_class=ProductSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
-            filter_backends = [OrderingFilter],
+            permission_classes=[IsAuthenticated],
+            filter_backends=[OrderingFilter],
         ),
     ),
     path(
@@ -56,7 +60,7 @@ urlpatterns = [
             queryset=Product.objects.filter(is_deleted=False, is_hot_product=True),
             serializer_class=ProductSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -65,7 +69,7 @@ urlpatterns = [
             queryset=Product.objects.filter(is_deleted=False, is_new_arrival=True),
             serializer_class=ProductSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -73,7 +77,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Category.objects.filter(is_deleted=False),
             serializer_class=CategorySerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -81,7 +85,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=SubCategory.objects.filter(is_deleted=False),
             serializer_class=SubCategorySerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -89,7 +93,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=ProductGroup.objects.filter(is_deleted=False),
             serializer_class=ProductGroupSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -97,10 +101,9 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Product.objects.filter(is_deleted=False),
             serializer_class=ProductSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
-
     # path(
     #     "wishlist/",
     #     ListAPIView.as_view(
@@ -111,8 +114,8 @@ urlpatterns = [
     #         filter_backends = [OrderingFilter],
     #     ),
     # ),
-    path('wishlist/',ProductWishListView.as_view()),
-    path('add/wishlist/<str:pk>/',AddToWishlist.as_view()),
-    path('product-filter/',ProductFilterView.as_view()),
+    path("wishlist/", ProductWishListView.as_view()),
+    path("add/wishlist/<str:pk>/", AddToWishlist.as_view()),
+    path("product-filter/", ProductFilterView.as_view()),
     # path('product-filter',product_filtering),
 ]

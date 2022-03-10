@@ -1,9 +1,7 @@
 import math
-import string
-import random
 
+from coordinators.models import SalesCoordinator, SalesManager
 from executives.models import SalesExecutive
-from coordinators.models import SalesCoordinator,SalesManager
 
 
 def get_distance(origin, destination):
@@ -31,7 +29,6 @@ def get_distance(origin, destination):
     return distance
 
 
-
 def get_current_role(request):
     current_role = {}
     if request.user.is_authenticated:
@@ -39,31 +36,27 @@ def get_current_role(request):
             current_role = {
                 "role": "superuser",
             }
-        elif SalesManager.objects.filter(user=request.user,user__is_sales_manager=True).exists():
-            current_role = {
-                "role":"salesmanager",
-                "user": request.user
-            }
-        elif SalesCoordinator.objects.filter(user=request.user,user__is_sales_coordinator=True).exists():
-            current_role = {
-                "role":"salescoordinator",
-                "user": request.user
-            }
-        elif SalesExecutive.objects.filter(user=request.user,user__is_sales_executive=True).exists():
-            current_role = {
-                "role":"salesexecutive",
-                "user": request.user
-            }
+        elif SalesManager.objects.filter(
+            user=request.user, user__is_sales_manager=True
+        ).exists():
+            current_role = {"role": "salesmanager", "user": request.user}
+        elif SalesCoordinator.objects.filter(
+            user=request.user, user__is_sales_coordinator=True
+        ).exists():
+            current_role = {"role": "salescoordinator", "user": request.user}
+        elif SalesExecutive.objects.filter(
+            user=request.user, user__is_sales_executive=True
+        ).exists():
+            current_role = {"role": "salesexecutive", "user": request.user}
         return current_role
 
 
-
-def generate_form_errors(args,formset=False):
-    message = ''
+def generate_form_errors(args, formset=False):
+    message = ""
     if not formset:
         for field in args:
             if field.errors:
-                message += field.errors[0]  + "|"
+                message += field.errors[0] + "|"
         for err in args.non_field_errors():
             message += str(err) + "|"
 
@@ -77,54 +70,54 @@ def generate_form_errors(args,formset=False):
     return message[:-1]
 
 
-
 def get_response_data(status_code, **kwargs):
-	create_func_names = ["add","create"]
-	update_func_names = ["edit","update"]
-	MESSAGE = kwargs.get("message",None)
+    create_func_names = ["add", "create"]
+    update_func_names = ["edit", "update"]
+    MESSAGE = kwargs.get("message", None)
 
-	if MESSAGE is None:
-		try:
-			invoking_func_name = (inspect.stack()[1].function).split("_")
-			print(invoking_func_name,"<-- invoking_func_name")
+    if MESSAGE is None:
+        try:
+            invoking_func_name = (inspect.stack()[1].function).split("_")
+            print(invoking_func_name, "<-- invoking_func_name")
 
-			if invoking_func_name[0] in create_func_names:
-				if len(invoking_func_name) > 2:
-					MESSAGE = "{} {} successfully created".format(invoking_func_name[1].title(),invoking_func_name[2])
-				else:
-					MESSAGE = "{} successfully created".format(invoking_func_name[1].title())
-				
-			elif invoking_func_name[0] in update_func_names:
-				if len(invoking_func_name) > 2:
-					MESSAGE = "{} {} updated successfully".format(invoking_func_name[1].title(),invoking_func_name[2])
-				else:
-					MESSAGE = "{} updated successfully".format(invoking_func_name[1].title())
-		except:
-			raise ValueError("missing attribute 'message' or use tfora standard function naming")
+            if invoking_func_name[0] in create_func_names:
+                if len(invoking_func_name) > 2:
+                    MESSAGE = "{} {} successfully created".format(
+                        invoking_func_name[1].title(), invoking_func_name[2]
+                    )
+                else:
+                    MESSAGE = "{} successfully created".format(
+                        invoking_func_name[1].title()
+                    )
 
-	if status_code == 1:
-		title_data = {
-			"status" : "true",
-			"title" : kwargs.get("title","Success")
-		}
-		_response_data = {
-			**title_data,
-			"message": MESSAGE,
-			"redirect": "true",
-			"redirect_url": kwargs.get('redirect_url',None)
-		}
-	elif status_code == 0:
-		title_data = {
-			"status" : "false",
-			"title" : kwargs.get("title","Uh oh! Form Validation Error")
-		}
-		_response_data = {
-			**title_data,
-			"message": MESSAGE,
-			"stable": "true"
-		}
-	else:
-		raise AssertionError("improper status_code.Valid codes are 1 or 0.")
-	return _response_data
+            elif invoking_func_name[0] in update_func_names:
+                if len(invoking_func_name) > 2:
+                    MESSAGE = "{} {} updated successfully".format(
+                        invoking_func_name[1].title(), invoking_func_name[2]
+                    )
+                else:
+                    MESSAGE = "{} updated successfully".format(
+                        invoking_func_name[1].title()
+                    )
+        except:
+            raise ValueError(
+                "missing attribute 'message' or use tfora standard function naming"
+            )
 
-
+    if status_code == 1:
+        title_data = {"status": "true", "title": kwargs.get("title", "Success")}
+        _response_data = {
+            **title_data,
+            "message": MESSAGE,
+            "redirect": "true",
+            "redirect_url": kwargs.get("redirect_url", None),
+        }
+    elif status_code == 0:
+        title_data = {
+            "status": "false",
+            "title": kwargs.get("title", "Uh oh! Form Validation Error"),
+        }
+        _response_data = {**title_data, "message": MESSAGE, "stable": "true"}
+    else:
+        raise AssertionError("improper status_code.Valid codes are 1 or 0.")
+    return _response_data

@@ -4,7 +4,6 @@ from executives.models import SalesExecutive
 
 
 class SalesExecutiveSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SalesExecutive
-        fields =('__all__')
+        fields = "__all__"

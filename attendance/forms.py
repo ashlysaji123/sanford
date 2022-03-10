@@ -1,13 +1,3 @@
-from django import forms
-from django.forms.widgets import TextInput, Textarea, Select, FileInput, EmailInput, DateInput, TimeInput, RadioSelect, NumberInput, CheckboxInput
-
-from django.contrib.admin import widgets
-import datetime
-
-from attendance.models import *
-from coordinators.models import SalesCoordinator,SalesManager
-
-
 # class AttendanceForm(forms.ModelForm):
 #     class Meta:
 #         model = Attendance

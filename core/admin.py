@@ -3,7 +3,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import BlockedIP, Country, Language, Region, State, Year,Shop
+from .models import BlockedIP, Country, Language, Region, Shop, State, Year
 
 
 @admin.register(Year)

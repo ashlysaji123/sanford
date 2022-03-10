@@ -1,9 +1,6 @@
 from django.contrib import admin
-from import_export.admin import ImportExportActionModelAdmin
 
-from core.actions import mark_active, mark_deleted
-
-from .models import OpeningStock, Sales,SaleItems
+from .models import OpeningStock, SaleItems, Sales
 
 admin.site.register(Sales)
 admin.site.register(SaleItems)
@@ -22,6 +19,4 @@ admin.site.register(SaleItems)
 #     autocomplete_fields = ('product','merchandiser')
 #     actions = [mark_deleted, mark_active]
 
-admin.site.register(
-    OpeningStock
-)
+admin.site.register(OpeningStock)

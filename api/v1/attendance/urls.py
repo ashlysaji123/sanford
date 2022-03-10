@@ -17,7 +17,7 @@ urlpatterns = [
             queryset=Attendance.objects.filter(is_deleted=False),
             serializer_class=AttendanceSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -25,10 +25,12 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=Attendance.objects.filter(is_deleted=False),
             serializer_class=AttendanceSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path("mark-check-in/", views.MarkAttendanceIn.as_view(), name="mark_in_attendance"),
-    path("mark-check-out/<str:pk>/", views.MarkAttendanceOut, name="mark_out_attendance"),
+    path(
+        "mark-check-out/<str:pk>/", views.MarkAttendanceOut, name="mark_out_attendance"
+    ),
     path("my-attandance/", views.MyAttandanceSummaryView, name="my_attendance"),
 ]

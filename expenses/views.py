@@ -1,67 +1,81 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
-import datetime
 import json
-import sys
 
-from core.functions import generate_form_errors, get_response_data
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+
+from core.functions import get_response_data
+
 from .models import Expenses
 
 
 @login_required
 def pending_claim_requests(request):
     if request.user.is_superuser:
-        query_set = Expenses.objects.filter(is_deleted=False,is_approved=False,is_rejected=False)
+        query_set = Expenses.objects.filter(
+            is_deleted=False, is_approved=False, is_rejected=False
+        )
     else:
-        query_set = Expenses.objects.filter(is_deleted=False,is_approved=False,is_rejected=False,user__region=request.user.region)
-    
+        query_set = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            user__region=request.user.region,
+        )
+
     context = {
         "is_need_datatable": True,
         "title": "Expense Claims",
-        "instances": query_set
+        "instances": query_set,
     }
-    return render(request, 'expenses/pending/list.htm', context)
+    return render(request, "expenses/pending/list.htm", context)
 
 
 @login_required
 def approved_expense_list(request):
     if request.user.is_superuser:
-        query_set = Expenses.objects.filter(is_deleted=False,is_approved=True,is_rejected=False)
+        query_set = Expenses.objects.filter(
+            is_deleted=False, is_approved=True, is_rejected=False
+        )
     else:
-        query_set = Expenses.objects.filter(is_deleted=False,is_approved=True,is_rejected=False,user__region=request.user.region)
-    
+        query_set = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=True,
+            is_rejected=False,
+            user__region=request.user.region,
+        )
+
     context = {
         "is_need_datatable": True,
         "title": "Approved Expenses",
-        "instances": query_set
+        "instances": query_set,
     }
-    return render(request, 'expenses/approved/list.htm', context)
+    return render(request, "expenses/approved/list.htm", context)
 
 
+def approve_claim_request(request, pk):
+    Expenses.objects.filter(pk=pk).update(is_approved=True, is_rejected=False)
+    response_data = get_response_data(
+        1, redirect_url=reverse("expenses:approved_expense_list"), message="Approved"
+    )
+    return HttpResponse(
+        json.dumps(response_data), content_type="application/javascript"
+    )
 
-def approve_claim_request(request,pk):
-    Expenses.objects.filter(pk=pk).update(is_approved=True,is_rejected=False)
-    response_data = get_response_data(1, redirect_url=reverse(
-        'expenses:approved_expense_list'), message="Approved")
-    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
 
-
-def reject_claim_request(request,pk):
-    Expenses.objects.filter(pk=pk).update(is_rejected=True,is_approved=False)
-    response_data = get_response_data(1, redirect_url=reverse(
-        'expenses:pending_claim_requests'), message="Rejected")
-    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+def reject_claim_request(request, pk):
+    Expenses.objects.filter(pk=pk).update(is_rejected=True, is_approved=False)
+    response_data = get_response_data(
+        1, redirect_url=reverse("expenses:pending_claim_requests"), message="Rejected"
+    )
+    return HttpResponse(
+        json.dumps(response_data), content_type="application/javascript"
+    )
 
 
 @login_required
 def expense_claim_single(request, pk):
     instance = get_object_or_404(Expenses, pk=pk)
-    context = {
-        "title": "Expense Claim ",
-        "instance": instance
-    }
-    return render(request, 'expenses/single.htm', context)
-
-
+    context = {"title": "Expense Claim ", "instance": instance}
+    return render(request, "expenses/single.htm", context)

@@ -17,7 +17,7 @@ urlpatterns = [
             queryset=LeaveRequest.objects.filter(is_deleted=False),
             serializer_class=LeaveRequestSerializer,
             pagination_class=StandardResultsSetPagination,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path(
@@ -25,7 +25,7 @@ urlpatterns = [
         RetrieveAPIView.as_view(
             queryset=LeaveRequest.objects.filter(is_deleted=False),
             serializer_class=LeaveRequestSerializer,
-            permission_classes =[IsAuthenticated],
+            permission_classes=[IsAuthenticated],
         ),
     ),
     path("myreport/", views.LeaveRequestSummaryView.as_view()),

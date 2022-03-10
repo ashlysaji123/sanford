@@ -30,7 +30,7 @@ class UserTokenObtainPairSerializer(TokenObtainPairSerializer):
         refresh = cls.get_token(cls.user)
         data["refresh"] = str(refresh)
         data["access"] = str(refresh.access_token)
-        data['role'] = cls.get_role(cls.user)
+        data["role"] = cls.get_role(cls.user)
         # data['demo'] = "demo"
         return data
 
@@ -160,7 +160,19 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            "pk", "username", "fullname", "is_active", "is_staff", "is_superuser", "last_login", "date_joined",
-            "user_photo", "average_points", "total_points","is_merchandiser","is_sales_manager","is_sales_exicutive",
-            "is_sales_coordinator"
+            "pk",
+            "username",
+            "fullname",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+            "last_login",
+            "date_joined",
+            "user_photo",
+            "average_points",
+            "total_points",
+            "is_merchandiser",
+            "is_sales_manager",
+            "is_sales_exicutive",
+            "is_sales_coordinator",
         )

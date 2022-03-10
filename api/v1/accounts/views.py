@@ -5,54 +5,61 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from accounts.models import User
-from api.v1.merchandiser.serializers import MerchandiserSerializer
-from api.v1.executives.serializers import SalesExecutiveSerializer
-from api.v1.coordinators.serializers import SalesCoordinatorSerializer,SalesManagerSerializer
-from .serializers import (ChangePasswordSerializer, UpdateUserSerializer,
-                          UserSerializer, UserTokenObtainPairSerializer)
+
+from .serializers import (
+    ChangePasswordSerializer,
+    UpdateUserSerializer,
+    UserSerializer,
+    UserTokenObtainPairSerializer,
+)
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
-	"""
-	View to generate access and refresh token with username and password
-	"""
-	permission_classes = (AllowAny,)
-	serializer_class = UserTokenObtainPairSerializer
+    """
+    View to generate access and refresh token with username and password
+    """
+
+    permission_classes = (AllowAny,)
+    serializer_class = UserTokenObtainPairSerializer
 
 
 class ChangePasswordView(UpdateAPIView):
-	"""
-	View to change password of a user (pk in the url identifies the user)
-	"""
-	queryset = User.objects.all()
-	serializer_class = ChangePasswordSerializer
-	permission_classes = [IsAuthenticated]
+    """
+    View to change password of a user (pk in the url identifies the user)
+    """
+
+    queryset = User.objects.all()
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class UpdateProfileView(UpdateAPIView):
-	"""
-	View to change password of a user (pk in the url identifies the user)
-	"""
-	queryset = User.objects.all()
-	serializer_class = UpdateUserSerializer
-	permission_classes = [IsAuthenticated]
+    """
+    View to change password of a user (pk in the url identifies the user)
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UpdateUserSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class MyProfileView(APIView):
-	"""
-	View to get all information associated with current user
-	"""
-	permission_classes = [IsAuthenticated]
+    """
+    View to get all information associated with current user
+    """
 
-	def get(self, request):
-		serializer = UserSerializer(request.user)
-		return Response(serializer.data)
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 
 class UserProfileView(RetrieveAPIView):
-	"""
-	View to get all information associated with user identified by pk
-	"""
-	queryset = User.objects.all()
-	serializer_class = UserSerializer
-	permission_classes = [IsAuthenticated]
+    """
+    View to get all information associated with user identified by pk
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]

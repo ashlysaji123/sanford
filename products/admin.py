@@ -3,7 +3,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import Category, Product, ProductGroup, SubCategory,ProductWishList
+from .models import Category, Product, ProductGroup, ProductWishList, SubCategory
 
 
 @admin.register(Category)
@@ -56,7 +56,6 @@ class ProductAdmin(ImportExportActionModelAdmin):
     search_fields = ["name", "barcode", "item_number"]
     autocomplete_fields = ["creator", "group", "subcategory", "available_regions"]
     something = ["group_name", "subcategory_name", "available_regions_list"]
-
 
 
 @admin.register(ProductWishList)

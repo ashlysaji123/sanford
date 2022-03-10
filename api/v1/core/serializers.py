@@ -26,7 +26,16 @@ class StateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = State
-        fields = ( "pk", "name", "type", "country", "country_name", "slug", "state_code", "tin_number",)
+        fields = (
+            "pk",
+            "name",
+            "type",
+            "country",
+            "country_name",
+            "slug",
+            "state_code",
+            "tin_number",
+        )
 
 
 class RegionSerializer(serializers.ModelSerializer):

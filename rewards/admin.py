@@ -8,6 +8,6 @@ from .models import RewardPoint
 
 @admin.register(RewardPoint)
 class RewardPointAdmin(ImportExportActionModelAdmin):
-	list_display = ["__str__", "user", "year", "month", "point", "status", "is_deleted"]
-	list_filter = ["status", "is_deleted"]
-	actions = [mark_deleted, mark_active]
+    list_display = ["__str__", "user", "year", "month", "point", "status", "is_deleted"]
+    list_filter = ["status", "is_deleted"]
+    actions = [mark_deleted, mark_active]

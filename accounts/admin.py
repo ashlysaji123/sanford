@@ -11,9 +11,8 @@ from .models import FavouriteGroup, User
 
 @admin.register(FavouriteGroup)
 class FavouriteGroupAdmin(ImportExportActionModelAdmin):
-    list_display = ["__str__", "user","group", "is_deleted"]
+    list_display = ["__str__", "user", "group", "is_deleted"]
     actions = [mark_deleted, mark_active]
-
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -47,7 +46,7 @@ class MyUserAdmin(UserAdmin):
                     "is_sales_manager",
                     "is_sales_coordinator",
                     "is_sales_exicutive",
-                    "is_merchandiser"
+                    "is_merchandiser",
                 )
             },
         ),

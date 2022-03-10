@@ -21,6 +21,6 @@ class BlocklistPermission(BasePermission):
     """
 
     def has_permission(self, request, view):
-        ip_address = request.META['REMOTE_ADDR']
+        ip_address = request.META["REMOTE_ADDR"]
         blocked = BlockedIP.objects.filter(ip_address=ip_address).exists()
         return not blocked
