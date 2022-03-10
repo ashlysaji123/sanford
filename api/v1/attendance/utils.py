@@ -1,8 +1,9 @@
 """
 function for getting daily attendance details
-#- working hours 
-#- missing hours 
+working hours 
+missing hours 
 """
+
 
 # Daily query
 def get_daily_attendance_sum(queryset):

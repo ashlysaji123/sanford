@@ -65,10 +65,6 @@ class ProductGroupForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     description = forms.CharField(widget=TinyMCE(attrs={"cols": 80, "rows": 30}))
-    # available_regions = forms.ModelMultipleChoiceField(
-    #     queryset=Region.objects.filter(is_deleted=False),
-    #     widget=forms.CheckboxSelectMultiple
-    # )
     class Meta:
         model = Product
         exclude = ("user", "is_deleted", "creator")

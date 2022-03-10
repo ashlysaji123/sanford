@@ -1,3 +1,6 @@
+from django.shortcuts import render
+
+
 def superuser_only(function):
     def _inner(request, *args, **kwargs):
         if request.user.is_authenticated:

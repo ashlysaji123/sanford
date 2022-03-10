@@ -64,14 +64,6 @@ class ProductWishListView(APIView):
         return Response(serializer.data)
 
 
-class ProductWishListView(APIView):
-    def get(self, request, format=None):
-        try:
-            wishlist = ProductWishList.objects.filter(user=request.user)
-            serializer = ProductWishListSerializer(wishlist, many=True)
-            return Response(serializer.data)
-        except ProductWishList.DoesNotExist:
-            raise Http404
 
 
 class AddToWishlist(APIView):

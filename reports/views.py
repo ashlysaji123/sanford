@@ -6,9 +6,9 @@ from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.forms.widgets import TextInput
 
 from core.functions import generate_form_errors, get_response_data
-
 from .forms import DARNotesForm, DARTaskForm
 from .models import DARNotes, DARTask
 
@@ -60,6 +60,7 @@ def create_DAR(request):
 
 @login_required
 def update_DAR(request, pk):
+    user = request.user
     instance = get_object_or_404(DARTask, pk=pk)
 
     if DARNotes.objects.filter(dar=instance).exists():

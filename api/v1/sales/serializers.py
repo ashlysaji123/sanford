@@ -94,7 +94,7 @@ class CreateSalesSerializer(serializers.ModelSerializer):
                     creator=sale.user,
                     **item
                 )
-                keep_items.append(items.id)
+                keep_items.append(item.id)
         for i in existing_items:
             if i.id not in keep_items:
                 i.delete()
