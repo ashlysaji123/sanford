@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static crispy_forms_tags %}
 {% block content %}
 
 <div class="container-xxl" id="kt_content_container">
@@ -11,88 +11,16 @@
 				</h3>
 			</div>
 
-			<form class="form ajax redirect" method="POST" action="">
-				{%csrf_token%}
-				<div class="card-body">
-
-					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.region.label}}
-
-								{% if form.region.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-
-								{% if form.region.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.region.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-
-							{{form.region}}
-							{% if form.region.errors %}
-							<label class="error">{{ form.region.errors.as_text }}</label>
-							{% endif %}
-
-						</div>
+			<div class="card-body">
+				<form class="form ajax redirect" method="POST" action="">
+					{%csrf_token%}
+					{{form|crispy}}
+					<div class="text-center">
+						<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary mb-5">Continue</button>
 					</div>
-					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.name.label}}
-
-								{% if form.name.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-
-								{% if form.name.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.name.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-
-							{{form.name}}
-							{% if form.name.errors %}
-							<label class="error">{{ form.name.errors.as_text }}</label>
-							{% endif %}
-
-						</div>
-					</div>
-					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.country_code.label}}
-
-								{% if form.country_code.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-
-								{% if form.country_code.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.country_code.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-
-							{{form.country_code}}
-							{% if form.country_code.errors %}
-							<label class="error">{{ form.country_code.errors.as_text }}</label>
-							{% endif %}
-
-						</div>
-					</div>
-					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
-{% endblock %}
-
-{% block javascript %}
-
-{{form.media}}
 {% endblock %}
