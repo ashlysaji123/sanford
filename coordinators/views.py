@@ -416,7 +416,7 @@ def coordinator_task_list(request):
     else:
         query_set = SalesCoordinatorTask.objects.filter(
             is_deleted=False, is_completed=False, user__region=request.user.region
-        )
+        ).order_by('-created')
     context = {"title": "Task list", "instances": query_set}
     return render(request, "coordinator/task/list.html", context)
 

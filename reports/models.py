@@ -23,7 +23,9 @@ class DARTask(BaseModel):
 
 class DARNotes(BaseModel):
     dar = models.ForeignKey(
-        DARTask, limit_choices_to={"is_deleted": False}, on_delete=models.CASCADE
+        DARTask, limit_choices_to={"is_deleted": False}, 
+        on_delete=models.CASCADE, 
+        blank=True, null=True
     )
     title = models.CharField(max_length=221)
     note = models.CharField(max_length=221, blank=True, null=True)
@@ -41,4 +43,4 @@ class DARReschedule(BaseModel):
     is_rejected = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.dar
+        return self.dar.shop.name

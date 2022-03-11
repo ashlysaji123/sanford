@@ -87,9 +87,8 @@ class SalesExecutiveTargetForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not user.is_superuser:
-            self.fields["user"].queryset = User.objects.filter(
-                region=user.region, is_sales_executive=True
-            )
+            self.fields["user"].queryset = SalesExecutive.objects.filter(
+                region=user.region)
 
 
 class SalesExecutiveTaskForm(forms.ModelForm):
@@ -106,6 +105,5 @@ class SalesExecutiveTaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not user.is_superuser:
-            self.fields["user"].queryset = User.objects.filter(
-                region=user.region, is_sales_executive=True
-            )
+            self.fields["user"].queryset = SalesExecutive.objects.filter(
+                region=user.region)

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block vendor_css %}
+<link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+{% endblock vendor_css %}
+{% block vendor_js %}
+<script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+    <div class="card">
+
+        <div class="card-header border-0 pt-6">
+            <div class="d-flex justify-content-between align-items-center w-100" data-kt-customer-table-toolbar="base">
+                <h3 class="card-label m-0">Pending Requests</h3>
+            </div>
+        </div>
+
+        <div class="card-body pt-0">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+                    <thead>
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px">Executive</th>
+                            <th class="min-w-125px">Shop</th>
+                            <th class="min-w-125px">Rescheduled date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="fw-bold text-gray-600">
+                        {% for object in object_list %}
+                        <tr>
+                            <td>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.executive}}</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.shop}}</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.visit_date}}</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

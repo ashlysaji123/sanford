@@ -7,43 +7,63 @@
         <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
             <div class="card-header cursor-pointer">
                 <div class="card-title m-0">
-                    <h3 class="fw-bolder m-0">Details</h3>
+                    <h3 class="fw-bolder m-0">{{title}}</h3>
                 </div>
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">User</label>
+                    <label class="col-lg-4 fw-bold text-muted">Staff</label>
                     <div class="col-lg-8">
-                        {% if instance.user.first_name %}
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
-                        {% else %}
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
-                        {% endif %}
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.executive.name}}</span>
                     </div>
                 </div>
                 <div class="row mb-7">
                     <label class="col-lg-4 fw-bold text-muted">Employe ID</label>
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.executive.employe_id}}</span>
                     </div>
                 </div>
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Total amount</label>
+                    <label class="col-lg-4 fw-bold text-muted">Shop</label>
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.total_amount}}</span>
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.shop.name}}</span>
                     </div>
                 </div>
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Approved</label>
+                    <label class="col-lg-4 fw-bold text-muted">Visit date</label>
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.visit_date}}</span>
                     </div>
                 </div>
                 <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Rejected</label>
+                    <label class="col-lg-4 fw-bold text-muted">Available time</label>
                     <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.available_time}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Time taken</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.time_taken}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Check In time</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.check_in}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Check Out time</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.check_out}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Is Completed</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_completed}}</span>
                     </div>
                 </div>
             </div>
@@ -61,7 +81,7 @@
                         <span class="card-icon">
                             <i class="flaticon2-heart-rate-monitor text-primary"></i>
                         </span>
-                        <h3 class="card-label">Sale Items</h3>
+                        <h3 class="card-label">Tasks</h3>
                     </div>
                 </div>
                 <div class="card-body">
@@ -69,21 +89,16 @@
                         <thead>
                             <tr>
                                 <th class="min-w-125px">#</th>
-                                <th class="min-w-125px">Product</th>
-                                <th class="min-w-125px">Price</th>
-                                <th class="min-w-125px">Quantity</th>
-                                <th class="min-w-125px">Total Price</th>
+                                <th class="min-w-125px">Title</th>
+                                <th class="min-w-125px">Note</th>
                             </tr>
                         </thead>
                         <tbody class="fw-bold text-gray-600">
-                            {% for i in sale_items %}
+                            {% for i in DAR_data %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td>{{i.product}}</td>
-                                <td>{{i.product.list_price}}</td>
-                                <td>{{i.qty}}</td>
-                                <td>{{i.total_items_amount}}</td>
-                                
+                                <td>{{i.title}}</td>
+                                <td>{{i.note}}</td>
                             </tr>  
                             {%endfor%}                  
                         </tbody>

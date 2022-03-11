@@ -16,8 +16,7 @@
 
         <div class="card-header border-0 pt-6">
             <div class="d-flex justify-content-between align-items-center w-100" data-kt-customer-table-toolbar="base">
-                <h3 class="card-label m-0">Countries</h3>
-                <a href="{% url 'core:new_country' %}" class="btn btn-primary">Add New</a>
+                <h3 class="card-label m-0">Pending Requests</h3>
             </div>
         </div>
 
@@ -26,9 +25,10 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                     <thead>
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="min-w-125px">Name</th>
-                            <th class="min-w-125px">Creator</th>
-                            <th class="min-w-125px">Created at</th>
+                            <th class="min-w-125px">Executive</th>
+                            <th class="min-w-125px">Shop</th>
+                            <th class="min-w-125px">Scheduled date</th>
+                            <th class="min-w-125px">Reschedule date</th>
                             <th class="text-end min-w-70px">Actions</th>
                         </tr>
                     </thead>
@@ -37,12 +37,17 @@
                         {% for object in object_list %}
                         <tr>
                             <td>
-                                <a href="{{object.get_absolute_url}}" class="text-gray-800 text-hover-primary mb-1">{{object.name}}</a>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.executive}}</a>
                             </td>
                             <td>
-                                <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.creator}}</a>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.shop}}</a>
                             </td>
-                            <td>{{object.created}}</td>
+                            <td>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.dar.visit_date}}</a>
+                            </td>
+                            <td>
+                                <a href="#" class="text-gray-800 text-hover-primary mb-1">{{object.reschedule_date}}</a>
+                            </td>
 
                             <td class="text-end">
                                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -55,14 +60,12 @@
                                     </span>
                                 </a>
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                   
                                     <div class="menu-item px-3">
-                                        <a href="{{object.get_absolute_url}}" class="menu-link px-3">View</a>
+                                        <a href="{% url 'reports:accept_reschedule' pk=object.pk %}" class="menu-link px-3 bg-success text-white mb-2 tt-update-btn">Accept</a>
                                     </div>
                                     <div class="menu-item px-3">
-                                        <a href="{{object.get_update_url}}" class="menu-link px-3">Update</a>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="{{object.get_delete_url}}" class="menu-link px-3">Delete</a>
+                                        <a href="{% url 'reports:reject_reschedule' pk=object.pk %}" class="menu-link px-3 bg-danger text-white tt-update-btn">Reject</a>
                                     </div>
                                 </div>
                             </td>
