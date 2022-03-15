@@ -14,12 +14,13 @@ class DARTask(BaseModel):
     check_in = models.DateTimeField(blank=True, null=True)
     check_out = models.DateTimeField(blank=True, null=True)
     available_time = models.PositiveIntegerField(default=1)
-    is_completed = models.BooleanField(default=False)
     time_taken = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.executive.name} - {self.shop.name}"
 
+    def get_dar_notes(self):
+        return DARNotes.objects.filter(dar=self)
 
 class DARNotes(BaseModel):
     dar = models.ForeignKey(
@@ -29,9 +30,10 @@ class DARNotes(BaseModel):
     )
     title = models.CharField(max_length=221)
     note = models.CharField(max_length=221, blank=True, null=True)
-
+    is_completed = models.BooleanField(default=False)
+    
     def __str__(self):
-        return self.dar.executive.name
+        return str(self.dar.executive.name)
 
 
 class DARReschedule(BaseModel):

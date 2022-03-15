@@ -146,8 +146,7 @@ def DAR_single(request, pk):
 def DAR_list(request):
     query_set = DARTask.objects.filter(
         is_deleted=False, 
-        executive__region=request.user.region,
-        is_completed=False
+        executive__region=request.user.region
     ).order_by("-created")
     context = {"title": "DAR List", "instances": query_set}
     return render(request, "reports/DAR/list.html", context)
@@ -210,9 +209,10 @@ def DMRList(request):
     """Returns that belong to the current user region"""
     query_set = DARTask.objects.filter(
         is_deleted=False, 
-        executive__region=request.user.region,
-        is_completed=True
-    ).order_by("-created")
+        executive__region=request.user.region
+    )
+
     context = {"title": "DMR List", "instances": query_set}
     return render(request, "reports/DMR/list.html", context)
+
 
