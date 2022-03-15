@@ -6,6 +6,7 @@ from django.forms.widgets import TextInput
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+import datetime
 from django.views.generic import DetailView, ListView, TemplateView
 
 from core.functions import generate_form_errors, get_response_data
@@ -201,3 +202,17 @@ def reject_reschedule(request, pk):
     return HttpResponse(
         json.dumps(response_data), content_type="application/javascript"
     )
+
+
+
+@login_required
+def DMRList(request):
+    """Returns that belong to the current user region"""
+    query_set = DARTask.objects.filter(
+        is_deleted=False, 
+        executive__region=request.user.region,
+        is_completed=True
+    ).order_by("-created")
+    context = {"title": "DMR List", "instances": query_set}
+    return render(request, "reports/DMR/list.html", context)
+
