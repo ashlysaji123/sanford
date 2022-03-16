@@ -224,18 +224,14 @@ class StateDelete(DeleteView):
 
 @login_required
 def my_profile(request):
-    if request.user.salesmanager:
+    if request.user.is_sales_manager:
         instance = SalesManager.objects.get(user=request.user)
         context = {"title": "Sales manager :- " + instance.name, "instance": instance}
         return render(request, "manager/single.html", context)
-    elif request.user.salescoordinator:
+    elif request.user.is_sales_coordinator:
         instance = SalesCoordinator.objects.get(user=request.user)
         context = {
             "title": "Sales Coordinator :- " + instance.name,
             "instance": instance,
         }
         return render(request, "coordinator/single.html", context)
-    elif request.user.salesexecutive:
-        instance = SalesExecutive.objects.get(user=request.user)
-        context = {"title": "Sales Executive :- " + instance.name, "instance": instance}
-        return render(request, "executive/single.html", context)

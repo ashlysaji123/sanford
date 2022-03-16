@@ -207,9 +207,13 @@ def reject_reschedule(request, pk):
 @login_required
 def DMRList(request):
     """Returns that belong to the current user region"""
+    today = datetime.datetime.now().date()
+    query = request.GET.get("q")
+
     query_set = DARTask.objects.filter(
         is_deleted=False, 
-        executive__region=request.user.region
+        executive__region=request.user.region,
+        visit_date=today, 
     )
 
     context = {"title": "DMR List", "instances": query_set}

@@ -61,8 +61,18 @@ def app(request):
         ).count()
     elif current_role == "salescoordinator":
         is_sales_coordinator = True
-    elif current_role == "salesexecutive":
-        is_sales_executive = True
+        executive_count = SalesExecutive.objects.filter(
+            is_deleted=False, region=request.user.region
+        ).count()
+        merchandiser_count = Merchandiser.objects.filter(
+            is_deleted=False, state__country__region=request.user.region
+        ).count()
+        pending_leave_request = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            user__region=request.user.region,
+        ).count()
 
     context = {
         "domain": request.build_absolute_uri("/")[:-1],
@@ -94,6 +104,14 @@ def app(request):
                 "merchandiser_count": merchandiser_count,
                 "executive_count": executive_count,
                 "coordinator_count": coordinator_count,
+                "pending_leave_request": pending_leave_request,
+            }
+        )
+    elif current_role == "salescoordinator":
+        context.update(
+            {
+                "merchandiser_count": merchandiser_count,
+                "executive_count": executive_count,
                 "pending_leave_request": pending_leave_request,
             }
         )

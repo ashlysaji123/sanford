@@ -13,10 +13,9 @@
 
 <!--begin::Container-->
 <div class="container-xxl" id="kt_content_container">
-    <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-
+    <div class="row">
         {% for instance in instances %}
-        <div class="row">
+        <div class="card mb-5 mb-xl-10">
             <div class="card-body">
                 <!--begin::Row-->
                 <div class="row mb-7">
@@ -72,12 +71,6 @@
                             <span class="fw-bolder fs-6 text-gray-800">{{instance.check_out}}</span>
                         </div>
                     </div>
-                    <div class="col col-lg-4">
-                        <label class="col-lg-4 fw-bold text-muted">Is Completed</label>
-                        <div class="col-lg-8">
-                            <span class="fw-bolder fs-6 text-gray-800">{{instance.is_completed}}</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!--end::Card body-->
@@ -95,6 +88,7 @@
                                     <th class="min-w-125px">#</th>
                                     <th class="min-w-125px">Title</th>
                                     <th class="min-w-125px">Note</th>
+                                    <th class="min-w-125px">Is Completed</th>
                                 </tr>
                             </thead>
                             <tbody class="fw-bold text-gray-600">
@@ -103,6 +97,7 @@
                                     <td>{{forloop.counter}}</td>
                                     <td>{{i.title}}</td>
                                     <td>{{i.note}}</td>
+                                    <td>{{i.is_completed}}</td>
                                 </tr>  
                                 {%endfor%}                  
                             </tbody>
@@ -111,10 +106,9 @@
                 </div>
             </div>
         </div>
+        <!--end::details View-->
         {%endfor%}
-
     </div>
-    <!--end::details View-->
 </div>
 <!--end::Container-->
 
