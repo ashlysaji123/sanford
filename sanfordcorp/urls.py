@@ -60,7 +60,10 @@ urlpatterns = (
         path("rewards/", include("rewards.urls", namespace="rewards")),
         path("expenses/", include("expenses.urls", namespace="expenses")),
         path("reports/", include("reports.urls", namespace="reports")),
+        path("votings/", include("votings.urls", namespace="votings")),
         path("tinymce/", include("tinymce.urls")),
+
+
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

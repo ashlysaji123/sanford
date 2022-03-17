@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!--begin::Container-->
+    <div class="container-xxl" id="kt_content_container">
+        <div class="row">
+            <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                <div class="card-header cursor-pointer">
+                    <div class="card-title m-0">
+                        <h3 class="fw-bolder m-0">{{title}}</h3>
+                    </div>
+                </div>
+                <div class="card-body p-9">
+                    <!--begin::Row-->
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Product</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.product}}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Startdate</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.voting_startdate}}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Enddate</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.voting_enddate}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+        </div>
+        <!--end::details View-->
+        <div class="row mb-5 mb-xl-8 g-5 g-xl-8">
+            <div class="col-4">
+                <div class="card card-stretch">
+                    <div class=" bg-body flex-column justfiy-content-center align-items-center text-center w-100 p-10">
+                        <span class="fs-4 fw-bolder mr-2">BAD</span>
+                        <span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+                            <span class="badge badge-light-primary fs-small">{{bad_count}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card card-stretch">
+                    <div class=" bg-body flex-column justfiy-content-center align-items-center text-center w-100 p-10">
+
+                        <span class="fs-4 fw-bolder mr-2">GOOD</span>
+                        <span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+                            <span class="badge badge-light-primary fs-small">{{good_count}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card card-stretch">
+                    <div class=" bg-body flex-column justfiy-content-center align-items-center text-center w-100 p-10">
+                        <span class="fs-4 fw-bolder mr-2">PERFECT</span>
+                        <span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+                            <span class="badge badge-light-primary fs-small">{{perfect_count}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-custom">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-icon">
+                                <i class="flaticon2-heart-rate-monitor text-primary"></i>
+                            </span>
+                            <h3 class="card-label">Votings</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-checkable table-striped table-rounded" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th class="min-w-125px">#</th>
+                                    <th class="min-w-125px">Employee ID</th>
+                                    <th class="min-w-125px">Product</th>
+                                    <th class="min-w-125px">Voting</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-bold text-gray-600">
+                                {% for i in voting %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{i.user.employe_id}}</td>
+                                    <td>{{i.voting_item.product.name}}</td>
+                                    <td>{{i.voting}}</td>
+                                    
+                                </tr>  
+                                {%endfor%}                  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
