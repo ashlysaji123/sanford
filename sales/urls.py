@@ -34,4 +34,7 @@ urlpatterns = [
     #Sale returns
     path("sales/return/list", login_required(views.SaleReturnList.as_view()), name="sales_return_list"),
     path("sale/return/single/<str:pk>/", login_required(views.SaleReturnDetail.as_view()), name="single_sales_return"),
+
+
+    path("sales-report", views.sales_reports, name="sales_reports"),
 ]

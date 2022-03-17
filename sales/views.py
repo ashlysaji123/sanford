@@ -292,8 +292,39 @@ def reject_sales(request, pk):
 
 """ sales return"""
 class SaleReturnList(ListView):
-    queryset = SaleReturn.objects.filter(is_deleted=False)
     template_name = 'sales/sale/SaleReturn_list.html'
+    model = SaleReturn
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Sale returns"
+        return context
+
+    def get_queryset(self):
+        today = datetime.datetime.now().date()
+        current_month = today.month
+        current_year = today.year
+        query = self.kwargs.get('q')
+        user = self.request.user
+        # query_set = self.model.objects.filter(category=self.kwargs.get('category'))
+
+        if query is None or query == "T":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=today)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=today)
+        elif query == "M":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=current_month)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=current_month)
+        elif query == "Y":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=current_year)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=current_year)
+
+        return query_set
 
 class SaleReturnDetail(DetailView):
     model = SaleReturn
@@ -303,3 +334,7 @@ class SaleReturnDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["return_items"] = SaleReturnItems.objects.filter(sale=self.get_object())
         return context
+
+
+def sales_reports(request):
+    pass
