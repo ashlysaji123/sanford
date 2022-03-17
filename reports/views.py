@@ -144,12 +144,24 @@ def DAR_single(request, pk):
 
 @login_required
 def DAR_list(request):
-    query_set = DARTask.objects.filter(
-        is_deleted=False, 
-        executive__region=request.user.region
-    ).order_by("-created")
-    context = {"title": "DAR List", "instances": query_set}
-    return render(request, "reports/DAR/list.html", context)
+    if request.method == "GET":
+        today = datetime.datetime.now().date()
+        query_set = DARTask.objects.filter(
+            is_deleted=False, 
+            executive__region=request.user.region,
+            visit_date=today
+        )
+        context = {"title": "DAR List", "instances": query_set}
+        return render(request, "reports/DAR/list.html", context)
+    else:
+        date = request.POST.get('date')
+        query_set = DARTask.objects.filter(
+            is_deleted=False, 
+            executive__region=request.user.region,
+            visit_date=date
+        )
+        context = {"title": "DAR List", "instances": query_set}
+        return render(request, "reports/DAR/list.html", context)
 
 """DAR"""
 

@@ -44,7 +44,7 @@ class Sales(BaseModel):
         validators=[MinValueValidator(Decimal("0.00"))],
     )
     photo = VersatileImageField(
-        "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
+        "Photo of bill", blank=True, null=True, upload_to="sales/bill/photo/"
     )
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
@@ -78,3 +78,9 @@ class SaleItems(BaseModel):
             return self.sale.user.first_name
         else:
             return self.sale.user.username
+
+
+class SaleReturn(BaseModel):
+    pass
+
+

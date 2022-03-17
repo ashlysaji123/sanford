@@ -90,8 +90,8 @@ class MerchandiserTargetForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not user.is_superuser:
-            self.fields["user"].queryset = User.objects.filter(
-                region=user.region, is_merchandiser=True
+            self.fields["user"].queryset = Merchandiser.objects.filter(
+                state__country__region=user.region
             )
 
 
@@ -109,6 +109,6 @@ class MerchandiserTaskForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not user.is_superuser:
-            self.fields["user"].queryset = User.objects.filter(
-                region=user.region, is_merchandiser=True
+            self.fields["user"].queryset = Merchandiser.objects.filter(
+                state__country__region=user.region
             )

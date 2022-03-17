@@ -3,7 +3,7 @@ import uuid
 from django.db import models
 from django.urls import reverse
 from location_field.models.plain import PlainLocationField
-
+from django.core.validators import MinValueValidator
 
 class BaseModel(models.Model):
     BOOL_CHOICES = ((True, "Yes"), (False, "No"))
@@ -200,3 +200,4 @@ class Shop(BaseModel):
     @property
     def country_name(self):
         return self.country.name
+

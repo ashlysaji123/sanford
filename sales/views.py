@@ -11,6 +11,9 @@ from core.functions import generate_form_errors, get_response_data
 from .forms import OpeningStockForm
 from .models import OpeningStock, SaleItems, Sales
 
+from merchandiser.models import MerchandiserTarget
+from executives.models import SalesExecutiveTarget
+from coordinators.models import SalesCoordinatorTarget,SalesManagerTarget
 # Create your views here.
 
 
@@ -166,10 +169,26 @@ def total_sales(request):
 def sales_single(request, pk):
     instance = get_object_or_404(Sales, pk=pk)
     sale_items = SaleItems.objects.filter(sale=instance).distinct("product")
+    user = instance.user
+    target_data = []
+
+    current_year =  datetime.date.today().year
+    current_month =  datetime.date.today().month
+
+    if user.is_merchandiser:
+        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month)
+    elif user.is_sales_executive:
+        target_data = SalesExecutiveTarget.objectsfilter(year=current_year,month=current_month)
+    elif user.is_sales_coordinator:
+        target_data = SalesCoordinatorTarget.objectsfilter(year=current_year,month=current_month)
+    elif user.is_sales_manager:
+        target_data = SalesManagerTarget.objectsfilter(year=current_year,month=current_month)
+
     context = {
         "title": "Sale single page ",
         "instance": instance,
         "sale_items": sale_items,
+        "target_data":target_data,
     }
     return render(request, "sales/sale/single.html", context)
 
@@ -212,7 +231,41 @@ def sales_single_pending(request, pk):
 
 @login_required
 def accept_sales(request, pk):
-    Sales.objects.filter(pk=pk).update(is_rejected=False, is_approved=True)
+    current_year =  datetime.date.today().year
+    current_month =  datetime.date.today().month
+
+    sale = Sales.objects.get(pk=pk)
+    sale.is_rejected=False
+    sale.is_approved=True
+    user = sale.user
+
+    if user.is_merchandiser:
+        target_data = MerchandiserTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+        target_data.current_amount += sale.total_amount
+        if target_data.current_amount >= target_data.target_amount:
+            target_data.is_completed=True
+        target_data.save()
+    elif user.is_sales_executive:
+        target_data = SalesExecutiveTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+        target_data.current_amount += sale.total_amount
+        if target_data.current_amount >= target_data.target_amount:
+            target_data.is_completed=True
+        target_data.save()
+    elif user.is_sales_coordinator:
+        target_data = SalesCoordinatorTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+        target_data.current_amount += sale.total_amount
+        if target_data.current_amount >= target_data.target_amount:
+            target_data.is_completed=True
+        target_data.save()
+    elif user.is_sales_manager:
+        target_data = SalesManagerTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+        target_data.current_amount += sale.total_amount
+        if target_data.current_amount >= target_data.target_amount:
+            target_data.is_completed=True
+        target_data.save()
+
+    sale.save()
+
     response_data = get_response_data(
         1, redirect_url=reverse("sales:pending_sales_requests"), message="Approved"
     )

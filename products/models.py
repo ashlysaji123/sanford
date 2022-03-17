@@ -123,3 +123,37 @@ class ProductWishList(models.Model):
 
     def __str__(self):
         return self.product.name
+
+
+
+
+class ProductSpecialPrice(BaseModel):
+    product = models.ForeignKey(
+        Product,
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.PROTECT,
+    )
+    shop = models.ForeignKey(
+        'core.Shop',
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.PROTECT,
+    )
+    special_price = models.DecimalField(
+        default=0.0,
+        decimal_places=2,
+        max_digits=15,
+        validators=[MinValueValidator(Decimal("0.00"))],
+    )
+
+    def get_absolute_url(self):
+        return reverse("products:view_special_price", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("products:update_special_price", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("products:delete_special_price", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return str(self.shope.name)
+
