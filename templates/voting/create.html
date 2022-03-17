@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+	<div class="col-lg-12">
+		<div class="card card-custom">
+			<div class="card-header">
+				<h3 class="card-title">
+					{{title}}
+				</h3>
+			</div>
+
+			<form class="form ajax redirect" method="POST" action="{{url}}">
+				{%csrf_token%}
+				<div class="card-body">
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.product.label}}
+								{% if form.product.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.product.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.product.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.product}}
+							{% if form.product.errors %}
+							<label class="error">{{ form.product.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+                    <div class="row mb-2">
+						<div class="form-group col-lg-6">
+							<label>{{form.voting_startdate.label}}
+								{% if form.voting_startdate.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.voting_startdate.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.voting_startdate.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.voting_startdate}}
+							{% if form.voting_startdate.errors %}
+							<label class="error">{{ form.voting_startdate.errors.as_text }}</label>
+							{% endif %}
+						</div>
+                        <div class="form-group col-lg-6">
+							<label>{{form.voting_enddate.label}}
+								{% if form.voting_enddate.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.voting_enddate.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.voting_enddate.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.voting_enddate}}
+							{% if form.voting_enddate.errors %}
+							<label class="error">{{ form.voting_enddate.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+{{form.media}}
+{% endblock %}
