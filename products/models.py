@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+from django.urls import reverse
 from django.core.validators import MinValueValidator
 from django.db import models
 from tinymce.models import HTMLField
@@ -155,5 +155,5 @@ class ProductSpecialPrice(BaseModel):
         return reverse("products:delete_special_price", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return str(self.shope.name)
+        return str(self.shop.name)
 

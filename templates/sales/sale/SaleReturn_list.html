@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block vendor_css %}
+<link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+{% endblock vendor_css %}
+{% block vendor_js %}
+<script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+    <div class="card">
+        <div class="card-body pt-0">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+                    <thead>
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px">Employee Name</th>
+                            <th class="min-w-125px">Employee ID</th>
+                            <th class="min-w-125px">Total Amount</th>
+                            <th class="min-w-125px">Created at </th>
+                            <th class="text-end min-w-70px">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="fw-bold text-gray-600">
+                        {% for object in object_list %}
+                        <tr>
+                            <td>{{object.user.first_name}}</td>
+                            <td>{{object.user.employe_id}}</td>
+                            <td>{{object.total_amount}}</td>
+                            <td>{{object.created}}</td>
+
+                            <td class="text-end">
+                                <a href="{{object.get_absolute_url}}" class="btn btn-sm btn-light btn-active-light-primary" >Single page
+                                    
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

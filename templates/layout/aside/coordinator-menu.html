@@ -349,6 +349,31 @@
 						</div>
 					</div>
 				</div>
+				<!--sales return-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales Return</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Sales return data</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'sales:sales_return_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title"> list</span>
+							</a>
+						</div>
+					</div>
+				</div>
 				<!-- expenses -->
 				<div class="menu-item">
 					<div class="menu-content">
@@ -586,6 +611,33 @@
 						</div>
 						<div class="menu-item">
 							<a class="menu-link" href="{% url 'products:product_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Product Special Price</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:add_special_price' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'products:special_price_list'%}">
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
