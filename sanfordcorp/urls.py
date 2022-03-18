@@ -33,6 +33,14 @@ urlpatterns = (
             include("api.v1.merchandiser.urls", namespace="api_v1_merchandiser"),
         ),
         path(
+            "api/v1/executives/",
+            include("api.v1.executives.urls", namespace="api_v1_executives"),
+        ),
+        path(
+            "api/v1/coordinators/",
+            include("api.v1.coordinators.urls", namespace="api_v1_coordinators"),
+        ),
+        path(
             "api/v1/notifications/",
             include("api.v1.notifications.urls", namespace="api_v1_notifications"),
         ),
