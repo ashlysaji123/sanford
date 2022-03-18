@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from coordinators.models import SalesCoordinator, SalesManager
 from core.pagination import StandardResultsSetPagination
 
+from . import views
 from .serializers import SalesCoordinatorSerializer, SalesManagerSerializer
 
 app_name = "coordinators"
@@ -44,4 +45,11 @@ urlpatterns = [
             permission_classes=[IsAuthenticated],
         ),
     ),
+
+    path("salescoordinator/target/", views.salescoordinator_target),
+    path("salescoordinator/task/", views.salescoordinator_task),
+    path("salescoordinator/completed/task/", views.salescoordinator_completed_task),
+    path("salescoordinator/mark/task/<str:pk>/", views.salescoordinator_mark_task),
+    path("salescoordinator/profile/", views.salescoordinator_profile),
 ]
+
