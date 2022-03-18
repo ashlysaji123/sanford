@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 
 from . import views
 
@@ -70,9 +71,9 @@ urlpatterns = [
     path("delete-product/<str:pk>/", views.delete_product, name="delete_product"),
 
     #Product special price3
-    # path("specialprice/list/", login_required(views.CountryList.as_view()), name="country_list"),
-    # path("new/country/", login_required(views.CountryForm.as_view()), name="new_country"),
-    # path("view/country/<str:pk>/", login_required(views.CountryDetail.as_view()), name="view_country",),
-    # path("update/country/<str:pk>/", login_required(views.CountryUpdate.as_view()), name="update_country",),
-    # path("delete/country/<str:pk>/", login_required(views.CountryDelete.as_view()), name="delete_country",),
+    path("specialprice/list/", login_required(views.ProductSpecialPriceList.as_view()), name="special_price_list"),
+    path("create/specialprice/", login_required(views.ProductSpecialPriceForm.as_view()), name="add_special_price"),
+    path("view/specialprice/<str:pk>/", login_required(views.ProductSpecialPriceDetail.as_view()), name="view_special_price",),
+    path("update/specialprice/<str:pk>/", login_required(views.ProductSpecialPriceUpdate.as_view()), name="update_special_price",),
+    path("delete/specialprice/<str:pk>/", login_required(views.ProductSpecialPriceDelete.as_view()), name="delete_special_price",),
 ]

@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 
 from . import views
 
@@ -30,4 +31,10 @@ urlpatterns = [
     ),
     path("accept-sale/<str:pk>/", views.accept_sales, name="accept_sales"),
     path("reject-sale/<str:pk>/", views.reject_sales, name="reject_sales"),
+    #Sale returns
+    path("sales/return/list", login_required(views.SaleReturnList.as_view()), name="sales_return_list"),
+    path("sale/return/single/<str:pk>/", login_required(views.SaleReturnDetail.as_view()), name="single_sales_return"),
+
+
+    path("sales-report", views.sales_reports, name="sales_reports"),
 ]

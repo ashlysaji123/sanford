@@ -5,15 +5,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views.generic import DetailView, ListView, TemplateView
 
 from core.functions import generate_form_errors, get_response_data
-
 from .forms import OpeningStockForm
-from .models import OpeningStock, SaleItems, Sales
-
-from merchandiser.models import MerchandiserTarget
-from executives.models import SalesExecutiveTarget
-from coordinators.models import SalesCoordinatorTarget,SalesManagerTarget
+from .models import OpeningStock, SaleItems, Sales,SaleReturn,SaleReturnItems
+from merchandiser.models import MerchandiserTarget,Merchandiser
+from executives.models import SalesExecutiveTarget,SalesExecutive
+from coordinators.models import SalesCoordinatorTarget,SalesManagerTarget,SalesManager,SalesCoordinator
 # Create your views here.
 
 
@@ -112,8 +111,6 @@ def delete_opening_stock(request, pk):
 """Opening stock"""
 
 """ sales data """
-
-
 @login_required
 def total_sales(request):
     today = datetime.datetime.now().date()
@@ -172,30 +169,38 @@ def sales_single(request, pk):
     user = instance.user
     target_data = []
 
-    current_year =  datetime.date.today().year
-    current_month =  datetime.date.today().month
+    current_year =  instance.created.year
+    current_month =  instance.created.month
+
+    sales_return = SaleReturn.objects.filter(user=user,created__year=current_year,created__month=current_month)
+    sales_return_amount = 0
+    for i in sales_return:
+        sales_return_amount += i.total_amount
 
     if user.is_merchandiser:
-        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month)
+        merchant = Merchandiser.objects.get(user=user)
+        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month,user=merchant)
     elif user.is_sales_executive:
-        target_data = SalesExecutiveTarget.objectsfilter(year=current_year,month=current_month)
+        executive = SalesExecutive.objects.get(user=user)
+        target_data = SalesExecutiveTarget.objects.filter(year=current_year,month=current_month,user=executive)
     elif user.is_sales_coordinator:
-        target_data = SalesCoordinatorTarget.objectsfilter(year=current_year,month=current_month)
+        coordinator = SalesCoordinator.objects.get(user=user)
+        target_data = SalesCoordinatorTarget.objects.filter(year=current_year,month=current_month,user=coordinator)
     elif user.is_sales_manager:
-        target_data = SalesManagerTarget.objectsfilter(year=current_year,month=current_month)
+        manager = SalesManager.objects.get(user=user)
+        target_data = SalesManagerTarget.objects.filter(year=current_year,month=current_month,user=manager)
 
     context = {
         "title": "Sale single page ",
         "instance": instance,
         "sale_items": sale_items,
         "target_data":target_data,
+        "sales_return_amount":sales_return_amount,
     }
     return render(request, "sales/sale/single.html", context)
 
 
 """ sales data """
-
-
 @login_required
 def pending_sales_requests(request):
     if request.user.is_superuser:
@@ -231,13 +236,13 @@ def sales_single_pending(request, pk):
 
 @login_required
 def accept_sales(request, pk):
-    current_year =  datetime.date.today().year
-    current_month =  datetime.date.today().month
-
     sale = Sales.objects.get(pk=pk)
     sale.is_rejected=False
     sale.is_approved=True
     user = sale.user
+
+    current_year =  sale.created.year
+    current_month =  sale.created.month
 
     if user.is_merchandiser:
         target_data = MerchandiserTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
@@ -283,3 +288,53 @@ def reject_sales(request, pk):
     return HttpResponse(
         json.dumps(response_data), content_type="application/javascript"
     )
+
+
+""" sales return"""
+class SaleReturnList(ListView):
+    template_name = 'sales/sale/SaleReturn_list.html'
+    model = SaleReturn
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Sale returns"
+        return context
+
+    def get_queryset(self):
+        today = datetime.datetime.now().date()
+        current_month = today.month
+        current_year = today.year
+        query = self.kwargs.get('q')
+        user = self.request.user
+        # query_set = self.model.objects.filter(category=self.kwargs.get('category'))
+
+        if query is None or query == "T":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=today)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=today)
+        elif query == "M":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=current_month)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=current_month)
+        elif query == "Y":
+            if self.request.user.is_superuser:
+                query_set = self.model.objects.filter(is_deleted=False,created__date=current_year)
+            else:
+                query_set = self.model.objects.filter(is_deleted=False,user__region=user.region,created__date=current_year)
+
+        return query_set
+
+class SaleReturnDetail(DetailView):
+    model = SaleReturn
+    template_name = 'sales/sale/SaleReturn_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["return_items"] = SaleReturnItems.objects.filter(sale=self.get_object())
+        return context
+
+
+def sales_reports(request):
+    pass

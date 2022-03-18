@@ -3,12 +3,15 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
 from core.functions import generate_form_errors, get_response_data
 
 from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm
-from .models import Category, Product, ProductGroup, SubCategory
+from .models import Category, Product, ProductGroup, SubCategory,ProductSpecialPrice
+from core.models import Shop
 
 # Create your views here.
 
@@ -333,3 +336,44 @@ def delete_product(request, pk):
 
 
 """Product"""
+
+
+""" product special price"""
+class ProductSpecialPriceList(ListView):
+    queryset = ProductSpecialPrice.objects.filter(is_deleted=False)
+    template_name = 'product/specialprice/productspecialprice_list.html'
+
+class ProductSpecialPriceDetail(DetailView):
+    model = ProductSpecialPrice
+    template_name = 'product/specialprice/productspecialprice_detail.html'
+
+class ProductSpecialPriceForm(CreateView):
+    model = ProductSpecialPrice
+    fields = ["product","shop","special_price"]
+    template_name = 'product/specialprice/productspecialprice_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Add Special Price for shop"
+        qs = Shop.objects.filter(state__country__region=self.request.user.region)
+        form = context['form']
+        form_shop = form.fields['shop']
+        form_shop.queryset = qs
+        return context
+
+
+class ProductSpecialPriceUpdate(UpdateView):
+    model = ProductSpecialPrice
+    fields = ["product","shop","special_price"]
+    template_name = 'product/specialprice/productspecialprice_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Special Price -"
+        return context
+
+
+class ProductSpecialPriceDelete(DeleteView):
+    model = ProductSpecialPrice
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("products:special_price_list")

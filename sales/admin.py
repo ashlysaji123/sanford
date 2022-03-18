@@ -1,9 +1,11 @@
 from django.contrib import admin
 
-from .models import OpeningStock, SaleItems, Sales
+from .models import OpeningStock, SaleItems, Sales,SaleReturn,SaleReturnItems
 
 admin.site.register(Sales)
 admin.site.register(SaleItems)
+admin.site.register(SaleReturn)
+admin.site.register(SaleReturnItems)
 
 # @admin.register(Target)
 # class TargetAdmin(ImportExportActionModelAdmin):
