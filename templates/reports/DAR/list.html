@@ -3,10 +3,57 @@
 
 {% block vendor_css %}
 <link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+<style>
+    .dt-buttons{
+        width: 100%;
+    }
+    .dataTables_filter {
+        width: 100%;   
+    }
+</style>
 {% endblock vendor_css %}
 {% block vendor_js %}
 <script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
 <script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
+<!-- script for datatable buttons and filters in datatable -->
+<script>
+    $(document).ready(function () {
+      var printCounter = 0;
+
+      // Append a caption to the table before the DataTables initialisation
+
+      $("#datatable").DataTable({
+        dom: "Bfrtip",
+        buttons: [
+          "copy",
+          {
+            extend: "excel",
+            messageTop:
+              "The information in this table is copyright to Sirius Cybernetics Corp.",
+          },
+          {
+            extend: "pdf",
+            messageBottom: null,
+          },
+          {
+            extend: "print",
+            messageTop: function () {
+              printCounter++;
+
+              if (printCounter === 1) {
+                return "This is the first time you have printed this document.";
+              } else {
+                return (
+                  "You have printed this document " + printCounter + " times"
+                );
+              }
+            },
+            messageBottom: null,
+          },
+        ],
+      });
+    });
+</script>
 {% endblock vendor_js %}
 
 {% block content %}
@@ -52,7 +99,6 @@
                     <table class="table table-hover table-checkable table-striped table-rounded" id="datatable">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">#</th>
                                 <th class="min-w-125px">Staff</th>
                                 <th class="min-w-125px">Employe ID</th>
                                 <th class="min-w-125px">Shop</th>
@@ -63,7 +109,6 @@
                         <tbody class="fw-bold text-gray-600">
                             {% for i in instances %}
                             <tr>
-                                <td>{{forloop.counter}}</td>
                                 <td>{{i.executive.name}}</td>
                                 <td>{{i.executive.employe_id}}</td>
                                 <td>{{i.shop.name}}</td>
