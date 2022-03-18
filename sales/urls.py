@@ -36,5 +36,6 @@ urlpatterns = [
     path("sale/return/single/<str:pk>/", login_required(views.SaleReturnDetail.as_view()), name="single_sales_return"),
 
 
-    path("sales-report", views.sales_reports, name="sales_reports"),
+    path("select_satff", views.select_satff_for_reports, name="select_satff_for_reports"),
+    path("sales-report", views.sales_report, name="sales_report"),
 ]

@@ -219,16 +219,23 @@ def reject_reschedule(request, pk):
 @login_required
 def DMRList(request):
     """Returns that belong to the current user region"""
-    today = datetime.datetime.now().date()
-    query = request.GET.get("q")
-
-    query_set = DARTask.objects.filter(
-        is_deleted=False, 
-        executive__region=request.user.region,
-        visit_date=today, 
-    )
-
-    context = {"title": "DMR List", "instances": query_set}
+    if request.method == "GET":
+        today = datetime.datetime.now().date()
+        query_set = DARTask.objects.filter(
+            is_deleted=False, 
+            executive__region=request.user.region,
+            visit_date=today
+        )
+        context = {"title": "DMR List", "instances": query_set}
+    else:
+        date = request.POST.get('date')
+        query_set = DARTask.objects.filter(
+            is_deleted=False, 
+            executive__region=request.user.region,
+            visit_date=date
+        )
+        context = {"title": "DMR List", "instances": query_set}
     return render(request, "reports/DMR/list.html", context)
+
 
 
