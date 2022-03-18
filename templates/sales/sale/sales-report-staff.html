@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+{% block content %} 
+<div class="container-xxl" id="kt_content_container">
+    <div class="card card-custom">
+        <div class="card-header">
+            <div class="card-title">
+                <div class="col-md-12">
+                    <h3 class="breadcrumb-item active">{{title}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row ml-4 mt-3 ">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form enctype="multipart/form-data" class="form" method="post"
+                            action="{{url}}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row ">
+                                    {{form|crispy}}
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-4">Fetch data</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

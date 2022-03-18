@@ -2,17 +2,19 @@ import datetime
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
 
 from core.functions import generate_form_errors, get_response_data
-from .forms import OpeningStockForm
+from .forms import OpeningStockForm,SelectStaffForm
 from .models import OpeningStock, SaleItems, Sales,SaleReturn,SaleReturnItems
 from merchandiser.models import MerchandiserTarget,Merchandiser
 from executives.models import SalesExecutiveTarget,SalesExecutive
 from coordinators.models import SalesCoordinatorTarget,SalesManagerTarget,SalesManager,SalesCoordinator
+from accounts.models import User
+from sales.utils import reverse_querystring
 # Create your views here.
 
 
@@ -166,36 +168,11 @@ def total_sales(request):
 def sales_single(request, pk):
     instance = get_object_or_404(Sales, pk=pk)
     sale_items = SaleItems.objects.filter(sale=instance).distinct("product")
-    user = instance.user
-    target_data = []
-
-    current_year =  instance.created.year
-    current_month =  instance.created.month
-
-    sales_return = SaleReturn.objects.filter(user=user,created__year=current_year,created__month=current_month)
-    sales_return_amount = 0
-    for i in sales_return:
-        sales_return_amount += i.total_amount
-
-    if user.is_merchandiser:
-        merchant = Merchandiser.objects.get(user=user)
-        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month,user=merchant)
-    elif user.is_sales_executive:
-        executive = SalesExecutive.objects.get(user=user)
-        target_data = SalesExecutiveTarget.objects.filter(year=current_year,month=current_month,user=executive)
-    elif user.is_sales_coordinator:
-        coordinator = SalesCoordinator.objects.get(user=user)
-        target_data = SalesCoordinatorTarget.objects.filter(year=current_year,month=current_month,user=coordinator)
-    elif user.is_sales_manager:
-        manager = SalesManager.objects.get(user=user)
-        target_data = SalesManagerTarget.objects.filter(year=current_year,month=current_month,user=manager)
 
     context = {
         "title": "Sale single page ",
         "instance": instance,
         "sale_items": sale_items,
-        "target_data":target_data,
-        "sales_return_amount":sales_return_amount,
     }
     return render(request, "sales/sale/single.html", context)
 
@@ -336,5 +313,55 @@ class SaleReturnDetail(DetailView):
         return context
 
 
-def sales_reports(request):
-    pass
+@login_required
+def select_satff_for_reports(request):
+    user = request.user
+    if request.method == "POST":
+        user = request.POST.get('user')
+        if user:
+            url = reverse_querystring("sales:sales_report", {"user": user})
+            return HttpResponseRedirect(url)
+    else:
+        form = SelectStaffForm(user)
+        context = {
+            'title': "Select staff",
+            "form":form,
+        }
+        return render(request, "sales/sale/sales-report-staff.html", context)
+
+
+@login_required
+def sales_report(request):
+    user_id = request.GET.get("user")
+    user = User.objects.get(id=user_id)
+    current_year =  datetime.datetime.now().year
+    current_month =  datetime.datetime.now().month
+
+    sales_return = SaleReturn.objects.filter(user=user,created__year=current_year,created__month=current_month)
+    sales_return_amount = 0
+    for i in sales_return:
+        sales_return_amount += i.total_amount
+
+    sales_data = Sales.objects.filter(user=user,created__year=current_year,created__month=current_month,is_approved=True)
+    sales_amount = 0
+    for i in sales_data:
+        sales_amount += i.total_amount
+
+    target_data = []
+    if Merchandiser.objects.filter(user=user).exists():
+        print("merchant")
+        merchant = Merchandiser.objects.get(user=user)
+        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month,user=merchant)
+    elif SalesExecutive.objects.filter(user=user).exists():
+        print("executives")
+        executive = SalesExecutive.objects.get(user=user)
+        target_data = SalesExecutiveTarget.objects.filter(year=current_year,month=current_month,user=executive)
+
+    context = {
+        "title": "Sale Report ",
+        "user": user,
+        "target_data":target_data,
+        "sales_return_amount":sales_return_amount,
+        "sales_amount":sales_amount
+    }
+    return render(request, "sales/sale/sales-report.html", context)
