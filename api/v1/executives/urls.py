@@ -33,4 +33,5 @@ urlpatterns = [
     path("salesexecutive/completed/task/", views.salesexecutive_completed_task),
     path("salesexecutive/mark/task/<str:pk>/", views.salesexecutive_mark_task),
     path("salesexecutive/profile/",views.salesexecutive_profile),
+    path("executive/sale/status/",views.executive_sale_status),
 ]
