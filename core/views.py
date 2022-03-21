@@ -92,7 +92,7 @@ class LanguageDetail(DetailView):
 
 class LanguageForm(CreateView):
     model = Language
-    fields = ["family","native_name","lang_code"]
+    fields = ["name","family","native_name","lang_code"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,7 +102,7 @@ class LanguageForm(CreateView):
 
 class LanguageUpdate(UpdateView):
     model = Language
-    fields = ["family","native_name","lang_code"]
+    fields = ["name","family","native_name","lang_code"]
     template_name_suffix = "_form"
 
     def get_context_data(self, **kwargs):

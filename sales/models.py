@@ -3,27 +3,24 @@ from django.urls import reverse
 from django.core.validators import MinValueValidator
 from django.db import models
 from versatileimagefield.fields import VersatileImageField
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from core.models import BaseModel
 
 
 class OpeningStock(BaseModel):
     merchandiser = models.ForeignKey(
-        "accounts.User",
+        "merchandiser.Merchandiser",
         on_delete=models.CASCADE,
-        limit_choices_to={"is_merchandiser": True},
+        limit_choices_to={"is_deleted": False},
     )
     product = models.ForeignKey(
         "products.Product",
         on_delete=models.CASCADE,
         limit_choices_to={"is_deleted": False},
     )
-    count = models.DecimalField(
-        default=0.0,
-        decimal_places=2,
-        max_digits=15,
-        validators=[MinValueValidator(Decimal("0.00"))],
-    )
+    count = models.PositiveIntegerField(default=1)
 
     class Meta:
         verbose_name = "Opening Stock"
@@ -78,6 +75,28 @@ class SaleItems(BaseModel):
             return self.sale.user.first_name
         else:
             return self.sale.user.username
+
+
+
+class SalesApproval(BaseModel):
+    title = models.CharField(max_length=200)
+    sender = models.ForeignKey(
+        "accounts.User", on_delete=models.CASCADE)
+    region = models.ForeignKey(
+        "core.Region", on_delete=models.CASCADE)
+    manager_approved = models.BooleanField(default=False)
+    manager_rejected = models.BooleanField(default=False)
+    coordinator_approved = models.BooleanField(default=False)
+    coordinator_rejected = models.BooleanField(default=False)
+    executive_approved = models.BooleanField(default=False)
+    executive_rejected = models.BooleanField(default=False)
+    # GENERIC MODELS
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.CharField(max_length=200)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return self.title
 
 
 class SaleReturn(BaseModel):

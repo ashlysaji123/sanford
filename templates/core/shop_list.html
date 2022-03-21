@@ -27,8 +27,8 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="min-w-125px">Name</th>
-                            <th class="min-w-125px">Creator</th>
-                            <th class="min-w-125px">Created at</th>
+                            <th class="min-w-125px">Contact number</th>
+                            <th class="min-w-125px">State </th>
                             <th class="text-end min-w-70px">Actions</th>
                         </tr>
                     </thead>
@@ -40,9 +40,9 @@
                                 <a href="{{object.get_absolute_url}}" class="text-gray-800 text-hover-primary mb-1">{{object.name}}</a>
                             </td>
                             <td>
-                                <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.creator}}</a>
+                                <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.contact_number}}</a>
                             </td>
-                            <td>{{object.created}}</td>
+                            <td>{{object.state}}</td>
 
                             <td class="text-end">
                                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
