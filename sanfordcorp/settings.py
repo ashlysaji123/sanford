@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "expenses",
     "reports",
     'votings',
+    'documents',
 ]
 
 MIDDLEWARE = [
