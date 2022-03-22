@@ -11,42 +11,40 @@ from core.functions import generate_form_errors, get_response_data
 
 
 
-from .models import SalaryAdavance
+from .models import Loan
 # Create your views here.
 
 @login_required
-def pending_salary_advance(request):
-    query_set = SalaryAdavance.objects.filter(
+def pending_loan(request):
+    query_set = Loan.objects.filter(
         is_approved=False,
         is_rejected=False,
     )
     context = {
-        "title": "Pending Salaries",
+        "title": "Pending Loan",
         "instances": query_set,
     }
-    return render(request, "salary/advance/pending_salaries.html", context)
+    return render(request,"loan/pending_loan.html", context)
 
 
 @login_required
-def salary_advance_single(request, pk):
-    instance = get_object_or_404(SalaryAdavance, pk=pk)
+def loan_single(request, pk):
+    instance = get_object_or_404(Loan, pk=pk)
     context = {
-        "title": "Salary single page ",
+        "title": "Loan single page ",
         "instance": instance,
     }
-    return render(request, "salary/advance/single.html", context)
-    
+    return render(request, "loan/single.html", context)
+
 
 @login_required
-def accept_salary_advance(request):
-    query_set = SalaryAdavance.objects.filter(
+def accept_loan(request):
+    query_set = Loan.objects.filter(
         is_approved=True,
         is_rejected=False,
     )
     context = {
-        "title": "Accept Salaries",
+        "title": "Accept Loan",
         "instances": query_set,
     }
-    return render(request, "salary/advance/accept_salaries.html", context)
-
-
+    return render(request, "loan/accept_loan.html", context)

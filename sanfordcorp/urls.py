@@ -81,6 +81,7 @@ urlpatterns = (
         path("votings/", include("votings.urls", namespace="votings")),
         path("documents/", include("documents.urls", namespace="documents")),
         path("salaries/", include("salaries.urls", namespace="salaries")),
+        path("loans/", include("loans.urls", namespace="loans")),
         path("tinymce/", include("tinymce.urls")),
 
 

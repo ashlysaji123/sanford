@@ -3,20 +3,12 @@
 
 {% block vendor_css %}
 <link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
-<style>
-    .dt-buttons{
-        width: 100%;
-    }
-    .dataTables_filter {
-        width: 100%;   
-    }
-</style>
+
 {% endblock vendor_css %}
 {% block vendor_js %}
 <script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
 <script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
 <!-- script for datatable buttons and filters in datatable -->
-
 {% endblock vendor_js %}
 
 

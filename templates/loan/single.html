@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!--begin::Container-->
+    <div class="container-xxl" id="kt_content_container">
+        <!--begin::details View-->
+        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+            <!--begin::Card header-->
+            <div class="card-header cursor-pointer">
+                <!--begin::Card title-->
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">Salary Details</h3>
+                </div>
+                <!--end::Card title-->
+                <!--begin::Action-->
+                <a href="{% url 'loans:loan_single' pk=instance.pk %}"></a>
+                <!--end::Action-->
+            </div>
+            <!--begin::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body p-9">
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Employee Name </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.user.first_name}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Employee Id </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.user.employe_id}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Amount </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.amount}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Max Amount </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.max_amount}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Reason </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.reason}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Date </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.date}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Duration </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.duration}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Approved </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.is_approved}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Rejected </label>
+                    <div class="col-lg-8 fv-row">
+                        <span class="fw-bold text-gray-800 fs-6">{{instance.is_rejected}}</span>
+                    </div>
+                </div>
+                <!--end::Row-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::details View-->
+    </div>
+    <!--end::Container-->
+
+{% endblock %}
