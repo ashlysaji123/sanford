@@ -18,3 +18,4 @@ class LeaveRequestAdmin(ImportExportActionModelAdmin):
     ]
     list_filter = ["startdate", "enddate", "leavetype", "is_approved", "is_deleted"]
     actions = [mark_deleted, mark_active]
+
