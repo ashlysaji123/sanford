@@ -14,18 +14,27 @@ from .models import Expenses
 def pending_claim_requests(request):
     if request.user.is_superuser:
         query_set = Expenses.objects.filter(
-            is_deleted=False, is_approved=False, is_rejected=False
+            is_deleted=False, is_approved=False, is_rejected=False,manager_approved=True
         )
-    else:
+    elif request.user.is_sales_manager:
         query_set = Expenses.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region,
+        )
+    elif request.user.is_sales_coordinator:
+        query_set = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
             user__region=request.user.region,
         )
 
     context = {
-        "title": "Expense Claims",
+        "title": "Pending Expense Claims",
         "instances": query_set,
     }
     return render(request, "expenses/pending/list.html", context)
@@ -53,7 +62,20 @@ def approved_expense_list(request):
 
 
 def approve_claim_request(request, pk):
-    Expenses.objects.filter(pk=pk).update(is_approved=True, is_rejected=False)
+    expense = get_object_or_404(Expenses,pk=pk)
+    if request.user.is_superuser:
+        expense.is_approved = True
+        expense.is_rejected = False
+        expense.save()
+    elif request.user.is_sales_manager:
+        expense.manager_approved = True
+        expense.manager_rejected = False
+        expense.save()
+    elif request.user.is_sales_coordinator:
+        expense.coordinator_approved = True
+        expense.coordinator_rejected = False
+        expense.save()
+
     response_data = get_response_data(
         1, redirect_url=reverse("expenses:approved_expense_list"), message="Approved"
     )
@@ -63,7 +85,20 @@ def approve_claim_request(request, pk):
 
 
 def reject_claim_request(request, pk):
-    Expenses.objects.filter(pk=pk).update(is_rejected=True, is_approved=False)
+    expense = get_object_or_404(Expenses,pk=pk)
+    if request.user.is_superuser:
+        expense.is_rejected=True
+        expense.is_approved=False
+        expense.save()
+    elif request.user.is_sales_manager:
+        expense.manager_rejected = True
+        expense.manager_approved = False
+        expense.save()
+    elif request.user.is_sales_coordinator:
+        expense.coordinator_rejected = True
+        expense.coordinator_approved = False
+        expense.save()
+        
     response_data = get_response_data(
         1, redirect_url=reverse("expenses:pending_claim_requests"), message="Rejected"
     )

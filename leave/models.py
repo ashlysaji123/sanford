@@ -42,8 +42,6 @@ class LeaveRequest(BaseModel):
     total_available_leave = models.PositiveIntegerField(default=12)
     leave_duration = models.PositiveIntegerField(default=0)
     # Higher RQ model fields
-    region = models.ForeignKey(
-        "core.Region", on_delete=models.CASCADE)
     manager_approved = models.BooleanField(default=False)
     manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)

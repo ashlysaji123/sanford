@@ -2,14 +2,12 @@ import imp
 from django.shortcuts import render
 import datetime
 import json
-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
-
 from .forms import VotingItemForm
 from .models import VotingItem,Voting
 
@@ -44,8 +42,7 @@ def create_voting(request):
 
 @login_required
 def voting_list(request):
-    current_month = datetime.date.today().month
-    query_set = VotingItem.objects.filter(voting_startdate__month=current_month)
+    query_set = VotingItem.objects.all()
     context = {
         "title": "Voting list",
         "instances": query_set,
