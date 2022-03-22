@@ -226,7 +226,6 @@ def accept_sales(request, pk):
         sale.is_rejected=False
         sale.is_approved=True
         user = sale.user
-
         current_year =  sale.created.year
         current_month =  sale.created.month
 
