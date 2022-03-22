@@ -48,6 +48,12 @@ urlpatterns = (
             "api/v1/products/",
             include("api.v1.products.urls", namespace="api_v1_products"),
         ),
+
+        path(
+            "api/v1/documents/",
+            include("api.v1.documents.urls", namespace="api_v1_documents"),
+        ),
+        
         path(
             "api/v1/votings/",
             include("api.v1.votings.urls", namespace="api_v1_votings"),

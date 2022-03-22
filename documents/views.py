@@ -30,7 +30,7 @@ def pending_documents(request):
 @login_required
 def documents_single(request, pk):
     instance = get_object_or_404(EmployeeDocuments, pk=pk)
-    document_items = EmployeeDocumentsItems.objects.all()
+    document_items = EmployeeDocumentsItems.objects.filter(document=instance)
     context = {
         "title": "Document single page ",
         "instance": instance,

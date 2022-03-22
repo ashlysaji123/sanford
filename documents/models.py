@@ -15,8 +15,9 @@ class EmployeeDocuments(BaseModel):
 
 
 class EmployeeDocumentsItems(BaseModel):
+    document = models.ForeignKey(EmployeeDocuments,on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=250)
-    image = models.FileField(upload_to="document")
+    image = models.FileField(upload_to="document/",blank=True,null=True)
 
     def __str__(self):
         return self.title
