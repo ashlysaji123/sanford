@@ -79,7 +79,6 @@ class SaleItems(BaseModel):
 
 
 class SalesApproval(BaseModel):
-    title = models.CharField(max_length=200)
     sender = models.ForeignKey(
         "accounts.User", on_delete=models.CASCADE)
     region = models.ForeignKey(
@@ -96,7 +95,7 @@ class SalesApproval(BaseModel):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return self.title
+        return str(self.sender.first_name)
 
 
 class SaleReturn(BaseModel):

@@ -59,7 +59,6 @@ class LeaveRequest(BaseModel):
 
 
 class LeaveApproval(BaseModel):
-    title = models.CharField(max_length=200)
     sender = models.ForeignKey(
         "accounts.User", on_delete=models.CASCADE)
     region = models.ForeignKey(
@@ -72,8 +71,9 @@ class LeaveApproval(BaseModel):
     executive_rejected = models.BooleanField(default=False)
     # GENERIC MODELS
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=200)
+    object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+
     def __str__(self):
-        return self.title
+        return str(self.sender.first_name)

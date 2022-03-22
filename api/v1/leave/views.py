@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from leave.models import LeaveRequest
+from leave.models import LeaveRequest,LeaveApproval
 
 from .serializers import LeaveRequestListSerializer, LeaveRequestSerializer
 
@@ -45,7 +45,20 @@ def create_leave(request):
         delta = b - a
         leave_days = delta.days + 1
         serializer.save(creator=user, user=user, leave_duration=leave_days)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        data = serializer.data
+        """ 
+        sending requests to hihger RQ
+        """
+        approval = LeaveApproval(
+            sender=request.user,
+            region=request.user.region,
+            creator=request.user,
+            content_type=data,
+            # object_id=data.id
+        )
+        approval.save()
+        response = {"message": "Leave requested successfully. /n waite for the approvals.!"}
+        return Response(response, status=status.HTTP_201_CREATED)
     else:
         response = {"status": 400, "message": serializer.errors}
         return Response(response, status=status.HTTP_200_OK)
