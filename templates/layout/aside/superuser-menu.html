@@ -1084,7 +1084,7 @@
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
 				<div class="menu-item">
 					<div class="menu-content">
-						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Salaries</span>
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Salary Advance</span>
 					</div>
 				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -1092,7 +1092,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title">salaries</span>
+						<span class="menu-title">salary advance</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1101,10 +1101,49 @@
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Pending Salaries</span>
+								<span class="menu-title">Pending Salary Advance</span>
 							</a>
 						</div>
 					</div>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'salaries:accept_salary_advance' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Accept Salary</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">Loans</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'loans:pending_loan' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Pending Loan</span>
+							</a>
+						</div>
+					</div>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'loans:accept_loan' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Accept Loan</span>
+							</a>
+						</div>
+					</div>	
 				</div>
 			</div>
 		</div>

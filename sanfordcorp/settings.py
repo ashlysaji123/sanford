@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'votings',
     'documents',
     'salaries',
+    'loans',
 ]
 
 MIDDLEWARE = [
