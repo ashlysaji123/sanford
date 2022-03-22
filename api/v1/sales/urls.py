@@ -29,7 +29,6 @@ urlpatterns = [
         ),
     ),
     path("create-sales/", views.create_sales),
-    path("update-sales/", views.update_sale),
     path("update-sales/<str:pk>/", views.update_sale),
     path("my-sales/", views.my_sales),
 ]

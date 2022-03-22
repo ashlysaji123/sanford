@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container-xxl" id="kt_content_container">
+        <div class="row">
+            <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                <div class="card-header cursor-pointer">
+                    <div class="card-title m-0">
+                        <h3 class="fw-bolder m-0">Details</h3>
+                    </div>
+                
+                    <div class="card-toolbar">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'documents:accept_documents' pk=instance.pk %}">Accept</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'documents:reject_documents' pk=instance.pk %}">Reject</a>
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </div>
+                <div class="card-body p-9">
+                    <!--begin::Row-->
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">User</label>
+                        <div class="col-lg-8">
+                            {% if instance.user.first_name %}
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
+                            {% else %}
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Employee ID</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
+                        </div>
+                    </div>
+                    <!-- <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Total amount</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.total_amount}}</span>
+                        </div>
+                    </div> -->
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Approved</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-4 fw-bold text-muted">Rejected</label>
+                        <div class="col-lg-8">
+                            <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card body-->
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for i in document_items %}
+            <div class="col-xl-4 mb-xl-10">
+                <!--begin::Engage widget 1-->
+                <div class="card h-md-100">
+                    <!--begin::Body-->
+                    <div class="card-body d-flex flex-column flex-center">
+                        <!--begin::Heading-->
+                        <div class="mb-2">
+                            <!--begin::Title-->
+                            <h1 class="fw-bold text-gray-800 text-center lh-lg">{{i.title}}</h1>
+                            <!--end::Title-->
+                            <!--begin::Illustration-->
+                            <div class="flex-grow-1 bgi-no-repeat card-rounded-bottom h-200px mh-200px my-5 my-lg-12">
+                                <img class="card-img"  src="{{i.image.url}}" alt="">
+                            </div>
+                            <!--end::Illustration-->
+                        </div>
+                        <!--end::Heading-->
+                        <!--begin::Links-->
+                        <div class="text-center">
+                            <a class="btn btn-sm btn-light" href="{{i.image.url}}" download>Download</a>
+                            <!--end::Link-->
+                        </div>
+                        <!--end::Links-->
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Engage widget 1-->
+            </div>
+            {% endfor %}
+        </div>
+        <!--end::details View-->
+    </div>
+{% endblock %}
