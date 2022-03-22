@@ -3,7 +3,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import LeaveRequest,LeaveApproval
+from .models import LeaveRequest
 
 
 @admin.register(LeaveRequest)
@@ -19,5 +19,3 @@ class LeaveRequestAdmin(ImportExportActionModelAdmin):
     list_filter = ["startdate", "enddate", "leavetype", "is_approved", "is_deleted"]
     actions = [mark_deleted, mark_active]
 
-
-admin.site.register(LeaveApproval)

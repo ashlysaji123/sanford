@@ -8,7 +8,6 @@
                 <div class="card-title m-0">
                     <h3 class="fw-bolder m-0">{{title}}</h3>
                 </div>
-                {% if not request.user.is_superuser %}
                 <div class="card-toolbar">
                     <ul class="nav">
                         <li class="nav-item">
@@ -19,66 +18,108 @@
                         </li>
                     </ul>
                 </div>
-                {% endif %}
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Employee Name</label>
-                    <div class="col-lg-8">
-                        {% if instance.user.first_name %}
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
-                        {% else %}
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
-                        {% endif %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Employee Name</label>
+                            <div class="col-lg-8">
+                                {% if instance.user.first_name %}
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.user.first_name}}</span>
+                                {% else %}
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.user.username}}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Embloyee ID</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Start Date</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.startdate}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">End Date</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.enddate}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Leave days</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.leave_days}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Leave type</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.leavetype}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Reason</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.reason}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Approved</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Rejected</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Embloyee ID</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.user.employe_id}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Start Date</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.startdate}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">End Date</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.enddate}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Leave days</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.leave_days}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Leave type</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.leavetype}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Reason</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.reason}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Approved</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_approved}}</span>
-                    </div>
-                </div>
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Rejected</label>
-                    <div class="col-lg-8">
-                        <span class="fw-bolder fs-6 text-gray-800">{{instance.is_rejected}}</span>
+                    <div class="col-6">
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Manager Approved</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.manager_approved}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Manager Rejected</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.manager_rejected}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Coordinator Approved</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.coordinator_approved}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Coordinator Rejected</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.coordinator_rejected}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Executive Approved</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.executive_approved}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Sales Executive Rejected</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800">{{instance.executive_rejected}}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

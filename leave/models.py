@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils.translation import gettext as _
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 
 from core.models import BaseModel
 
@@ -20,7 +18,6 @@ class LeaveRequest(BaseModel):
         ("compensatory", "Compensatory Leave"),
         ("sabbatical", "Sabbatical Leave"),
     )
-
     user = models.ForeignKey(
         "accounts.User",
         limit_choices_to={"is_active": True},
@@ -44,6 +41,15 @@ class LeaveRequest(BaseModel):
     is_rejected = models.BooleanField(default=False)
     total_available_leave = models.PositiveIntegerField(default=12)
     leave_duration = models.PositiveIntegerField(default=0)
+    # Higher RQ model fields
+    region = models.ForeignKey(
+        "core.Region", on_delete=models.CASCADE)
+    manager_approved = models.BooleanField(default=False)
+    manager_rejected = models.BooleanField(default=False)
+    coordinator_approved = models.BooleanField(default=False)
+    coordinator_rejected = models.BooleanField(default=False)
+    executive_approved = models.BooleanField(default=False)
+    executive_rejected = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.leavetype} - {self.user}"
@@ -55,25 +61,4 @@ class LeaveRequest(BaseModel):
         if startdate > enddate:
             return
         dates = enddate - startdate
-        return dates.days
-
-
-class LeaveApproval(BaseModel):
-    sender = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE)
-    region = models.ForeignKey(
-        "core.Region", on_delete=models.CASCADE)
-    manager_approved = models.BooleanField(default=False)
-    manager_rejected = models.BooleanField(default=False)
-    coordinator_approved = models.BooleanField(default=False)
-    coordinator_rejected = models.BooleanField(default=False)
-    executive_approved = models.BooleanField(default=False)
-    executive_rejected = models.BooleanField(default=False)
-    # GENERIC MODELS
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-
-    def __str__(self):
-        return str(self.sender.first_name)
+        return (dates.days + 1)
