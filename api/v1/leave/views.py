@@ -44,8 +44,15 @@ def create_leave(request):
         b = datetime.datetime.strptime(str(enddate), date_format)
         delta = b - a
         leave_days = delta.days + 1
-        serializer.save(creator=user, user=user, leave_duration=leave_days)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        region = request.user.region
+        serializer.save(
+            creator=user, 
+            user=user, 
+            leave_duration=leave_days,
+            region=region
+        )
+        response = {"message": "Leave requested successfully.\n waite for the approvals.!"}
+        return Response(response, status=status.HTTP_201_CREATED)
     else:
         response = {"status": 400, "message": serializer.errors}
         return Response(response, status=status.HTTP_200_OK)

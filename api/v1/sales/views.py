@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from sales.models import Sales
+from sales.models import Sales,SalesApproval
 
 from .serializers import CreateSalesSerializer, SalesSerializer
 
@@ -16,6 +16,16 @@ def create_sales(request):
     serializer = CreateSalesSerializer(data=request.data, context={"request": request})
     if serializer.is_valid():
         serializer.save(user=request.user, creator=request.user)
+        """ 
+        sending requests to hihger RQ
+        """
+        approval = SalesApproval(
+            sender=request.user,
+            region=request.user.region,
+            creator=request.user,
+            content_object=serializer.data
+        )
+        approval.save()
         response = {"message": "Successfully Submitted."}
         return Response(response, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_200_OK)

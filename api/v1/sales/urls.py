@@ -11,24 +11,6 @@ from .serializers import OpeningStockSerializer
 app_name = "sales"
 
 urlpatterns = [
-    # path(
-    #     "targets/",
-    #     ListAPIView.as_view(
-    #         queryset=Target.objects.filter(is_deleted=False),
-    #         serializer_class=TargetSerializer,
-    #         pagination_class=StandardResultsSetPagination,
-    #         permission_classes =[IsAuthenticated],
-    #     ),
-    # ),
-    # path(
-    #     "targets/view/<str:pk>/",
-    #     RetrieveAPIView.as_view(
-    #         queryset=Target.objects.filter(is_deleted=False),
-    #         serializer_class=TargetSerializer,
-    #         permission_classes =[IsAuthenticated],
-    #     ),
-    # ),
-    # path("mytarget/", views.MyTarget.as_view()),
     path(
         "opening_stocks/",
         ListAPIView.as_view(

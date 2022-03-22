@@ -60,7 +60,7 @@
                         </thead>
                         <tbody class="fw-bold text-gray-600">
                             {% for a in attendances %}
-                            <tr class="{%if a.is_leave%}bg-danger{%elif a.is_late %}bg-warning{% endif %}">
+                            <tr class="{%if a.is_leave%}bg-danger text-gray-400 fs-7{%elif a.is_late %}bg-warning{% endif %}">
                                 <td>{{forloop.counter}}</td>
                                 {%if a.user.first_name%}
                                 <td>{{a.user.first_name}}</td>
