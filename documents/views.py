@@ -26,14 +26,16 @@ def pending_documents(request):
             is_approved=False,
             is_rejected=False,
             coordinator_approved=True,
-            is_deleted=False
+            is_deleted=False,
+            user__region=request.user.region
         )
     elif request.user.is_sales_coordinator:
         query_set = EmployeeDocuments.objects.filter(
             is_approved=False,
             is_rejected=False,
             executive_approved=True,
-            is_deleted=False
+            is_deleted=False,
+            user__region=request.user.region
         )
     context = {
         "title": "Pending Documents",
@@ -101,3 +103,48 @@ def reject_documents(request, pk):
     return HttpResponse(
         json.dumps(response_data), content_type="application/javascript"
     )
+
+
+@login_required
+def accepted_documents(request):
+    if request.user.is_superuser:
+        query_set = EmployeeDocuments.objects.filter(
+            is_approved=True,
+            is_rejected=False,
+            is_deleted=False
+        )
+    else:
+        query_set = EmployeeDocuments.objects.filter(
+            is_approved=True,
+            is_rejected=False,
+            is_deleted=False,
+            user__region=request.user.region
+        )
+    context = {
+        "title": "Accepted List",
+        "instances": query_set,
+    }
+    return render(request, "docs/pending_documents.html", context)
+
+
+@login_required
+def rejected_documents(request):
+    if request.user.is_superuser:
+        query_set = EmployeeDocuments.objects.filter(
+            is_approved=False,
+            is_rejected=True,
+            is_deleted=False,
+        )
+    else:
+        query_set = EmployeeDocuments.objects.filter(
+            is_approved=False,
+            is_rejected=True,
+            is_deleted=False,
+            user__region=request.user.region
+        )
+    context = {
+        "title": "Rejected list",
+        "instances": query_set,
+    }
+    return render(request, "docs/pending_documents.html", context)
+
