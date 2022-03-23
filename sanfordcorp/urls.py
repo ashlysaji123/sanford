@@ -53,6 +53,16 @@ urlpatterns = (
             "api/v1/documents/",
             include("api.v1.documents.urls", namespace="api_v1_documents"),
         ),
+
+        path(
+            "api/v1/salaries/",
+            include("api.v1.salaries.urls", namespace="api_v1_salaries"),
+        ),
+
+        path(
+            "api/v1/loans/",
+            include("api.v1.loans.urls", namespace="api_v1_loans"),
+        ),
         
         path(
             "api/v1/votings/",
