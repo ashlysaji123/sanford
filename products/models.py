@@ -98,7 +98,7 @@ class Product(BaseModel):
     is_new_arrival = models.BooleanField("Mark as New Arrival", default=False)
     is_out_of_stock = models.BooleanField("Mark as Out of Stock", default=False)
     product_pdf = models.FileField(blank=True, null=True)
-    catalogue = models.URLField(max_length=450,blank=True, null=True)
+    catalogue_url = models.URLField(max_length=450,blank=True, null=True)
 
     def __str__(self):
         return str(self.name)

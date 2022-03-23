@@ -12,10 +12,16 @@
                 <div class="card-title m-0">
                     <h3 class="fw-bolder m-0">Salary Details</h3>
                 </div>
-                <!--end::Card title-->
-                <!--begin::Action-->
-                <a href="{% url 'salaries:salary_advance_single' pk=instance.pk %}" class="btn btn-primary align-self-center">Edit Data</a>
-                <!--end::Action-->
+                <div class="card-toolbar">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-success  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'salaries:accept_salary_advance' pk=instance.pk %}">Accept</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger  fw-bolder px-4 me-1 tt-update-btn" href="{% url 'salaries:reject_salary_advance' pk=instance.pk %}">Reject</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!--begin::Card header-->
             <!--begin::Card body-->
