@@ -1,6 +1,5 @@
 import datetime
 import json
-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -182,13 +181,22 @@ def sales_single(request, pk):
 def pending_sales_requests(request):
     if request.user.is_superuser:
         query_set = Sales.objects.filter(
-            is_deleted=False, is_approved=False, is_rejected=False
+            is_deleted=False, is_approved=False, is_rejected=False,manager_approved=True
         )
-    else:
+    elif request.user.is_sales_manager:
         query_set = Sales.objects.filter(
             is_deleted=False,
-            is_approved=False,
+            is_approved=False, 
             is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region,
+        )
+    elif request.user.is_sales_coordinator:
+        query_set = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False, 
+            is_rejected=False,
+            executive_approved=True,
             user__region=request.user.region,
         )
 
@@ -214,39 +222,47 @@ def sales_single_pending(request, pk):
 @login_required
 def accept_sales(request, pk):
     sale = Sales.objects.get(pk=pk)
-    sale.is_rejected=False
-    sale.is_approved=True
-    user = sale.user
+    if request.user.is_superuser:
+        sale.is_rejected=False
+        sale.is_approved=True
+        user = sale.user
+        current_year =  sale.created.year
+        current_month =  sale.created.month
 
-    current_year =  sale.created.year
-    current_month =  sale.created.month
-
-    if user.is_merchandiser:
-        target_data = MerchandiserTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-        target_data.current_amount += sale.total_amount
-        if target_data.current_amount >= target_data.target_amount:
-            target_data.is_completed=True
-        target_data.save()
-    elif user.is_sales_executive:
-        target_data = SalesExecutiveTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-        target_data.current_amount += sale.total_amount
-        if target_data.current_amount >= target_data.target_amount:
-            target_data.is_completed=True
-        target_data.save()
-    elif user.is_sales_coordinator:
-        target_data = SalesCoordinatorTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-        target_data.current_amount += sale.total_amount
-        if target_data.current_amount >= target_data.target_amount:
-            target_data.is_completed=True
-        target_data.save()
-    elif user.is_sales_manager:
-        target_data = SalesManagerTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-        target_data.current_amount += sale.total_amount
-        if target_data.current_amount >= target_data.target_amount:
-            target_data.is_completed=True
-        target_data.save()
-
-    sale.save()
+        if user.is_merchandiser:
+            target_data = MerchandiserTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        elif user.is_sales_executive:
+            target_data = SalesExecutiveTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        elif user.is_sales_coordinator:
+            target_data = SalesCoordinatorTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        elif user.is_sales_manager:
+            target_data = SalesManagerTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        sale.save()
+    elif request.user.is_sales_manager:
+        sale.manager_approved = True
+        sale.manager_rejected = False
+        sale.save()
+        sale.save()
+    elif request.user.is_sales_coordinator:
+        sale.coordinator_approved = True
+        sale.coordinator_rejected = False
+        sale.save()
 
     response_data = get_response_data(
         1, redirect_url=reverse("sales:pending_sales_requests"), message="Approved"
@@ -258,7 +274,20 @@ def accept_sales(request, pk):
 
 @login_required
 def reject_sales(request, pk):
-    Sales.objects.filter(pk=pk).update(is_rejected=True, is_approved=False)
+    sale = get_object_or_404(Sales,pk=pk)
+    if request.user.is_superuser:
+        sale.is_rejected=True
+        sale.is_approved=False
+        sale.save()
+    elif request.user.is_sales_manager:
+        sale.manager_rejected = True
+        sale.manager_approved = False
+        sale.save()
+    elif request.user.is_sales_coordinator:
+        sale.coordinator_rejected = True
+        sale.coordinator_approved = False
+        sale.save()
+        
     response_data = get_response_data(
         1, redirect_url=reverse("sales:pending_sales_requests"), message="Rejected"
     )

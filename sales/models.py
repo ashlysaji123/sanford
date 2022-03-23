@@ -3,11 +3,8 @@ from django.urls import reverse
 from django.core.validators import MinValueValidator
 from django.db import models
 from versatileimagefield.fields import VersatileImageField
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 
 from core.models import BaseModel
-
 
 class OpeningStock(BaseModel):
     merchandiser = models.ForeignKey(
@@ -45,12 +42,19 @@ class Sales(BaseModel):
     )
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
+    # Higher RQ model fields
+    manager_approved = models.BooleanField(default=False)
+    manager_rejected = models.BooleanField(default=False)
+    coordinator_approved = models.BooleanField(default=False)
+    coordinator_rejected = models.BooleanField(default=False)
+    executive_approved = models.BooleanField(default=False)
+    executive_rejected = models.BooleanField(default=False)
 
     def __str__(self):
         if self.user.first_name:
-            return self.user.first_name
+            return str(self.user.first_name)
         else:
-            return self.user.username
+            return str(self.user.username)
 
 
 class SaleItems(BaseModel):
@@ -72,31 +76,9 @@ class SaleItems(BaseModel):
 
     def __str__(self):
         if self.sale.user.first_name:
-            return self.sale.user.first_name
+            return str(self.sale.user.first_name)
         else:
-            return self.sale.user.username
-
-
-
-class SalesApproval(BaseModel):
-    sender = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE)
-    region = models.ForeignKey(
-        "core.Region", on_delete=models.CASCADE)
-    manager_approved = models.BooleanField(default=False)
-    manager_rejected = models.BooleanField(default=False)
-    coordinator_approved = models.BooleanField(default=False)
-    coordinator_rejected = models.BooleanField(default=False)
-    executive_approved = models.BooleanField(default=False)
-    executive_rejected = models.BooleanField(default=False)
-    # GENERIC MODELS
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=200)
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-    def __str__(self):
-        return str(self.sender.first_name)
-
+            return str(self.sale.user.username)
 
 class SaleReturn(BaseModel):
     user = models.ForeignKey(
@@ -110,9 +92,9 @@ class SaleReturn(BaseModel):
     )
     def __str__(self):
         if self.user.first_name:
-            return self.user.first_name
+            return str(self.user.first_name)
         else:
-            return self.user.username
+            return str(self.user.username)
     
     def get_absolute_url(self):
         return reverse("sales:single_sales_return", kwargs={"pk": self.pk})
@@ -138,6 +120,6 @@ class SaleReturnItems(BaseModel):
 
     def __str__(self):
         if self.sale.user.first_name:
-            return self.sale.user.first_name
+            return str(self.sale.user.first_name)
         else:
-            return self.sale.user.username
+            return str(self.sale.user.username)
