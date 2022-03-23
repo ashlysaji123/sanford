@@ -14,7 +14,8 @@ class Loan(BaseModel):
     approved_date = models.DateField(blank=True,null=True)
     duration = models.CharField(max_length=20,choices=DURATION_CHOICES)
     guarntee = models.ForeignKey(
-        "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
+        "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE,
+    
     )
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)

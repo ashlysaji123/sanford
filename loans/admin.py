@@ -6,3 +6,4 @@ from loans.models import Loan
 @admin.register(Loan)
 class LoanAdmin(admin.ModelAdmin):
     list_display = ['amount','reason', 'guarntee', 'approved_date', 'is_approved', 'is_rejected', 'duration']
+
