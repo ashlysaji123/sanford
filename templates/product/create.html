@@ -272,6 +272,25 @@
 					</div>
 					<div class="row mb-2">
 						<div class="form-group col-lg-12">
+							<label>{{form.catalogue_url.label}}
+								{% if form.catalogue_url.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.catalogue_url.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.catalogue_url.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.catalogue_url}}
+							{% if form.catalogue_url.errors %}
+							<label class="error">{{ form.catalogue_url.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
 							<label>{{form.description.label}}
 								{% if form.description.field.required %}
 								<small class="text-danger">*</small>

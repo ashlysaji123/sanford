@@ -73,6 +73,9 @@ class ProductForm(forms.ModelForm):
             "name": TextInput(
                 attrs={"class": "required form-control", "placeholder": "Product name"}
             ),
+            "catalogue_url": TextInput(
+                attrs={"class": "form-control", "placeholder": "Catalogue url"}
+            ),
             "barcode": TextInput(
                 attrs={"class": "required form-control", "placeholder": "Barcode"}
             ),
@@ -90,8 +93,7 @@ class ProductForm(forms.ModelForm):
             "primary_image": FileInput(attrs={"class": "required form-control"}),
             "feature_graphic": FileInput(attrs={"class": "required form-control"}),
             "product_pdf": FileInput(attrs={"class": "form-control"}),
-            "is_hot_product": CheckboxInput(attrs={"class": ""}),
-            "is_new_arrival": CheckboxInput(attrs={"class": ""}),
-            "is_out_of_stock": CheckboxInput(attrs={"class": ""}),
-            "available_regions": forms.CheckboxSelectMultiple(attrs={"class": ""}),
+            "is_hot_product": CheckboxInput(attrs={"class":"form-check-input"}),
+            "is_new_arrival": CheckboxInput(attrs={"class": "form-check-input"}),
+            "is_out_of_stock": CheckboxInput(attrs={"class": "form-check-input"}),
         }
