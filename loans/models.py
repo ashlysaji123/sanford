@@ -8,11 +8,11 @@ class Loan(BaseModel):
     reason = models.TextField()
     date = models.DateField()
     duration = models.CharField(max_length=200)
-    user = user = models.ForeignKey(
+    guarntee = models.ForeignKey(
         "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
-    ) 
+    )
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.user.employe_id)
+        return str(self.guarntee.first_name)

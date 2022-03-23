@@ -43,12 +43,10 @@
                                 <th class="min-w-125px">Employee Name</th>
                                 <th class="min-w-125px">Employee Id</th>
                                 <th class="min-w-125px">Amount</th>
-                                <th class="min-w-125px">Max Amount</th>
                                 <th class="min-w-125px">Date</th>
-                                <th class="min-w-125px">Guarantee</th>
-                                <th class="min-w-125px">Duration</th>
                                 <th class="min-w-125px">Approved</th>
                                 <th class="min-w-125px">Rejected</th>
+                                <th class="min-w-125px">Max Amount</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
                         </thead>
@@ -59,17 +57,14 @@
                                 <td>{{i.user.first_name}}</td>
                                 <td>{{i.user.employe_id}}</td>
                                 <td>{{i.amount}}</td>
-                                <td>{{i.max_amount}}</td>
                                 <td>{{i.date}}</td>
-                                <td>{{i.guarantee}}</td>
-                                <td>{{i.duration}}</td>
                                 <td>{{i.is_approved}}</td>
                                 <td>{{i.is_rejected}}</td>
-                                
+                                <td>{{i.max_amount}}</td>
 
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
-                                        <a href="{% url 'loans:loan_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                        <a href="{% url 'salaries:salary_advance_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                             <span class="svg-icon svg-icon-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z" fill="black"></path>
