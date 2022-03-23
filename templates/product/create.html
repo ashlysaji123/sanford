@@ -168,7 +168,7 @@
 								{% if form.product_pdf.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
-								region	{% if form.product_pdf.help_text %}
+								{% if form.product_pdf.help_text %}
 								<span data-original-title="Field Info" title=""
 									data-content="{{ form.product_pdf.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"
