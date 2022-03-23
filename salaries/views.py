@@ -24,7 +24,7 @@ def pending_salary_advance(request):
         "title": "Pending Salaries",
         "instances": query_set,
     }
-    return render(request, "salary/advance/pending_salaries.html", context)
+    return render(request, "salary/advance/pending_salary_advance.html", context)
 
 
 @login_required
@@ -47,6 +47,19 @@ def accept_salary_advance(request):
         "title": "Accept Salaries",
         "instances": query_set,
     }
-    return render(request, "salary/advance/accept_salaries.html", context)
+    return render(request, "salary/advance/accept_salary_advance.html", context)
+
+
+@login_required
+def reject_salary_advance(request):
+    query_set = SalaryAdavance.objects.filter(
+        is_approved=False,
+        is_rejected=True,
+    )
+    context = {
+        "title": "Reject Salaries",
+        "instances": query_set,
+    }
+    return render(request, "salary/advance/reject_salary_advance.html", context)
 
 

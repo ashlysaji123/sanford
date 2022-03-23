@@ -48,3 +48,16 @@ def accept_loan(request):
         "instances": query_set,
     }
     return render(request, "loan/accept_loan.html", context)
+
+
+@login_required
+def reject_loan(request):
+    query_set = Loan.objects.filter(
+        is_approved=False,
+        is_rejected=True,
+    )
+    context = {
+        "title": "Reject Loan",
+        "instances": query_set,
+    }
+    return render(request, "loan/reject_loan.html", context)
