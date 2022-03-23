@@ -27,27 +27,14 @@ class Expenses(BaseModel):
     description = models.TextField(blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.expense_type} - {self.user}"
-
-
-
-class ExpenseApproval(BaseModel):
-    sender = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE)
-    region = models.ForeignKey(
-        "core.Region", on_delete=models.CASCADE)
+    # Higher RQ model fields
     manager_approved = models.BooleanField(default=False)
     manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)
     coordinator_rejected = models.BooleanField(default=False)
     executive_approved = models.BooleanField(default=False)
     executive_rejected = models.BooleanField(default=False)
-    # GENERIC MODELS
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.CharField(max_length=200)
-    content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return str(self.sender.first_name)
+        return f"{self.expense_type} - {self.user}"
+
