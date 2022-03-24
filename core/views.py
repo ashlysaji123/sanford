@@ -7,6 +7,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 
 from coordinators.models import SalesCoordinator, SalesManager
+from globalstaffs.models import GlobalManager
 from core.functions import generate_form_errors, get_response_data
 from core.models import Country, Language, Region, Shop, State, Year
 from executives.models import SalesExecutive
@@ -224,6 +225,10 @@ class StateDelete(DeleteView):
 
 @login_required
 def my_profile(request):
+    if request.user.is_global_manager:
+        instance = GlobalManager.objects.get(user=request.user)
+        context = {"title": "Global manager :- " + instance.name, "instance": instance}
+        return render(request, "global-manager/single.html", context)
     if request.user.is_sales_manager:
         instance = SalesManager.objects.get(user=request.user)
         context = {"title": "Sales manager :- " + instance.name, "instance": instance}
