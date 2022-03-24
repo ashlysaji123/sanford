@@ -11,6 +11,11 @@ from leave.models import LeaveRequest
 from merchandiser.models import Merchandiser
 from notifications.models import Notification
 from products.models import Product
+from loans.models import Loan
+from salaries.models import SalaryAdavance
+from documents.models import EmployeeDocuments
+from sales.models import Sales
+from expenses.models import Expenses
 
 
 @login_required
@@ -42,6 +47,43 @@ def app(request):
         executive_count = SalesExecutive.objects.filter(is_deleted=False).count()
         merchandiser_count = Merchandiser.objects.filter(is_deleted=False).count()
         shope_count = Shop.objects.filter(is_deleted=False).count()
+        pending_leave_request = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_loan_request = Loan.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        salary_advance_request = SalaryAdavance.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_documents_request = EmployeeDocuments.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_sales_request = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+
     elif current_role == "salesmanager":
         is_sales_manager = True
         coordinator_count = SalesCoordinator.objects.filter(
@@ -57,8 +99,45 @@ def app(request):
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            user__region=request.user.region,
+            coordinator_approved=True,
+            user__region=request.user.region
         ).count()
+        pending_loan_request = Loan.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            creator__region=request.user.region
+        ).count()
+        salary_advance_request = SalaryAdavance.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_documents_request = EmployeeDocuments.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_sales_request = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region
+        ).count()
+
     elif current_role == "salescoordinator":
         is_sales_coordinator = True
         executive_count = SalesExecutive.objects.filter(
@@ -71,7 +150,43 @@ def app(request):
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            user__region=request.user.region,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_loan_request = Loan.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            creator__region=request.user.region
+        ).count()
+        salary_advance_request = SalaryAdavance.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_documents_request = EmployeeDocuments.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_sales_request = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
         ).count()
 
     context = {
@@ -87,6 +202,11 @@ def app(request):
         "notifications": notifications,
         "product_count": product_count,
         "hot_products": hot_products,
+        "pending_loan_request":pending_loan_request,
+        "salary_advance_request":salary_advance_request,
+        "pending_documents_request":pending_documents_request,
+        "pending_sales_request":pending_sales_request,
+        "pending_expense_claim_request":pending_expense_claim_request,
     }
     if current_role == "superuser":
         context.update(
@@ -96,6 +216,7 @@ def app(request):
                 "coordinator_count": coordinator_count,
                 "manager_count": manager_count,
                 "shope_count": shope_count,
+                "pending_leave_request": pending_leave_request,
             }
         )
     elif current_role == "salesmanager":

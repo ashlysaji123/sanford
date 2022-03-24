@@ -13,7 +13,7 @@ class Loan(BaseModel):
     reason = models.TextField()
     approved_date = models.DateField(blank=True,null=True)
     duration = models.CharField(max_length=20,choices=DURATION_CHOICES)
-    guarntee = models.ForeignKey(
+    guarantee = models.ForeignKey(
         "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE,
     
     )

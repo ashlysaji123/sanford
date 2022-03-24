@@ -61,7 +61,7 @@ def create_manager(request):
 def manager_list(request):
     query_set = SalesManager.objects.filter(is_deleted=False)
     context = {
-        "title": "Sales Manger list",
+        "title": "Sales Manager list",
         "instances": query_set,
     }
     return render(request, "manager/list.html", context)

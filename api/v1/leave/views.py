@@ -74,7 +74,6 @@ def my_leave_reports(request):
     )
     response = {
         "status": 200,
-        "message": "Successfully Done.",
         "data": serializer.data,
         "leave_taken": total_leave_taken,
     }

@@ -17,7 +17,7 @@ class SalesManager(BaseModel):
     phone = models.CharField("Phone Number", max_length=30, unique=True)
     location = PlainLocationField(based_fields=["city"], zoom=1, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField("User Adress", blank=True, null=True)
+    address = models.TextField("User Address", blank=True, null=True)
     dob = models.DateField("Date of Birth")
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
@@ -27,7 +27,7 @@ class SalesManager(BaseModel):
     passport_number = models.CharField(
         "Passport Number", max_length=30, blank=True, null=True
     )
-    passport_expiry = models.DateField("Visa Expiry Date Number", blank=True, null=True)
+    passport_expiry = models.DateField("Passport Expiry Date Number", blank=True, null=True)
     region = models.ForeignKey("core.Region", on_delete=models.CASCADE, db_index=True)
     user = models.OneToOneField(
         "accounts.User", on_delete=models.SET_NULL, blank=True, null=True
@@ -106,7 +106,7 @@ class SalesCoordinator(BaseModel):
     phone = models.CharField("Phone Number", max_length=30, unique=True)
     location = PlainLocationField(based_fields=["city"], zoom=1)
     city = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField("User Adress", blank=True, null=True)
+    address = models.TextField("User Address", blank=True, null=True)
     dob = models.DateField("Date of Birth")
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
@@ -116,7 +116,7 @@ class SalesCoordinator(BaseModel):
     passport_number = models.CharField(
         "Passport Number", max_length=30, blank=True, null=True
     )
-    passport_expiry = models.DateField("Visa Expiry Date Number", blank=True, null=True)
+    passport_expiry = models.DateField("Passport Expiry Date Number", blank=True, null=True)
     region = models.ForeignKey("core.Region", on_delete=models.CASCADE, db_index=True)
     user = models.OneToOneField(
         "accounts.User", on_delete=models.SET_NULL, blank=True, null=True
