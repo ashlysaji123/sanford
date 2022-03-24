@@ -15,25 +15,6 @@
 				{%csrf_token%}
 				<div class="card-body">
 					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.executive.label}}
-								{% if form.executive.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.executive.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.executive.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.executive}}
-							{% if form.executive.errors %}
-							<label class="error">{{ form.executive.errors.as_text }}</label>
-							{% endif %}
-						</div>
-					</div>
-					<div class="row mb-2">
 						<div class="form-group col-lg-6">
 							<label>{{form.name.label}}
 								{% if form.name.field.required %}
@@ -108,23 +89,6 @@
 					</div>
 					<div class="row mb-2">
 						<div class="form-group col-lg-6">
-							<label>{{form.state.label}}
-								{% if form.state.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.state.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.state.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.state}}
-							{% if form.state.errors %}
-							<label class="error">{{ form.state.errors.as_text }}</label>
-							{% endif %}
-						</div>
-						<div class="form-group col-lg-6">
 							<label>{{form.city.label}}
 								{% if form.city.field.required %}
 								<small class="text-danger">*</small>
@@ -139,25 +103,6 @@
 							{{form.city}}
 							{% if form.city.errors %}
 							<label class="error">{{ form.city.errors.as_text }}</label>
-							{% endif %}
-						</div>
-					</div>
-					<div class="row mb-2">
-						<div class="form-group col-lg-6">
-							<label>{{form.shop.label}}
-								{% if form.shop.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.shop.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.shop.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.shop}}
-							{% if form.shop.errors %}
-							<label class="error">{{ form.shop.errors.as_text }}</label>
 							{% endif %}
 						</div>
 						<div class="form-group col-lg-6">

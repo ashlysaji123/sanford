@@ -33,12 +33,13 @@ class DARTaskForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["executive"].queryset = SalesExecutive.objects.filter(
-            region=user.region, is_deleted=False
-        )
-        self.fields["shop"].queryset = Shop.objects.filter(
-            country__region=user.region, is_deleted=False
-        )
+        if not (user.is_superuser or user.is_global_manager):
+            self.fields["executive"].queryset = SalesExecutive.objects.filter(
+                region=user.region, is_deleted=False
+            )
+            self.fields["shop"].queryset = Shop.objects.filter(
+                country__region=user.region, is_deleted=False
+            )
 
 
 class DARNotesForm(forms.ModelForm):

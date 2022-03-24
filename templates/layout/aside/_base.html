@@ -15,11 +15,17 @@
 		{% if is_superuser %}
 			{% include 'layout/aside/superuser-menu.html' %}
 		{% endif %}
+		{% if is_global_manager %}
+			{% include 'layout/aside/global-manager-menu.html' %}
+		{% endif %}
 		{% if is_sales_manager %}
 			{% include 'layout/aside/manager-menu.html' %}
 		{% endif %}
 		{% if is_sales_coordinator %}
 			{% include 'layout/aside/coordinator-menu.html' %}
+		{% endif %}
+		{% if is_sales_supervisor %}
+			{% include 'layout/aside/supervisor-menu.html' %}
 		{% endif %}
 
 	</div>

@@ -15,25 +15,6 @@
 				{%csrf_token%}
 				<div class="card-body">
 					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.executive.label}}
-								{% if form.executive.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.executive.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.executive.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.executive}}
-							{% if form.executive.errors %}
-							<label class="error">{{ form.executive.errors.as_text }}</label>
-							{% endif %}
-						</div>
-					</div>
-					<div class="row mb-2">
 						<div class="form-group col-lg-6">
 							<label>{{form.name.label}}
 								{% if form.name.field.required %}
@@ -108,20 +89,20 @@
 					</div>
 					<div class="row mb-2">
 						<div class="form-group col-lg-6">
-							<label>{{form.state.label}}
-								{% if form.state.field.required %}
+							<label>{{form.region.label}}
+								{% if form.region.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
-								{% if form.state.help_text %}
+								{% if form.region.help_text %}
 								<span data-original-title="Field Info" title=""
-									data-content="{{ form.state.help_text }}" data-placement="left"
+									data-content="{{ form.region.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"
 									class="help-text-icon zmdi zmdi-info-outline"></span>
 								{% endif %}
 							</label>
-							{{form.state}}
-							{% if form.state.errors %}
-							<label class="error">{{ form.state.errors.as_text }}</label>
+							{{form.region}}
+							{% if form.region.errors %}
+							<label class="error">{{ form.region.errors.as_text }}</label>
 							{% endif %}
 						</div>
 						<div class="form-group col-lg-6">
@@ -144,23 +125,6 @@
 					</div>
 					<div class="row mb-2">
 						<div class="form-group col-lg-6">
-							<label>{{form.shop.label}}
-								{% if form.shop.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.shop.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.shop.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.shop}}
-							{% if form.shop.errors %}
-							<label class="error">{{ form.shop.errors.as_text }}</label>
-							{% endif %}
-						</div>
-						<div class="form-group col-lg-6">
 							<label>{{form.photo.label}}
 								{% if form.photo.field.required %}
 								<small class="text-danger">*</small>
@@ -175,6 +139,23 @@
 							{{form.photo}}
 							{% if form.photo.errors %}
 							<label class="error">{{ form.photo.errors.as_text }}</label>
+							{% endif %}
+						</div>
+						<div class="form-group col-lg-6">
+							<label>{{form.country.label}}
+								{% if form.country.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.country.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.country.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.country}}
+							{% if form.country.errors %}
+							<label class="error">{{ form.country.errors.as_text }}</label>
 							{% endif %}
 						</div>
 					</div>
@@ -292,7 +273,6 @@
 		</div>
 	</div>
 </div>
-
 {% endblock %}
 
 {% block javascript %}

@@ -137,7 +137,7 @@
                 </div>
                 <!--end::Card title-->
                 <!--begin::Action-->
-                <a href="{% url 'executives:update_executive' pk=instance.pk %}" class="btn btn-primary align-self-center">Edit Data</a>
+                <a href="{% url 'globalstaffs:update_global_manager' pk=instance.pk %}" class="btn btn-primary align-self-center">Edit Data</a>
                 <!--end::Action-->
             </div>
             <!--begin::Card header-->
@@ -188,38 +188,6 @@
                     <label class="col-lg-4 fw-bold text-muted">Location </label>
                     <div class="col-lg-8 fv-row">
                         <span class="fw-bold text-gray-800 fs-6">{{instance.location}}</span>
-                    </div>
-                </div>
-                <!--end::Row-->
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Supervisor Name</label>
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6">{{instance.supervisor.name}}</span>
-                    </div>
-                </div>
-                <!--end::Row-->
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Supervisor employee ID </label>
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6">{{instance.supervisor.employe_id}}</span>
-                    </div>
-                </div>
-                <!--end::Row-->
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Region </label>
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6">{{instance.region}}</span>
-                    </div>
-                </div>
-                <!--end::Row-->
-                <!--begin::Row-->
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-bold text-muted">Country </label>
-                    <div class="col-lg-8 fv-row">
-                        <span class="fw-bold text-gray-800 fs-6">{{instance.country}}</span>
                     </div>
                 </div>
                 <!--end::Row-->

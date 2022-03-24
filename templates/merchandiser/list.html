@@ -84,8 +84,8 @@
                                 <th class="min-w-125px">Employe ID</th>
                                 <th class="min-w-125px">Phone</th>
                                 <th class="min-w-125px">Shop</th>
+                                <th class="min-w-125px">Executive</th>
                                 <th class="min-w-125px">Visa number</th>
-                                <th class="min-w-125px">Visa expiry</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
                         </thead>
@@ -105,8 +105,8 @@
                                 <td>{{i.employe_id}}</td>
                                 <td>{{i.phone}}</td>
                                 <td>{{i.shop}}</td>
+                                <td>{{i.executive.name}}</td>
                                 <td>{{i.visa_number}}</td>
-                                <td>{{i.visa_expiry}}</td>
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
                                         <a href="{% url 'merchandiser:merchandiser_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">

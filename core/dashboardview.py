@@ -31,9 +31,10 @@ def app(request):
                 pass
 
     is_superuser = False
+    is_global_manager = False
     is_sales_manager = False
     is_sales_coordinator = False
-    is_sales_executive = False
+    is_sales_supervisor = False
 
     notifications = Notification.objects.filter(is_deleted=False)
     notifications_count = notifications.count()
@@ -42,6 +43,50 @@ def app(request):
 
     if current_role == "superuser":
         is_superuser = True
+        manager_count = SalesManager.objects.filter(is_deleted=False).count()
+        coordinator_count = SalesCoordinator.objects.filter(is_deleted=False).count()
+        executive_count = SalesExecutive.objects.filter(is_deleted=False).count()
+        merchandiser_count = Merchandiser.objects.filter(is_deleted=False).count()
+        shope_count = Shop.objects.filter(is_deleted=False).count()
+        pending_leave_request = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_loan_request = Loan.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        salary_advance_request = SalaryAdavance.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_documents_request = EmployeeDocuments.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_sales_request = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
+        ).count()
+
+    elif current_role == "globalmanager":
+        is_global_manager = True
         manager_count = SalesManager.objects.filter(is_deleted=False).count()
         coordinator_count = SalesCoordinator.objects.filter(is_deleted=False).count()
         executive_count = SalesExecutive.objects.filter(is_deleted=False).count()
@@ -189,15 +234,67 @@ def app(request):
             user__region=request.user.region
         ).count()
 
+    elif current_role == "salessupervisor":
+        is_sales_supervisor = True
+        executive_count = SalesExecutive.objects.filter(
+            is_deleted=False, region=request.user.region
+        ).count()
+        merchandiser_count = Merchandiser.objects.filter(
+            is_deleted=False, state__country__region=request.user.region
+        ).count()
+        pending_leave_request = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_loan_request = Loan.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            creator__region=request.user.region
+        ).count()
+        salary_advance_request = SalaryAdavance.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_documents_request = EmployeeDocuments.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_sales_request = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            executive_approved=True,
+            user__region=request.user.region
+        ).count()
+
     context = {
         "domain": request.build_absolute_uri("/")[:-1],
         "current_path": request.get_full_path(),
         "site_title": "sanfordcorp Portal",
         "current_role": current_role,
         "is_superuser": is_superuser,
+        "is_global_manager": is_global_manager,
         "is_sales_manager": is_sales_manager,
         "is_sales_coordinator": is_sales_coordinator,
-        "is_sales_executive": is_sales_executive,
+        "is_sales_supervisor": is_sales_supervisor,
         "notifications_count": notifications_count,
         "notifications": notifications,
         "product_count": product_count,
@@ -219,6 +316,17 @@ def app(request):
                 "pending_leave_request": pending_leave_request,
             }
         )
+    if current_role == "globalmanager":
+        context.update(
+            {
+                "merchandiser_count": merchandiser_count,
+                "executive_count": executive_count,
+                "coordinator_count": coordinator_count,
+                "manager_count": manager_count,
+                "shope_count": shope_count,
+                "pending_leave_request": pending_leave_request,
+            }
+        )
     elif current_role == "salesmanager":
         context.update(
             {
@@ -229,6 +337,14 @@ def app(request):
             }
         )
     elif current_role == "salescoordinator":
+        context.update(
+            {
+                "merchandiser_count": merchandiser_count,
+                "executive_count": executive_count,
+                "pending_leave_request": pending_leave_request,
+            }
+        )
+    elif current_role == "salessupervisor":
         context.update(
             {
                 "merchandiser_count": merchandiser_count,

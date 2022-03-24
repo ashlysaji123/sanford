@@ -79,6 +79,7 @@ urlpatterns = (
         path("leave/", include("leave.urls", namespace="leave")),
         path("merchandiser/", include("merchandiser.urls", namespace="merchandiser")),
         path("coordinators/", include("coordinators.urls", namespace="coordinators")),
+        path("globalstaffs/", include("globalstaffs.urls", namespace="globalstaffs")),
         path("executives/", include("executives.urls", namespace="executives")),
         path(
             "notifications/", include("notifications.urls", namespace="notifications")

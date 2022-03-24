@@ -2,161 +2,6 @@
 <!--begin::Aside menu-->
 <div id="kt_aside_menu_wrapper" class="w-100 hover-scroll-overlay-y scroll-ps d-flex" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu" data-kt-scroll-offset="0">
 	<div id="kt_aside_menu" class="menu menu-column menu-title-gray-600 menu-state-primary menu-state-icon-primary menu-state-bullet-primary menu-icon-gray-400 menu-arrow-gray-400 fw-bold fs-6 my-auto" data-kt-menu="true">
-		
-        <!--Base data Menu card -->
-		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-			<span class="menu-link" title="Base Data" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-				<span class="menu-icon">
-					<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-					<span class="svg-icon svg-icon-2x">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-							<path d="M21 9V11C21 11.6 20.6 12 20 12H14V8H20C20.6 8 21 8.4 21 9ZM10 8H4C3.4 8 3 8.4 3 9V11C3 11.6 3.4 12 4 12H10V8Z" fill="black" />
-							<path d="M15 2C13.3 2 12 3.3 12 5V8H15C16.7 8 18 6.7 18 5C18 3.3 16.7 2 15 2Z" fill="black" />
-							<path opacity="0.3" d="M9 2C10.7 2 12 3.3 12 5V8H9C7.3 8 6 6.7 6 5C6 3.3 7.3 2 9 2ZM4 12V21C4 21.6 4.4 22 5 22H10V12H4ZM20 12V21C20 21.6 19.6 22 19 22H14V12H20Z" fill="black" />
-						</svg>
-					</span>
-					<!--end::Svg Icon-->
-				</span>
-			</span>
-			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Region</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:new_region' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:region_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Language</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:new_language' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:language_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Country</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:new_country' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:country_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">State</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:new_state' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:state_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Shop</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:new_shop' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'core:shop_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        <!-- Menu card end -->
 		<!-- Staff Menu card -->
 		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
 			<span class="menu-link" title="Staff Management" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
@@ -174,297 +19,11 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
-				<!-- Global manager  -->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Global Manager</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:create_global_manager' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:global_manager_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Global manager task</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:create_global_manager_task' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:global_manager_task_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder"> Global manager target</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:create_global_manager_target' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'globalstaffs:global_manager_target_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<!-- Manager  -->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Regional Manager</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_manager' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:manager_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Regional manager task</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_manager_task' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:manager_task_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Regional manager target</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_manager_target' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:manager_target_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<!-- Coordinator  -->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Coordinator</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_coordinator' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:coordinator_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Coordinator task</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_coordinator_task' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:coordinator_task_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Coordinator target</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:create_coordinator_target' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'coordinators:coordinator_target_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        <!-- Sale data Menu card end -->
-		<!-- Staff Menu card -->
-		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
-			<span class="menu-link" title="Merchandiser" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-				<span class="menu-icon">
-					<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
-					<span class="svg-icon svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Design/PenAndRuller.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-							<rect x="0" y="0" width="24" height="24"/>
-							<path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3"/>
-							<path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000"/>
-						</g>
-					</svg><!--end::Svg Icon--></span>
-					<!--end::Svg Icon-->
-				</span>
-			</span>
-			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				
 				<!--Sales executives-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales supervisor</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:create_supervisor' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:supervisor_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales executives</span>
 					</div>
 				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -472,62 +31,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales supervisor task</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:create_supervisor_task' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:supervisor_task_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales supervisor target</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:create_supervisor_target' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Add</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'executives:supervisor_target_list'%}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<!--Sales executives-->
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales executive</span>
+						<span class="menu-title">Executive</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -554,7 +58,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales executive task</span>
+						<span class="menu-title">Executive task</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -581,7 +85,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales executive target</span>
+						<span class="menu-title">Executive Target</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -603,13 +107,18 @@
 						</div>
 					</div>
 				</div>
-				<!-- Merchandiser-->
+
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Merchandiser</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Merchandiser</span>
+						<span class="menu-title">Merchandiser</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -637,7 +146,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Merchandiser task</span>
+						<span class="menu-title">Merchandiser task</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -664,7 +173,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Merchandiser Target</span>
+						<span class="menu-title">Merchandiser Target</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -686,9 +195,113 @@
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
+
+		<!-- Merchant Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="DAR/DMR" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path d="M16.925 3.90078V8.00077L12.025 10.8008V5.10078L15.525 3.10078C16.125 2.80078 16.925 3.20078 16.925 3.90078ZM2.525 13.5008L6.025 15.5008L10.925 12.7008L6.025 9.90078L2.525 11.9008C1.825 12.3008 1.825 13.2008 2.525 13.5008ZM18.025 19.7008V15.6008L13.125 12.8008V18.5008L16.625 20.5008C17.225 20.8008 18.025 20.4008 18.025 19.7008Z" fill="black"></path>
+							<path opacity="0.3" d="M8.52499 3.10078L12.025 5.10078V10.8008L7.125 8.00077V3.90078C7.125 3.20078 7.92499 2.80078 8.52499 3.10078ZM7.42499 20.5008L10.925 18.5008V12.8008L6.02499 15.6008V19.7008C6.02499 20.4008 6.82499 20.8008 7.42499 20.5008ZM21.525 11.9008L18.025 9.90078L13.125 12.7008L18.025 15.5008L21.525 13.5008C22.225 13.2008 22.225 12.3008 21.525 11.9008Z" fill="black"></path>
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<!-- DAR -->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">DAR</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DAR</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:create_DAR' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Add</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:DAR_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DAR Reschedule</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:DAR_reschedule_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Reschedule requests</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:DAR_accepted_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">Approved requests</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--DMR-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">DMR</span>
+					</div>
+				</div>
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title">DMR</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'reports:DMR_list' %}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">DMR list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- Menu card end -->
+
         <!-- Sale data Menu card end -->
 		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
 			<span class="menu-link" title="Sales Data" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
@@ -704,12 +317,17 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales Data</span>
+						<span class="menu-title">Sales data</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -726,9 +344,15 @@
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Sales data</span>
+								<span class="menu-title">Total Sales</span>
 							</a>
 						</div>
+					</div>
+				</div>
+				<!--sales return-->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales Return</span>
 					</div>
 				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
@@ -736,7 +360,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales return data</span>
+						<span class="menu-title">Sales return data</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -750,12 +374,17 @@
 						</div>
 					</div>
 				</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Sales Reports</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Sales report</span>
+						<span class="menu-title">Sales report</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -769,12 +398,18 @@
 						</div>
 					</div>
 				</div>
+				<!-- expenses -->
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Expenses</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Expese claim</span>
+						<span class="menu-title">Expese claim</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -816,12 +451,17 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Attendance</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Attendance</span>
+						<span class="menu-title">Attendance</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -835,12 +475,18 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Leave Request</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">leave data</span>
+						<span class="menu-title">Leave requests</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -849,7 +495,7 @@
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Pending list</span>
+								<span class="menu-title">Pending leave requests</span>
 							</a>
 						</div>
 					</div>
@@ -859,90 +505,13 @@
 								<span class="menu-bullet">
 									<span class="bullet bullet-dot"></span>
 								</span>
-								<span class="menu-title">Approved list</span>
+								<span class="menu-title">Approved leave requests</span>
 							</a>
 						</div>
 					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">salary advance</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'salaries:pending_salary_advance' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Pending Salary Advance</span>
-							</a>
-						</div>
-					</div>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'salaries:accepted_salary_advances' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Accepted Salary Advances</span>
-							</a>
-						</div>
-					</div>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'salaries:rejected_salary_advances' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Rejected Salary Advances</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Loans</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'loans:pending_loan_requests' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Pending Loan requests</span>
-							</a>
-						</div>
-					</div>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'loans:accepted_loans' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Accepted Loans</span>
-							</a>
-						</div>
-					</div>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'loans:rejected_loans' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Rejected Loans</span>
-							</a>
-						</div>
-					</div>	
 				</div>
 			</div>
+			
 		</div>
         <!-- Menu card end -->
 		
@@ -961,12 +530,17 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Products</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Product Category</span>
+						<span class="menu-title">Product Category</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -993,7 +567,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Product Sub category</span>
+						<span class="menu-title">Product Sub category</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1020,7 +594,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Product Group</span>
+						<span class="menu-title">Product Group</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1047,7 +621,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Product</span>
+						<span class="menu-title">Product</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1074,7 +648,7 @@
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Product Special Price</span>
+						<span class="menu-title">Product Special Price</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1114,12 +688,17 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Notifications</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Notifications</span>
+						<span class="menu-title">Notifications</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1141,12 +720,17 @@
 						</div>
 					</div>
 				</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Rewards</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Reward</span>
+						<span class="menu-title">Reward</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1160,12 +744,17 @@
 						</div>
 					</div>
 				</div>
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Opening Stocks</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Opening stock</span>
+						<span class="menu-title">Opening stock</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1202,12 +791,17 @@
 				</span>
 			</span>
 			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<div class="menu-item">
+					<div class="menu-content">
+						<span class="menu-section fs-5 fw-bolder ps-1 py-1">Votings</span>
+					</div>
+				</div>
 				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 					<span class="menu-link">
 						<span class="menu-bullet">
 							<span class="bullet bullet-dot"></span>
 						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">votings</span>
+						<span class="menu-title">votings</span>
 						<span class="menu-arrow"></span>
 					</span>
 					<div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -1225,33 +819,6 @@
 									<span class="bullet bullet-dot"></span>
 								</span>
 								<span class="menu-title">list</span>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-					<span class="menu-link">
-						<span class="menu-bullet">
-							<span class="bullet bullet-dot"></span>
-						</span>
-						<span class="menu-title fs-5 text-gray-900 fw-bolder">Documents</span>
-						<span class="menu-arrow"></span>
-					</span>
-					<div class="menu-sub menu-sub-accordion menu-active-bg">
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'documents:pending_documents' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Pending documents</span>
-							</a>
-						</div>
-						<div class="menu-item">
-							<a class="menu-link" href="{% url 'documents:accepted_documents' %}">
-								<span class="menu-bullet">
-									<span class="bullet bullet-dot"></span>
-								</span>
-								<span class="menu-title">Documents</span>
 							</a>
 						</div>
 					</div>

@@ -16,18 +16,21 @@ def main_context(request):
                 pass
 
     is_superuser = False
+    is_global_manager = False
     is_sales_manager = False
     is_sales_coordinator = False
-    is_sales_executive = False
+    is_sales_supervisor = False
 
     if current_role == "superuser":
         is_superuser = True
+    elif current_role == "globalmanager":
+        is_global_manager = True
     elif current_role == "salesmanager":
         is_sales_manager = True
     elif current_role == "salescoordinator":
         is_sales_coordinator = True
-    elif current_role == "salesexecutive":
-        is_sales_executive = True
+    elif current_role == "salessupervisor":
+        is_sales_supervisor = True
 
     return {
         # "domain": request.META["HTTP_HOST"],
@@ -37,7 +40,8 @@ def main_context(request):
         "site_title": "sanfordcorp Portal",
         "current_role": current_role,
         "is_superuser": is_superuser,
+        "is_global_manager": is_global_manager,
         "is_sales_manager": is_sales_manager,
         "is_sales_coordinator": is_sales_coordinator,
-        "is_sales_executive": is_sales_executive,
+        "is_sales_supervisor": is_sales_supervisor,
     }

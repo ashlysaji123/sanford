@@ -11,8 +11,10 @@ class User(AbstractUser):
         primary_key=True, default=uuid.uuid4, editable=False, blank=True
     )
 
+    is_global_manager = models.BooleanField(default=False)
     is_sales_manager = models.BooleanField(default=False)
     is_sales_coordinator = models.BooleanField(default=False)
+    is_sales_supervisor = models.BooleanField(default=False)
     is_sales_executive = models.BooleanField(default=False)
     is_merchandiser = models.BooleanField(default=False)
     employe_id = models.CharField(max_length=128)
@@ -24,6 +26,7 @@ class User(AbstractUser):
         limit_choices_to={"is_deleted": False},
         on_delete=models.CASCADE,
         null=True,
+        blank=True
     )
 
     def __str__(self):

@@ -3,60 +3,14 @@
 
 {% block vendor_css %}
 <link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
-<style>
-    .dt-buttons{
-        width: 100%;
-    }
-    .dataTables_filter {
-        width: 100%;   
-    }
-</style>
 {% endblock vendor_css %}
 {% block vendor_js %}
 <script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
 <script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
-<!-- script for datatable buttons and filters in datatable -->
-<script>
-    $(document).ready(function () {
-      var printCounter = 0;
-
-      // Append a caption to the table before the DataTables initialisation
-
-      $("#datatable").DataTable({
-        dom: "Bfrtip",
-        buttons: [
-          "copy",
-          {
-            extend: "excel",
-            messageTop:
-              "The information in this table is copyright to Sirius Cybernetics Corp.",
-          },
-          {
-            extend: "pdf",
-            messageBottom: null,
-          },
-          {
-            extend: "print",
-            messageTop: function () {
-              printCounter++;
-
-              if (printCounter === 1) {
-                return "This is the first time you have printed this document.";
-              } else {
-                return (
-                  "You have printed this document " + printCounter + " times"
-                );
-              }
-            },
-            messageBottom: null,
-          },
-        ],
-      });
-    });
-</script>
 {% endblock vendor_js %}
 
 {% block content %}
+
 <div class="container-xxl" id="kt_content_container">
     <div class="col-lg-12">
         <div class="card card-custom">
@@ -68,7 +22,7 @@
                     <h3 class="card-label">{{title}}</h3>
                 </div>
                 <div class="card-toolbar">
-                    <a href="{% url  'executives:create_executive' %}" class="btn btn-primary font-weight-bolder">
+                    <a href="{% url  'executives:create_supervisor_task' %}" class="btn btn-primary font-weight-bolder">
                     <i class="la la-plus"></i>New Record</a>
                 </div>
             </div>
@@ -78,45 +32,22 @@
                     <table class="table table-hover table-checkable table-striped table-rounded" id="datatable">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th class="min-w-125px">Photo</th>
-                                <th class="min-w-125px">Name</th>
-                                <th class="min-w-125px">Employe ID</th>
-                                <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Region</th>
-                                <th class="min-w-125px">Visa number</th>
-                                <th class="min-w-125px">Supervisor</th>
+                                <th class="min-w-125px">#</th>
+                                <th class="min-w-125px">Executive name</th>
+                                <th class="min-w-125px">Task</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="fw-bold text-gray-600">
                             {% for i in instances %}
                             <tr>
-                                {% if i.photo %}
-                                <td>
-                                    <div class="symbol symbol-45px me-5">
-                                        <img src={{i.photo.url}} alt="">
-                                    </div>
-                                </td>
-                                {% else %}
-                                <td>Image not found</td>
-                                {% endif%}
-                                <td>{{i.name}}</td>
-                                <td>{{i.employe_id}}</td>
-                                <td>{{i.phone}}</td>
-                                <td>{{i.region}}</td>
-                                <td>{{i.visa_number}}</td>
-                                <td>{{i.supervisor.name}}</td>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{i.user}}</td>
+                                <td>{{i.task}}</td>
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
-                                        <a href="{% url 'executives:executive_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
-                                            <span class="svg-icon svg-icon-3">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                    <path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z" fill="black"></path>
-                                                    <path opacity="0.3" d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z" fill="black"></path>
-                                                </svg>
-                                            </span>
-                                        </a>
-                                        <a href="{% url 'executives:update_executive' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+
+                                        <a href="{% url 'executives:update_supervisor_task' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                             <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                             <span class="svg-icon svg-icon-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -126,7 +57,7 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                         </a>
-                                        <a href="{% url 'executives:delete_executive' pk=i.pk %}" class="tt-del-btn btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                        <a href="{% url 'executives:delete_supervisor_task' pk=i.pk %}" class="tt-del-btn btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                             <span class="svg-icon svg-icon-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -148,5 +79,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

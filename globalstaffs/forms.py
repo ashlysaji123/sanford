@@ -9,13 +9,17 @@ from django.forms.widgets import (
 )
 
 from accounts.models import User
-from executives.models import SalesExecutive
-from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
+
+from .models import (
+    GlobalManager,
+    GlobalManagerTarget,
+    GlobalManagerTask,
+)
 
 
-class MerchandiserForm(forms.ModelForm):
+class GlobalManagerForm(forms.ModelForm):
     class Meta:
-        model = Merchandiser
+        model = GlobalManager
         exclude = ("user", "is_deleted", "creator")
         widgets = {
             "name": TextInput(
@@ -68,23 +72,13 @@ class MerchandiserForm(forms.ModelForm):
                     "type": "date",
                 }
             ),
-            "executive": Select(attrs={"class": "required form-control tt-select2"}),
-            "state": Select(attrs={"class": "required form-control tt-select2"}),
-            "shop": Select(attrs={"class": "required form-control tt-select2"}),
+            "region": Select(attrs={"class": "required form-control tt-select2"}),
         }
 
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not (user.is_superuser or user.is_global_manager):
-            self.fields["executive"].queryset = SalesExecutive.objects.filter(
-                region=user.region
-            )
 
-
-
-class MerchandiserTargetForm(forms.ModelForm):
+class GlobalManagerTargetForm(forms.ModelForm):
     class Meta:
-        model = MerchandiserTarget
+        model = GlobalManagerTarget
         fields = ("year", "month", "target_amount", "target_type", "user")
         widgets = {
             "user": Select(attrs={"class": "required form-control tt-select2"}),
@@ -96,17 +90,10 @@ class MerchandiserTargetForm(forms.ModelForm):
             "target_type": Select(attrs={"class": "required form-control tt-select2"}),
         }
 
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not (user.is_superuser or user.is_global_manager):
-            self.fields["user"].queryset = Merchandiser.objects.filter(
-                state__country__region=user.region
-            )
 
-
-class MerchandiserTaskForm(forms.ModelForm):
+class GlobalManagerTaskForm(forms.ModelForm):
     class Meta:
-        model = MerchandiserTask
+        model = GlobalManagerTask
         fields = ("task", "user")
         widgets = {
             "task": TextInput(
@@ -115,9 +102,3 @@ class MerchandiserTaskForm(forms.ModelForm):
             "user": Select(attrs={"class": "required form-control tt-select2"}),
         }
 
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not (user.is_superuser or user.is_global_manager):
-            self.fields["user"].queryset = Merchandiser.objects.filter(
-                state__country__region=user.region
-            )

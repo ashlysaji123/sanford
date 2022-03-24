@@ -5,6 +5,62 @@ from . import views
 app_name = "executives"
 
 urlpatterns = [
+    # Supervisor
+    path("supervisor/create", views.create_supervisor, name="create_supervisor"),
+    path("supervisor/list", views.supervisor_list, name="supervisor_list"),
+    path(
+        "supervisor/single/<str:pk>/",
+        views.supervisor_single,
+        name="supervisor_single",
+    ),
+    path(
+        "supervisor/update/<str:pk>/",
+        views.update_supervisor,
+        name="update_supervisor",
+    ),
+    path(
+        "supervisor/delete/<str:pk>/",
+        views.delete_supervisor,
+        name="delete_supervisor",
+    ),
+    # Supervisor Task
+    path(
+        "supervisor/task/create",
+        views.create_supervisor_task,
+        name="create_supervisor_task",
+    ),
+    path("supervisor/task/list", views.supervisor_task_list, name="supervisor_task_list"),
+    path(
+        "supervisor/task/update/<str:pk>/",
+        views.update_supervisor_task,
+        name="update_supervisor_task",
+    ),
+    path(
+        "supervisor/task/delete/<str:pk>/",
+        views.delete_supervisor_task,
+        name="delete_supervisor_task",
+    ),
+    # Supervisor Target
+    path(
+        "supervisor/target/create",
+        views.create_supervisor_target,
+        name="create_supervisor_target",
+    ),
+    path(
+        "supervisor/target/list",
+        views.supervisor_target_list,
+        name="supervisor_target_list",
+    ),
+    path(
+        "supervisor/target/update/<str:pk>/",
+        views.update_supervisor_target,
+        name="update_supervisor_target",
+    ),
+    path(
+        "supervisor/target/delete/<str:pk>/",
+        views.delete_supervisor_target,
+        name="delete_supervisor_target",
+    ),
     # Executive
     path("create-executive", views.create_executive, name="create_executive"),
     path("executive-list", views.executive_list, name="executive_list"),
