@@ -43,7 +43,6 @@
                                 <th class="min-w-125px">Employee Name</th>
                                 <th class="min-w-125px">Employee Id</th>
                                 <th class="min-w-125px">Amount</th>
-                                <th class="min-w-125px">Max Amount</th>
                                 <th class="min-w-125px">Date</th>
                                 <th class="min-w-125px">Guarantee</th>
                                 <th class="min-w-125px">Duration</th>
@@ -56,11 +55,10 @@
                             {% for i in instances %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td>{{i.user.first_name}}</td>
-                                <td>{{i.user.employe_id}}</td>
+                                <td>{{i.creator.first_name}}</td>
+                                <td>{{i.creator.employe_id}}</td>
                                 <td>{{i.amount}}</td>
-                                <td>{{i.max_amount}}</td>
-                                <td>{{i.date}}</td>
+                                <td>{{i.approved_date}}</td>
                                 <td>{{i.guarantee}}</td>
                                 <td>{{i.duration}}</td>
                                 <td>{{i.is_approved}}</td>
