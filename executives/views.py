@@ -97,7 +97,7 @@ def update_executive(request, pk):
 def delete_executive(request, pk):
     SalesExecutive.objects.filter(pk=pk).update(is_deleted=True)
     response_data = get_response_data(
-        1, redirect_url=reverse("executive:executive_list"), message="Deleted"
+        1, redirect_url=reverse("executives:executive_list"), message="Deleted"
     )
     return HttpResponse(
         json.dumps(response_data), content_type="application/javascript"
