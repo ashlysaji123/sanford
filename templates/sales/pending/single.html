@@ -9,7 +9,6 @@
                 <div class="card-title m-0">
                     <h3 class="fw-bolder m-0">Details</h3>
                 </div>
-                {% if not request.user.is_superuser %}
                 <div class="card-toolbar">
                     <ul class="nav">
                         <li class="nav-item">
@@ -20,7 +19,6 @@
                         </li>
                     </ul>
                 </div>
-                {% endif %}
             </div>
             <div class="card-body p-9">
                 <!--begin::Row-->

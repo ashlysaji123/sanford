@@ -36,7 +36,7 @@ def pending_salary_advance(request):
             user__region=request.user.region
         )
     context = {
-        "title": "Pending Salaries",
+        "title": "Pending Salary advance list",
         "instances": query_set,
     }
     return render(request, "salary/advance/pending_salary_advance.html", context)
@@ -46,7 +46,7 @@ def pending_salary_advance(request):
 def salary_advance_single(request, pk):
     instance = get_object_or_404(SalaryAdavance, pk=pk)
     context = {
-        "title": "Salary single page ",
+        "title": "Salary advance single page ",
         "instance": instance,
     }
     return render(request, "salary/advance/single.html", context)
