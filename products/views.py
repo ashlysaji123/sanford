@@ -355,7 +355,10 @@ class ProductSpecialPriceForm(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Add Special Price for shop"
-        qs = Shop.objects.filter(state__country__region=self.request.user.region)
+        if self.request.user.is_superuser:
+            qs = Shop.objects.filter(is_deleted=False)
+        else:
+            qs = Shop.objects.filter(state__country__region=self.request.user.region,is_deleted=False)
         form = context['form']
         form_shop = form.fields['shop']
         form_shop.queryset = qs

@@ -110,7 +110,7 @@
 								{% if form.city.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
-								region	{% if form.city.help_text %}
+									{% if form.city.help_text %}
 								<span data-original-title="Field Info" title=""
 									data-content="{{ form.city.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"
