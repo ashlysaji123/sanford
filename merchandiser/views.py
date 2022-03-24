@@ -249,9 +249,9 @@ def merchandiser_target_list(request):
 @login_required
 def update_merchandiser_target(request, pk):
     user = request.user
-    instance = get_object_or_404(user, MerchandiserTarget, pk=pk)
+    instance = get_object_or_404(MerchandiserTarget, pk=pk)
     if request.method == "POST":
-        form = MerchandiserTargetForm(request.POST, instance=instance)
+        form = MerchandiserTargetForm(user, request.POST, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
