@@ -6,6 +6,7 @@ from django.shortcuts import render
 from coordinators.models import SalesCoordinator, SalesManager
 from core.functions import get_current_role
 from core.models import Shop
+from core.decorators import checking_dashboard_access
 from executives.models import SalesExecutive
 from leave.models import LeaveRequest
 from merchandiser.models import Merchandiser
@@ -19,6 +20,7 @@ from expenses.models import Expenses
 
 
 @login_required
+@checking_dashboard_access
 def app(request):
     datetime.date.today()
     role_data = get_current_role(request)
@@ -78,12 +80,6 @@ def app(request):
             is_rejected=False,
             manager_approved=True
         ).count()
-        pending_expense_claim_request = Expenses.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            manager_approved=True
-        ).count()
 
     elif current_role == "globalmanager":
         is_global_manager = True
@@ -117,12 +113,6 @@ def app(request):
             manager_approved=True
         ).count()
         pending_sales_request = Sales.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            manager_approved=True
-        ).count()
-        pending_expense_claim_request = Expenses.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
@@ -175,12 +165,9 @@ def app(request):
             coordinator_approved=True,
             user__region=request.user.region
         ).count()
-        pending_expense_claim_request = Expenses.objects.filter(
+        pending_expense_claim_request = CoordinatorExpenseClaimRequest.objects.filter(
             is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            coordinator_approved=True,
-            user__region=request.user.region
+            coordinator__region=request.user.region
         ).count()
 
     elif current_role == "salescoordinator":
@@ -226,13 +213,13 @@ def app(request):
             executive_approved=True,
             user__region=request.user.region
         ).count()
-        pending_expense_claim_request = Expenses.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
+        # pending_expense_claim_request = Expenses.objects.filter(
+        #     is_deleted=False,
+        #     is_approved=False,
+        #     is_rejected=False,
+        #     executive_approved=True,
+        #     user__region=request.user.region
+        # ).count()
 
     elif current_role == "salessupervisor":
         is_sales_supervisor = True
@@ -277,13 +264,13 @@ def app(request):
             executive_approved=True,
             user__region=request.user.region
         ).count()
-        pending_expense_claim_request = Expenses.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
+        # pending_expense_claim_request = Expenses.objects.filter(
+        #     is_deleted=False,
+        #     is_approved=False,
+        #     is_rejected=False,
+        #     executive_approved=True,
+        #     user__region=request.user.region
+        # ).count()
 
     context = {
         "domain": request.build_absolute_uri("/")[:-1],
@@ -303,7 +290,6 @@ def app(request):
         "salary_advance_request":salary_advance_request,
         "pending_documents_request":pending_documents_request,
         "pending_sales_request":pending_sales_request,
-        "pending_expense_claim_request":pending_expense_claim_request,
     }
     if current_role == "superuser":
         context.update(
@@ -334,6 +320,7 @@ def app(request):
                 "executive_count": executive_count,
                 "coordinator_count": coordinator_count,
                 "pending_leave_request": pending_leave_request,
+                "pending_expense_claim_request":pending_expense_claim_request,
             }
         )
     elif current_role == "salescoordinator":
