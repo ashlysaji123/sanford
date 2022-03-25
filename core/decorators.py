@@ -8,4 +8,6 @@ def superuser_only(function):
                 return render(None, "403.html")
             return function(request, *args, **kwargs)
 
-    return _inner
+    return _inner 
+
+
