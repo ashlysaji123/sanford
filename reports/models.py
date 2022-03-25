@@ -23,13 +23,18 @@ class DARTask(BaseModel):
         return DARNotes.objects.filter(dar=self)
 
 class DARNotes(BaseModel):
+    DAR_TYPES = (
+        ('money','Money Collection'),
+        ('order','Collecting Order'),
+        ('photo','Uploade Image'),
+    )
     dar = models.ForeignKey(
         DARTask, limit_choices_to={"is_deleted": False}, 
         on_delete=models.CASCADE, 
         blank=True, null=True
     )
-    title = models.CharField(max_length=221)
-    note = models.CharField(max_length=221, blank=True, null=True)
+    note = models.CharField(max_length=221)
+    type = models.CharField("Select type of task",max_length=221,choices=DAR_TYPES)
     is_completed = models.BooleanField(default=False)
     
     def __str__(self):

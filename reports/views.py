@@ -28,10 +28,10 @@ def create_DAR(request):
             data.save()
 
             for form in DAR_formset:
-                title = form.cleaned_data["title"]
+                type = form.cleaned_data["type"]
                 note = form.cleaned_data["note"]
                 DARNotes.objects.create(
-                    title=title,
+                    type=type,
                     note=note,
                     dar=data,
                     creator=request.user,

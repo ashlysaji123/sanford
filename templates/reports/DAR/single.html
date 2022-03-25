@@ -83,7 +83,7 @@
                         <thead>
                             <tr>
                                 <th class="min-w-125px">#</th>
-                                <th class="min-w-125px">Title</th>
+                                <th class="min-w-125px">Type</th>
                                 <th class="min-w-125px">Note</th>
                             </tr>
                         </thead>
@@ -91,7 +91,7 @@
                             {% for i in DAR_data %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td>{{i.title}}</td>
+                                <td>{{i.type}}</td>
                                 <td>{{i.note}}</td>
                             </tr>  
                             {%endfor%}                  

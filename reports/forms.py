@@ -45,10 +45,8 @@ class DARTaskForm(forms.ModelForm):
 class DARNotesForm(forms.ModelForm):
     class Meta:
         model = DARNotes
-        fields = ("title", "note")
+        fields = ("type", "note")
         widgets = {
-            "title": TextInput(
-                attrs={"class": "required form-control", "placeholder": "Title"}
-            ),
+            "type": Select(attrs={"class": "required form-control tt-select2"}),
             "note": TextInput(attrs={"class": "form-control", "placeholder": "Note"}),
         }
