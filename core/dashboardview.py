@@ -165,9 +165,12 @@ def app(request):
             coordinator_approved=True,
             user__region=request.user.region
         ).count()
-        pending_expense_claim_request = CoordinatorExpenseClaimRequest.objects.filter(
+        pending_expense_claim_request = Expenses.objects.filter(
             is_deleted=False,
-            coordinator__region=request.user.region
+            is_approved=False,
+            is_rejected=False,
+            coordinator_approved=True,
+            user__region=request.user.region,
         ).count()
 
     elif current_role == "salescoordinator":
@@ -213,13 +216,13 @@ def app(request):
             executive_approved=True,
             user__region=request.user.region
         ).count()
-        # pending_expense_claim_request = Expenses.objects.filter(
-        #     is_deleted=False,
-        #     is_approved=False,
-        #     is_rejected=False,
-        #     executive_approved=True,
-        #     user__region=request.user.region
-        # ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            supervisor_approved=True,
+            user__region=request.user.region,
+        ).count()
 
     elif current_role == "salessupervisor":
         is_sales_supervisor = True
@@ -264,13 +267,14 @@ def app(request):
             executive_approved=True,
             user__region=request.user.region
         ).count()
-        # pending_expense_claim_request = Expenses.objects.filter(
-        #     is_deleted=False,
-        #     is_approved=False,
-        #     is_rejected=False,
-        #     executive_approved=True,
-        #     user__region=request.user.region
-        # ).count()
+        pending_expense_claim_request = Expenses.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            supervisor_approved=False,
+            supervisor_rejected=False,
+            user__salesexecutive__supervisor__user=request.user
+        ).count()
 
     context = {
         "domain": request.build_absolute_uri("/")[:-1],
@@ -329,6 +333,7 @@ def app(request):
                 "merchandiser_count": merchandiser_count,
                 "executive_count": executive_count,
                 "pending_leave_request": pending_leave_request,
+                "pending_expense_claim_request":pending_expense_claim_request,
             }
         )
     elif current_role == "salessupervisor":
@@ -337,6 +342,7 @@ def app(request):
                 "merchandiser_count": merchandiser_count,
                 "executive_count": executive_count,
                 "pending_leave_request": pending_leave_request,
+                "pending_expense_claim_request":pending_expense_claim_request,
             }
         )
 

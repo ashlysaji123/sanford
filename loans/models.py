@@ -24,6 +24,8 @@ class Loan(BaseModel):
     manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)
     coordinator_rejected = models.BooleanField(default=False)
+    supervisor_approved = models.BooleanField(default=False)
+    supervisor_rejected = models.BooleanField(default=False)
     executive_approved = models.BooleanField(default=False)
     executive_rejected = models.BooleanField(default=False)
 

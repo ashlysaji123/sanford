@@ -1,10 +1,11 @@
 from django.contrib import admin
 
-from .models import SalesExecutive, SalesExecutiveTarget, SalesExecutiveTask
+from .models import SalesExecutive, SalesExecutiveTarget, SalesExecutiveTask,SalesSupervisor
 
 admin.site.register(SalesExecutive)
 admin.site.register(SalesExecutiveTarget)
 admin.site.register(SalesExecutiveTask)
+admin.site.register(SalesSupervisor)
 
 # @admin.register(SalesExicutive)
 # class SalesExicutiveAdmin(ImportExportActionModelAdmin):

@@ -33,8 +33,9 @@ def pending_claim_requests(request):
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
-            user__executives__supervisor=request.user.salessupervisor
+            supervisor_approved=False,
+            supervisor_rejected=False,
+            user__salesexecutive__supervisor__user=request.user
         )
 
     context = {
@@ -62,7 +63,7 @@ def approved_expense_list(request):
             is_deleted=False,
             is_approved=True,
             is_rejected=False,
-            user__executives__supervisor=request.user.supervisor,
+            user__salesexecutive__supervisor__user=request.user
         )
 
     context = {
