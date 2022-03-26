@@ -48,6 +48,9 @@ class DARReschedule(BaseModel):
     reschedule_date = models.DateField("Reschedule date")
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
+    # higher RQ fields
+    supervisor_approved = models.BooleanField(default=False)
+    supervisor_rejected = models.BooleanField(default=False)
 
     def __str__(self):
         return self.dar.shop.name

@@ -1,8 +1,6 @@
 import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
 from coordinators.models import SalesCoordinator, SalesManager
 from core.functions import get_current_role
 from core.models import Shop
@@ -185,35 +183,30 @@ def app(request):
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
             user__region=request.user.region
         ).count()
         pending_loan_request = Loan.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
             creator__region=request.user.region
         ).count()
         salary_advance_request = SalaryAdavance.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
             user__region=request.user.region
         ).count()
         pending_documents_request = EmployeeDocuments.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
             user__region=request.user.region
         ).count()
         pending_sales_request = Sales.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
             user__region=request.user.region
         ).count()
         pending_expense_claim_request = Expenses.objects.filter(
@@ -232,41 +225,18 @@ def app(request):
         merchandiser_count = Merchandiser.objects.filter(
             is_deleted=False, state__country__region=request.user.region
         ).count()
-        pending_leave_request = LeaveRequest.objects.filter(
+        """ loan request query joining """
+        qs = Loan.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
-        pending_loan_request = Loan.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            creator__region=request.user.region
-        ).count()
-        salary_advance_request = SalaryAdavance.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
-        pending_documents_request = EmployeeDocuments.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
-        pending_sales_request = Sales.objects.filter(
-            is_deleted=False,
-            is_approved=False,
-            is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region
-        ).count()
+            supervisor_approved=False,
+            supervisor_rejected=False,
+        ).prefetch_related('creator')
+        exe_qs = qs.filter(creator__salesexecutive__supervisor__user=request.user).count()
+        mer_qs = qs.filter(creator__merchandiser__executive__supervisor__user=request.user).count()
+        pending_loan_request = exe_qs+mer_qs
+        """ loan query ends here """
         pending_expense_claim_request = Expenses.objects.filter(
             is_deleted=False,
             is_approved=False,
@@ -290,10 +260,6 @@ def app(request):
         "notifications": notifications,
         "product_count": product_count,
         "hot_products": hot_products,
-        "pending_loan_request":pending_loan_request,
-        "salary_advance_request":salary_advance_request,
-        "pending_documents_request":pending_documents_request,
-        "pending_sales_request":pending_sales_request,
     }
     if current_role == "superuser":
         context.update(
@@ -341,8 +307,8 @@ def app(request):
             {
                 "merchandiser_count": merchandiser_count,
                 "executive_count": executive_count,
-                "pending_leave_request": pending_leave_request,
                 "pending_expense_claim_request":pending_expense_claim_request,
+                "pending_loan_request":pending_loan_request,
             }
         )
 

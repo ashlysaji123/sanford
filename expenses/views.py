@@ -47,7 +47,7 @@ def pending_claim_requests(request):
 
 @login_required
 def approved_expense_list(request):
-    if request.user.is_superuser:
+    if request.user.is_superuser or request.user.is_global_manager:
         query_set = Expenses.objects.filter(
             is_deleted=False, is_approved=True, is_rejected=False
         )

@@ -168,34 +168,45 @@ def DAR_list(request):
 class DARRescheduleList(ListView):
     def get_queryset(self):
         """Returns that belong to the current user"""
-        return DARReschedule.objects.filter(
-            is_deleted=False,is_approved=False,
-            is_rejected=False,
-            dar__executive__region=self.request.user.region
-        ).prefetch_related('dar')
+        qs = DARReschedule.objects.filter(
+                is_deleted=False,is_approved=False,is_rejected=False
+            ).prefetch_related('dar')
+        if self.request.user.is_coordinator:
+            qs = qs.filter(dar__executive__region=self.request.user.region,supervisor_approved=True)
+        elif self.request.user.is_sales_supervisor:
+            qs = qs.filter(supervisor_approved=False,supervisor_rejected=False,dar__executive__supervisor=self.request.user)
+        return qs
 
 class DARAcceptedList(ListView):
     template_name = "reports/ddraccepted_list.html"
 
     def get_queryset(self):
         """Returns that belong to the current user"""
-        return DARReschedule.objects.filter(
-            is_deleted=False,is_approved=True,
-            is_rejected=False,
-            dar__executive__region=self.request.user.region
-        ).prefetch_related('dar')
+        qs = DARReschedule.objects.filter(
+                is_deleted=False,is_approved=True,is_rejected=False,
+            ).prefetch_related('dar')
+        if self.request.user.is_coordinator:
+            qs = qs.filter(dar__executive__region=self.request.user.region)
+        elif self.request.user.is_sales_supervisor:
+            qs = qs.filter(dar__executive__supervisor=self.request.user)
+        return qs
 
 
 
 @login_required
 def accept_reschedule(request,pk):
     data = DARReschedule.objects.get(pk=pk)
-    dar = data.dar
-    dar.visit_date = data.reschedule_date
-    dar.save()
-    data.is_approved=True
-    data.is_rejected=False
-    data.save()
+    if request.user.is_sales_supervisor:
+        data.supervisor_approved = True
+        data.supervisor_rejected = False
+        data.save()
+    elif request.user.is_coordinator:
+        dar = data.dar
+        dar.visit_date = data.reschedule_date
+        dar.save()
+        data.is_approved=True
+        data.is_rejected=False
+        data.save()
     response_data = get_response_data(
         1, redirect_url=reverse("reports:DAR_reschedule_list"), message="Approved"
     )
@@ -206,7 +217,15 @@ def accept_reschedule(request,pk):
 
 @login_required
 def reject_reschedule(request, pk):
-    DARReschedule.objects.filter(pk=pk).update(is_rejected=True, is_approved=False)
+    data = DARReschedule.objects.get(pk=pk)
+    if request.user.is_sales_supervisor:
+        data.supervisor_approved = False
+        data.supervisor_rejected = True
+        data.save()
+    elif request.user.is_coordinator:
+        data.is_approved=False
+        data.is_rejected=True
+        data.save()
     response_data = get_response_data(
         1, redirect_url=reverse("reports:DAR_reschedule_list"), message="Rejected"
     )

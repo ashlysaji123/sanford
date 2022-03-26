@@ -42,14 +42,14 @@ class LeaveRequest(BaseModel):
     total_available_leave = models.PositiveIntegerField(default=12)
     leave_duration = models.PositiveIntegerField(default=0)
     # Higher RQ model fields
+    global_manager_approved = models.BooleanField(default=False)
+    global_manager_rejected = models.BooleanField(default=False)
     manager_approved = models.BooleanField(default=False)
     manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)
     coordinator_rejected = models.BooleanField(default=False)
     supervisor_approved = models.BooleanField(default=False)
     supervisor_rejected = models.BooleanField(default=False)
-    executive_approved = models.BooleanField(default=False)
-    executive_rejected = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.leavetype} - {self.user}"
