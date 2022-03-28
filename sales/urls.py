@@ -21,6 +21,7 @@ urlpatterns = [
         views.delete_opening_stock,
         name="delete_opening_stock",
     ),
+    # Sales
     path("total-sales-list", views.total_sales, name="total_sales"),
     path("sale-single/<str:pk>/", views.sales_single, name="sales_single"),
     path("pending-sales", views.pending_sales_requests, name="pending_sales_requests"),
@@ -31,7 +32,7 @@ urlpatterns = [
     ),
     path("accept-sale/<str:pk>/", views.accept_sales, name="accept_sales"),
     path("reject-sale/<str:pk>/", views.reject_sales, name="reject_sales"),
-    #Sale returns
+    # Sale returns
     path("sales/return/list", login_required(views.SaleReturnList.as_view()), name="sales_return_list"),
     path("sale/return/single/<str:pk>/", login_required(views.SaleReturnDetail.as_view()), name="single_sales_return"),
 

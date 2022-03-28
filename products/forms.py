@@ -36,7 +36,7 @@ class SubCategoryForm(forms.ModelForm):
             "code": TextInput(
                 attrs={
                     "class": "required form-control",
-                    "placeholder": "ub Category Code",
+                    "placeholder": "Sub Category Code",
                 }
             ),
         }
@@ -50,13 +50,13 @@ class ProductGroupForm(forms.ModelForm):
             "name": TextInput(
                 attrs={
                     "class": "required form-control",
-                    "placeholder": "Sub Category Name",
+                    "placeholder": "Group Name",
                 }
             ),
             "code": TextInput(
                 attrs={
                     "class": "required form-control",
-                    "placeholder": "ub Category Code",
+                    "placeholder": "Group Code",
                 }
             ),
             "icon": FileInput(attrs={"class": "required form-control"}),
