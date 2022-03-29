@@ -101,4 +101,41 @@
             </div>
         </div>
     </div>
+
+    {% if query_set %}
+    <div class="container-xxl my-5" id="kt_content_container">
+        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+            <div class="card-header cursor-pointer">
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">Money Collection</h3>
+                </div>
+            </div>
+            <div class="card-body p-9">
+                <!--begin::Row-->
+                
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Shop</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{query_set.dar_note.dar.shop.name}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Total credit amount</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{query_set.total_credit_amount}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Received amount</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{query_set.received_money}}</span>
+                    </div>
+                </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::details View-->
+    </div>
+    {% endif %}
+    <!--end::Container-->
 {% endblock %}
+    

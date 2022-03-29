@@ -63,6 +63,11 @@ urlpatterns = (
             "api/v1/loans/",
             include("api.v1.loans.urls", namespace="api_v1_loans"),
         ),
+
+        path(
+            "api/v1/reports/",
+            include("api.v1.reports.urls", namespace="api_v1_reports"),
+        ),
         
         path(
             "api/v1/votings/",
