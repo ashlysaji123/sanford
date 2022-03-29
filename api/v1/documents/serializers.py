@@ -26,18 +26,18 @@ class CreateEmployeeDocumentsSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         doc_items_data = validated_data.pop("doc_items")
-        print(doc_items_data,"?????????????????")
+        print(doc_items_data)
         doc = EmployeeDocuments.objects.create(**validated_data)
-        print(doc,"ddddddddddddddd")
+        print(doc)
         for item in doc_items_data:
-            print(item,"ppppppppppppppppp")
+            print(item)
             title = item["title"]
-            print(title,"tttttttttttttttt")
-            # image = item["image"]
+            print(title)
+            image = item["image"]
             EmployeeDocumentsItems.objects.create(
                 document=doc,
                 title=title,
-                # image=image,
+                image=image,
                 creator=doc.user,
                 **item
             )
