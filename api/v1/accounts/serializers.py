@@ -173,6 +173,8 @@ class UserSerializer(serializers.ModelSerializer):
             "total_points",
             "is_merchandiser",
             "is_sales_manager",
-            "is_sales_exicutive",
+            "is_global_manager",
+            "is_sales_supervisor",
+            "is_sales_executive",
             "is_sales_coordinator",
         )

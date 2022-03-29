@@ -3,7 +3,8 @@ import math
 
 from globalstaffs.models import GlobalManager
 from coordinators.models import SalesCoordinator, SalesManager
-from executives.models import SalesSupervisor
+from executives.models import SalesSupervisor,SalesExecutive
+from merchandiser.models import Merchandiser
 
 
 def get_distance(origin, destination):
@@ -35,9 +36,7 @@ def get_current_role(request):
     current_role = {}
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            current_role = {
-                "role": "superuser",
-            }
+            current_role = {"role": "superuser"}
         elif GlobalManager.objects.filter(
             user=request.user, user__is_global_manager=True
         ).exists():

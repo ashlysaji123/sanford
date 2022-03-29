@@ -27,12 +27,12 @@ class Attendance(BaseModel):
         return f"{self.user}"
 
 
+
 class DailyAttendance(models.Model):
     """
     this model is used to record daily attandance informations.
     attandance query will be access from this model.
     """
-
     user = models.ForeignKey(
         "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
     )
@@ -44,3 +44,17 @@ class DailyAttendance(models.Model):
 
     def __str__(self):
         return f"{self.user}"
+
+
+# class TimeLog(BaseModel):
+#     attendance = models.ForeignKey(
+#         DailyAttendance, limit_choices_to={"is_deleted": False}, on_delete=models.CASCADE
+#     )
+#     date = models.DateField(default=now)
+#     check_in_time = models.TimeField(blank=True, null=True)
+#     check_out_time = models.TimeField(blank=True, null=True)
+#     location = PlainLocationField(based_fields=["city"], zoom=1)
+#     is_leave = models.BooleanField(default=False)
+
+#     def __str__(self):
+#         return f"{self.user}"
