@@ -10,7 +10,7 @@ from coordinators.models import SalesCoordinator, SalesManager
 from globalstaffs.models import GlobalManager
 from core.functions import generate_form_errors, get_response_data
 from core.models import Country, Language, Region, Shop, State, Year
-from executives.models import SalesExecutive
+from executives.models import SalesSupervisor
 
 
 class YearList(ListView):
@@ -155,6 +155,13 @@ class CountryDelete(DeleteView):
 
 class ShopList(ListView):
     queryset = Shop.objects.filter(is_deleted=False)
+    def get_queryset(self,**kwargs):
+        if self.request.user.is_superuser or self.request.user.is_global_manager:
+            queryset = Shop.objects.filter(is_deleted=False)
+        else:
+            queryset = Shop.objects.filter(is_deleted=False,country__region=self.request.user.region)
+        return queryset
+            
 
 
 class ShopDetail(DetailView):
@@ -240,3 +247,10 @@ def my_profile(request):
             "instance": instance,
         }
         return render(request, "coordinator/single.html", context)
+    elif request.user.is_sales_supervisor:
+        instance = SalesSupervisor.objects.get(user=request.user)
+        context = {
+            "title": "Sales Coordinator :- " + instance.name,
+            "instance": instance,
+        }
+        return render(request, "supervisor/single.html", context)

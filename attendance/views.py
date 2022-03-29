@@ -1,11 +1,10 @@
 import datetime
 from calendar import Calendar
-
+from itertools import chain
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from core.models import Region
-
 from .models import DailyAttendance
 
 # Create your views here.
@@ -23,12 +22,18 @@ def get_regions(request):
 
 @login_required
 def register_book(request):
-    if request.user.is_superuser:
+    if request.user.is_superuser or request.user.is_global_manager:
         differed_qs = DailyAttendance.objects.distinct("date__year")
-    else:
+    elif request.user.is_sales_manager or request.user.is_sales_coordinator:
         differed_qs = DailyAttendance.objects.filter(
             user__region=request.user.region
         ).distinct("date__year")
+    elif request.user.is_sales_supervisor:
+        query_set = DailyAttendance.objects.filter(user__region=request.user.region).distinct("date__year")
+        exe_qs = query_set.filter(user__salesexecutive__supervisor__user=request.user)
+        mer_qs = query_set.filter(user__merchandiser__executive__supervisor__user=request.user)
+        differed_qs = chain(exe_qs,mer_qs)
+
     years = [i.date.strftime("%Y") for i in differed_qs]
     context = {"is_need_calander": True, "title": "Register Book", "years": years[::-1]}
     return render(request, "attendance/register-book.html", context)
@@ -38,10 +43,15 @@ def register_book(request):
 def register_page(request):
     date = request.GET.get("date")
 
-    if request.user.is_superuser:
+    if request.user.is_superuser or request.user.is_global_manager:
         qs = DailyAttendance.objects.filter(date=date)
-    else:
+    elif request.user.is_sales_manager or request.user.is_sales_coordinator:
         qs = DailyAttendance.objects.filter(date=date, user__region=request.user.region)
+    elif request.user.is_sales_supervisor:
+        query_set = DailyAttendance.objects.filter(date=date).prefetch_related('user')
+        exe_qs = query_set.filter(date=date, user__salesexecutive__supervisor__user=request.user)
+        mer_qs = query_set.filter(date=date, user__merchandiser__executive__supervisor__user=request.user)
+        qs = chain(exe_qs,mer_qs)
 
     context = {
         "title": f"Register Book for {date}",

@@ -1,7 +1,7 @@
 import datetime
 import json
 from datetime import timedelta
-
+from itertools import chain
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -9,7 +9,6 @@ from django.urls import reverse
 
 from attendance.models import DailyAttendance
 from core.functions import get_response_data
-
 from .models import LeaveRequest
 
 """ 
@@ -28,7 +27,14 @@ def leave_request_list(request):
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            manager_approved=True,
+            global_manager_approved=True
+        )
+    if request.user.is_global_manager:
+        query_set = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            manager_approved=True
         )
     elif request.user.is_sales_manager:
         query_set = LeaveRequest.objects.filter(
@@ -36,16 +42,27 @@ def leave_request_list(request):
             is_approved=False,
             is_rejected=False,
             coordinator_approved=True,
-            user__region=request.user.region,
+            user__region=request.user.region
         )
     elif request.user.is_sales_coordinator:
         query_set = LeaveRequest.objects.filter(
             is_deleted=False,
             is_approved=False,
             is_rejected=False,
-            executive_approved=True,
-            user__region=request.user.region,
+            supervisor_approved=True,
+            user__region=request.user.region
         )
+    elif request.user.is_sales_supervisor:
+        qs = LeaveRequest.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            supervisor_approved=False,
+            supervisor_rejected=False,
+        ).prefetch_related('user')
+        exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+        mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+        query_set = chain(exe_qs,mer_qs)
 
     context = {
         "title": "Pending Leave requests",
@@ -56,56 +73,60 @@ def leave_request_list(request):
 
 @login_required
 def approved_leave_list(request):
-    query = request.GET.get("q")
-
-    if query is None or query == "T":
-        if request.user.is_superuser:
+    if request.method == "GET":
+        today = datetime.datetime.now().date()
+        if request.user.is_superuser or request.user.is_global_manager:
             query_set = LeaveRequest.objects.filter(
-                is_deleted=False,
                 is_approved=True,
                 is_rejected=False,
-                created__date=today,
+                is_deleted=False,
+                created__date=today
             )
-        else:
+        elif request.user.is_sales_manager or request.user.is_sales_coordinator:
             query_set = LeaveRequest.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 is_rejected=False,
-                created__date=today,
                 user__region=request.user.region,
+                created__date=today
             )
-    elif query == "M":
-        if request.user.is_superuser:
+        elif request.user.is_sales_supervisor:
+            qs = LeaveRequest.objects.filter(
+                is_deleted=False,
+                is_approved=True,
+                is_rejected=False,
+                created__date=today
+            ).prefetch_related('user')
+            exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+            mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+            query_set = chain(exe_qs,mer_qs)
+    else:
+        date = request.POST.get('date')
+        if request.user.is_superuser or request.user.is_global_manager:
+            query_set = LeaveRequest.objects.filter(
+                is_approved=True,
+                is_rejected=False,
+                is_deleted=False,
+                created__date=date
+            )
+        elif request.user.is_sales_manager or request.user.is_sales_coordinator:
             query_set = LeaveRequest.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 is_rejected=False,
-                created__month=current_month,
-            )
-        else:
-            query_set = LeaveRequest.objects.filter(
-                is_deleted=False,
-                is_approved=True,
-                is_rejected=False,
-                created__month=current_month,
                 user__region=request.user.region,
+                created__date=date
             )
-    elif query == "Y":
-        if request.user.is_superuser:
-            query_set = LeaveRequest.objects.filter(
+        elif request.user.is_sales_supervisor:
+            qs = LeaveRequest.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 is_rejected=False,
-                created__year=current_year,
-            )
-        else:
-            query_set = LeaveRequest.objects.filter(
-                is_deleted=False,
-                is_approved=True,
-                is_rejected=False,
-                created__year=current_year,
-                user__region=request.user.region,
-            )
+                created__date=date
+            ).prefetch_related('user')
+            exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+            mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+            query_set = chain(exe_qs,mer_qs)
 
     context = {
         "title": "Approved Leave requests",
@@ -113,6 +134,8 @@ def approved_leave_list(request):
     }
     return render(request, "leave/approved/list.html", context)
 
+def rejected_leave_list(request):
+    pass
 
 @login_required
 def leave_single(request, pk):
@@ -134,24 +157,42 @@ def accept_leave(request, pk):
         return HttpResponse(
             json.dumps(response_data), content_type="application/javascript"
         )
-    if request.user.is_superuser:
+
+    def mark_attendance(enddate,startdate):
         """ function for updating attandance model """
         delta = enddate - startdate
         for i in range(delta.days + 1):
             day = startdate + timedelta(days=i)
             attandance = DailyAttendance(user=leave_data.user, date=day, is_leave=True)
             attandance.save()
+        return None
 
+    if request.user.is_superuser:
+        mark_attendance(enddate,startdate)
         leave_data.is_approved = True
         leave_data.is_rejected = False
         leave_data.save()
-    elif request.user.is_sales_manager:
+    if request.user.is_global_manager:
+        mark_attendance(enddate,startdate)
+        leave_data.is_approved = True
+        leave_data.is_rejected = False
+        leave_data.global_manager_approved = True
+        leave_data.save()
+    if request.user.is_sales_manager:
+        mark_attendance(enddate,startdate)
+        leave_data.is_approved = True
+        leave_data.is_rejected = False
         leave_data.manager_approved = True
-        leave_data.manager_rejected = False
         leave_data.save()
     elif request.user.is_sales_coordinator:
+        mark_attendance(enddate,startdate)
+        leave_data.is_approved = True
+        leave_data.is_rejected = False
         leave_data.coordinator_approved = True
-        leave_data.coordinator_rejected = False
+        leave_data.save()
+    elif request.user.is_sales_supervisor:
+        leave_data.supervisor_approved = True
+        leave_data.supervisor_rejected = False
         leave_data.save()
 
     response_data = get_response_data(
@@ -165,19 +206,31 @@ def accept_leave(request, pk):
 @login_required
 def reject_leave(request, pk):
     leave_data = get_object_or_404(LeaveRequest, pk=pk)
+
     if request.user.is_superuser:
-        leave_data.is_rejected=True
-        leave_data.is_approved=False
+        leave_data.is_approved = False
+        leave_data.is_rejected = True
         leave_data.save()
-    elif request.user.is_sales_manager:
+    if  request.user.is_global_manager:
+        leave_data.is_approved = False
+        leave_data.is_rejected = True
+        leave_data.global_manager_rejected = True
+        leave_data.save()
+    if request.user.is_sales_manager:
+        leave_data.is_approved = False
+        leave_data.is_rejected = True
         leave_data.manager_rejected = True
-        leave_data.manager_approved = False
         leave_data.save()
     elif request.user.is_sales_coordinator:
+        leave_data.is_approved = False
+        leave_data.is_rejected = True
         leave_data.coordinator_rejected = True
-        leave_data.coordinator_approved = False
         leave_data.save()
-        
+    elif request.user.is_sales_supervisor:
+        leave_data.supervisor_approved = False
+        leave_data.supervisor_rejected = True
+        leave_data.save()
+
     response_data = get_response_data(
         1, redirect_url=reverse("leave:leave_request_list"), message="Rejected"
     )

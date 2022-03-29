@@ -5,12 +5,13 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
+from itertools import chain
 
 from core.functions import generate_form_errors, get_response_data
 from .forms import OpeningStockForm,SelectStaffForm
 from .models import OpeningStock, SaleItems, Sales,SaleReturn,SaleReturnItems
 from merchandiser.models import MerchandiserTarget,Merchandiser
-from executives.models import SalesExecutiveTarget,SalesExecutive
+from executives.models import SalesExecutiveTarget,SalesExecutive,SalesSupervisorTarget,SalesSupervisor
 from coordinators.models import SalesCoordinatorTarget,SalesManagerTarget,SalesManager,SalesCoordinator
 from accounts.models import User
 from sales.utils import reverse_querystring
@@ -111,7 +112,7 @@ def delete_opening_stock(request, pk):
 
 """Opening stock"""
 
-""" sales data """
+"""Sales data"""
 @login_required
 def total_sales(request):
     today = datetime.datetime.now().date()
@@ -120,41 +121,70 @@ def total_sales(request):
     query = request.GET.get("q")
 
     if query is None or query == "T":
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.is_global_manager:
             query_set = Sales.objects.filter(
                 is_deleted=False, is_approved=True, created__date=today
             )
-        else:
+        elif request.user.is_sales_manager or request.user.is_sales_coordinator:
             query_set = Sales.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 created__date=today,
-                user__region=request.user.region,
+                user__region=request.user.region
             )
+        elif request.user.is_sales_supervisor:
+            qs = Sales.objects.filter(
+                is_deleted=False,
+                is_approved=True,
+                created__date=today,
+            ).prefetch_related('user')
+            exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+            mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+            query_set = chain(exe_qs,mer_qs)
+
     elif query == "M":
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.is_global_manager:
             query_set = Sales.objects.filter(
                 is_deleted=False, is_approved=True, created__month=current_month
             )
-        else:
+        elif request.user.is_sales_manager or request.user.is_sales_coordinator:
             query_set = Sales.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 created__month=current_month,
-                user__region=request.user.region,
+                user__region=request.user.region
             )
+        elif request.user.is_sales_supervisor:
+            qs = Sales.objects.filter(
+                is_deleted=False,
+                is_approved=True,
+                created__month=current_month,
+            ).prefetch_related('user')
+            exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+            mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+            query_set = chain(exe_qs,mer_qs)
+
     elif query == "Y":
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.is_global_manager:
             query_set = Sales.objects.filter(
                 is_deleted=False, is_approved=True, created__year=current_year
             )
-        else:
+        elif request.user.is_sales_manager or request.user.is_sales_coordinator:
             query_set = Sales.objects.filter(
                 is_deleted=False,
                 is_approved=True,
                 created__year=current_year,
-                user__region=request.user.region,
+                user__region=request.user.region
             )
+        elif request.user.is_sales_supervisor:
+            qs = Sales.objects.filter(
+                is_deleted=False,
+                is_approved=True,
+                created__year=current_year,
+            ).prefetch_related('user')
+            exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+            mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+            query_set = chain(exe_qs,mer_qs)
 
     context = {
         "title": "Sales Data ",
@@ -179,14 +209,10 @@ def sales_single(request, pk):
 """ sales data """
 @login_required
 def pending_sales_requests(request):
-    if request.user.is_superuser:
-        query_set = Sales.objects.filter(
-            is_deleted=False, is_approved=False, is_rejected=False,manager_approved=True
-        )
-    elif request.user.is_sales_manager:
+    if request.user.is_sales_manager:
         query_set = Sales.objects.filter(
             is_deleted=False,
-            is_approved=False, 
+            is_approved=False,
             is_rejected=False,
             coordinator_approved=True,
             user__region=request.user.region,
@@ -194,11 +220,22 @@ def pending_sales_requests(request):
     elif request.user.is_sales_coordinator:
         query_set = Sales.objects.filter(
             is_deleted=False,
-            is_approved=False, 
+            is_approved=False,
             is_rejected=False,
-            executive_approved=True,
+            supervisor_approved=True,
             user__region=request.user.region,
         )
+    elif request.user.is_sales_supervisor:
+        qs = Sales.objects.filter(
+            is_deleted=False,
+            is_approved=False,
+            is_rejected=False,
+            supervisor_approved=False,
+            supervisor_rejected=False,
+        ).prefetch_related('user')
+        exe_qs = qs.filter(user__salesexecutive__supervisor__user=request.user)
+        mer_qs = qs.filter(user__merchandiser__executive__supervisor__user=request.user)
+        query_set = chain(exe_qs,mer_qs)
 
     context = {
         "title": "Pending Sales",
@@ -222,46 +259,51 @@ def sales_single_pending(request, pk):
 @login_required
 def accept_sales(request, pk):
     sale = Sales.objects.get(pk=pk)
-    if request.user.is_superuser:
+    sale_user = sale.user
+    sale_year =  sale.created.year
+    sale_month =  sale.created.month
+
+    if request.user.is_sales_manager:
+        if sale_user.is_sales_coordinator:
+            target_data = SalesCoordinatorTarget.objects.get(year=sale_year,month=sale_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+            
         sale.is_rejected=False
         sale.is_approved=True
-        user = sale.user
-        current_year =  sale.created.year
-        current_month =  sale.created.month
+        sale.save()
 
-        if user.is_merchandiser:
-            target_data = MerchandiserTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-            target_data.current_amount += sale.total_amount
-            if target_data.current_amount >= target_data.target_amount:
-                target_data.is_completed=True
-            target_data.save()
-        elif user.is_sales_executive:
-            target_data = SalesExecutiveTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-            target_data.current_amount += sale.total_amount
-            if target_data.current_amount >= target_data.target_amount:
-                target_data.is_completed=True
-            target_data.save()
-        elif user.is_sales_coordinator:
-            target_data = SalesCoordinatorTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-            target_data.current_amount += sale.total_amount
-            if target_data.current_amount >= target_data.target_amount:
-                target_data.is_completed=True
-            target_data.save()
-        elif user.is_sales_manager:
-            target_data = SalesManagerTarget.objects.get(year=current_year,month=current_month,target_type="SECONDARY")
-            target_data.current_amount += sale.total_amount
-            if target_data.current_amount >= target_data.target_amount:
-                target_data.is_completed=True
-            target_data.save()
-        sale.save()
-    elif request.user.is_sales_manager:
-        sale.manager_approved = True
-        sale.manager_rejected = False
-        sale.save()
-        sale.save()
     elif request.user.is_sales_coordinator:
+        if sale_user.is_merchandiser:
+            target_data = MerchandiserTarget.objects.get(year=sale_year,month=sale_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        elif sale_user.is_sales_executive:
+            target_data = SalesExecutiveTarget.objects.get(year=sale_year,month=sale_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+        elif sale_user.is_sales_supervisor:
+            target_data = SalesSupervisorTarget.objects.get(year=sale_year,month=sale_month,target_type="SECONDARY")
+            target_data.current_amount += sale.total_amount
+            if target_data.current_amount >= target_data.target_amount:
+                target_data.is_completed=True
+            target_data.save()
+
+        sale.is_approved=True
+        sale.is_rejected=False
         sale.coordinator_approved = True
         sale.coordinator_rejected = False
+        sale.save()
+
+    elif request.user.is_sales_supervisor:
+        sale.supervisor_approved = True
+        sale.supervisor_rejected = False
         sale.save()
 
     response_data = get_response_data(
@@ -275,17 +317,19 @@ def accept_sales(request, pk):
 @login_required
 def reject_sales(request, pk):
     sale = get_object_or_404(Sales,pk=pk)
-    if request.user.is_superuser:
+    if request.user.is_sales_manager:
         sale.is_rejected=True
         sale.is_approved=False
         sale.save()
-    elif request.user.is_sales_manager:
-        sale.manager_rejected = True
-        sale.manager_approved = False
-        sale.save()
     elif request.user.is_sales_coordinator:
+        sale.is_rejected=True
+        sale.is_approved=False
         sale.coordinator_rejected = True
         sale.coordinator_approved = False
+        sale.save()
+    elif request.user.is_sales_supervisor:
+        sale.supervisor_rejected = True
+        sale.supervisor_approved = False
         sale.save()
         
     response_data = get_response_data(

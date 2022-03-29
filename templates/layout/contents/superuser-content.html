@@ -155,85 +155,81 @@
 		</div>
 		<!--end::Col-->
 		<!--begin::Col-->
-		<div class="col-sm-6 col-xl-2 mb-5 mb-xl-10">
-			<a href="{% url 'sales:pending_sales_requests' %}">
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
 			<!--begin::Card widget 2-->
-				<div class="card h-lg-100">
-					<!--begin::Body-->
-					<div class="card-body d-flex justify-content-between align-items-start flex-column">
-						<!--begin::Icon-->
-						<div class="m-0">
-							<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
-							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<path opacity="0.3" d="M2.10001 10C3.00001 5.6 6.69998 2.3 11.2 2L8.79999 4.39999L11.1 7C9.60001 7.3 8.30001 8.19999 7.60001 9.59999L4.5 12.4L2.10001 10ZM19.3 11.5L16.4 14C15.7 15.5 14.4 16.6 12.7 16.9L15 19.5L12.6 21.9C17.1 21.6 20.8 18.2 21.7 13.9L19.3 11.5Z" fill="black"></path>
-									<path d="M13.8 2.09998C18.2 2.99998 21.5 6.69998 21.8 11.2L19.4 8.79997L16.8 11C16.5 9.39998 15.5 8.09998 14 7.39998L11.4 4.39998L13.8 2.09998ZM12.3 19.4L9.69998 16.4C8.29998 15.7 7.3 14.4 7 12.8L4.39999 15.1L2 12.7C2.3 17.2 5.7 20.9 10 21.8L12.3 19.4Z" fill="black"></path>
-								</svg>
-							</span>
-							<!--end::Svg Icon-->
-						</div>
-						<!--end::Icon-->
-						<!--begin::Section-->
-						<div class="d-flex flex-column my-7">
-							<!--begin::Number-->
-							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_sales_request}}</span>
-							<!--end::Number-->
-							<!--begin::Follower-->
-							<div class="mt-2">
-								<span class="fw-bold fs-6 text-gray-400">Sales requests</span>
-							</div>
-							<!--end::Follower-->
-						</div>
+			<div class="card h-lg-100">
+				<!--begin::Body-->
+				<div class="card-body d-flex justify-content-between align-items-start flex-column">
+					<!--begin::Icon-->
+					<div class="m-0">
+						<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+						<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path opacity="0.3" d="M2.10001 10C3.00001 5.6 6.69998 2.3 11.2 2L8.79999 4.39999L11.1 7C9.60001 7.3 8.30001 8.19999 7.60001 9.59999L4.5 12.4L2.10001 10ZM19.3 11.5L16.4 14C15.7 15.5 14.4 16.6 12.7 16.9L15 19.5L12.6 21.9C17.1 21.6 20.8 18.2 21.7 13.9L19.3 11.5Z" fill="black"></path>
+								<path d="M13.8 2.09998C18.2 2.99998 21.5 6.69998 21.8 11.2L19.4 8.79997L16.8 11C16.5 9.39998 15.5 8.09998 14 7.39998L11.4 4.39998L13.8 2.09998ZM12.3 19.4L9.69998 16.4C8.29998 15.7 7.3 14.4 7 12.8L4.39999 15.1L2 12.7C2.3 17.2 5.7 20.9 10 21.8L12.3 19.4Z" fill="black"></path>
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
 					</div>
-					<!--end::Body-->
+					<!--end::Icon-->
+					<!--begin::Section-->
+					<div class="d-flex flex-column my-7">
+						<!--begin::Number-->
+						<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{monthly_sales_amount}}</span>
+						<!--end::Number-->
+						<!--begin::Follower-->
+						<div class="mt-2">
+							<span class="fw-bold fs-6 text-gray-400">Monthly sales amount</span>
+						</div>
+						<!--end::Follower-->
+					</div>
 				</div>
-				<!--end::Card widget 2-->
-			</a>
+				<!--end::Body-->
+			</div>
+			<!--end::Card widget 2-->
 		</div>
 		<!--end::Col-->
 		<!--begin::Col-->
-		<div class="col-sm-6 col-xl-2 mb-5 mb-xl-10">
-			<a href="{% url 'expenses:pending_claim_requests' %}">
-				<!--begin::Card widget 2-->
-				<div class="card h-lg-100">
-				<!--begin::Body-->
-					<div class="card-body d-flex justify-content-between align-items-start flex-column">
-						<!--begin::Icon-->
-						<div class="m-0">
-							<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
-							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-									<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black"></path>
-									<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black"></path>
-								</svg>
-							</span>
-							<!--end::Svg Icon-->
-						</div>
-						<!--end::Icon-->
-						<!--begin::Section-->
-						<div class="d-flex flex-column my-7">
-							<!--begin::Number-->
-							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_expense_claim_request}}</span>
-							<!--end::Number-->
-							<!--begin::Follower-->
-							<div class="mt-2">
-								<span class="fw-bold fs-6 text-gray-400">Expense claim requests</span>
-							</div>
-							<!--end::Follower-->
-						</div>
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
+			<!--begin::Card widget 2-->
+			<div class="card h-lg-100">
+			<!--begin::Body-->
+				<div class="card-body d-flex justify-content-between align-items-start flex-column">
+					<!--begin::Icon-->
+					<div class="m-0">
+						<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+						<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black"></path>
+								<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black"></path>
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
 					</div>
-					<!--end::Body-->
+					<!--end::Icon-->
+					<!--begin::Section-->
+					<div class="d-flex flex-column my-7">
+						<!--begin::Number-->
+						<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{monthly_expense_amount}}</span>
+						<!--end::Number-->
+						<!--begin::Follower-->
+						<div class="mt-2">
+							<span class="fw-bold fs-6 text-gray-400">Monthly expense claim</span>
+						</div>
+						<!--end::Follower-->
+					</div>
 				</div>
-			</a>
+				<!--end::Body-->
+			</div>
 			<!--end::Card widget 2-->
 		</div>
 		<!--end::Col-->
 	</div>
-	<div class="row g-5 g-xl-8">
+	<div class="row g-5 g-xl-8 mb-xl-10">
 		<!--Left side ::Row-->
 		<div class="col-xl-4">
 			<!--begin::Misc Widget 1-->
-			<div class="row mb-5 mb-xl-8 g-5 g-xl-8">
+			<div class="row g-5 g-xl-8">
 				<!--begin::Col-->
 				<div class="col-6">
 					<div class="card card-stretch">
@@ -370,7 +366,6 @@
 				</div>
 			</div>
 			<!--begin::List Widget 4-->
-
 		</div>
 		<!-- Right side column -->
 		<div class="col-xl-8">

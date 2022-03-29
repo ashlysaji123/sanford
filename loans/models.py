@@ -20,12 +20,14 @@ class Loan(BaseModel):
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
     # Higher RQ model fields
+    global_manager_approved = models.BooleanField(default=False)
+    global_manager_rejected = models.BooleanField(default=False)
     manager_approved = models.BooleanField(default=False)
     manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)
     coordinator_rejected = models.BooleanField(default=False)
-    executive_approved = models.BooleanField(default=False)
-    executive_rejected = models.BooleanField(default=False)
+    supervisor_approved = models.BooleanField(default=False)
+    supervisor_rejected = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.creator.first_name)
+        return f"{self.creator.first_name} - {self.amount}"
