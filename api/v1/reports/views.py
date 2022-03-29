@@ -12,6 +12,8 @@ from .serializers import (
      UploadPhotoSerializer,
      DARTaskSerializer
 )
+
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def DAR_task(request):

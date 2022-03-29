@@ -63,8 +63,8 @@ class DARReschedule(BaseModel):
 
 
 class CollectMoney(BaseModel):
-    total_credit_amount = models.DecimalField(max_digits=10,decimal_places=2)
-    received_money = models.DecimalField(max_digits=10,decimal_places=2)
+    total_credit_amount = models.DecimalField(default=0.0,max_digits=10,decimal_places=2)
+    received_money = models.DecimalField(default=0.0,max_digits=10,decimal_places=2)
     dar_note = models.ForeignKey(
         DARNotes, limit_choices_to={"is_deleted": False}, 
         on_delete=models.CASCADE
@@ -107,7 +107,7 @@ class OrderItem(BaseModel):
         Order, limit_choices_to={"is_deleted": False}, 
         on_delete=models.CASCADE
     )
-    total_items_amount = models.DecimalField(max_digits=10,decimal_places=2)
+    total_items_amount = models.DecimalField(default=0.0,max_digits=10,decimal_places=2)
 
     def __str__(self):
         return str(self.product.name)

@@ -144,7 +144,7 @@ def DAR_single(request, pk):
             query_set = CollectMoney.objects.get(dar_note=i)
         elif i.type == 'order':
             order = Order.objects.get(dar_note=i)
-            order_item = OrderItem.objects.get(order=query_set)
+            order_item = OrderItem.objects.get(order=order)
         elif i.type == 'photo':
             photos = UploadPhoto.objects.get(dar_note=i)
 
@@ -164,20 +164,34 @@ def DAR_single(request, pk):
 def DAR_list(request):
     if request.method == "GET":
         today = datetime.datetime.now().date()
-        query_set = DARTask.objects.filter(
-            is_deleted=False, 
-            executive__region=request.user.region,
-            visit_date=today
-        )
+        if request.user.is_sales_coordinator:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__region=request.user.region,
+                visit_date=today
+            )
+        elif request.user.is_sales_supervisor:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__supervisor=request.user.salessupervisor,
+                visit_date=today
+            )
         context = {"title": "DAR List", "instances": query_set}
         return render(request, "reports/DAR/list.html", context)
     else:
         date = request.POST.get('date')
-        query_set = DARTask.objects.filter(
-            is_deleted=False, 
-            executive__region=request.user.region,
-            visit_date=date
-        )
+        if request.user.is_sales_coordinator:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__region=request.user.region,
+                visit_date=date
+            )
+        elif request.user.is_sales_supervisor:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__supervisor=request.user.salessupervisor,
+                visit_date=date
+            )
         context = {"title": "DAR List", "instances": query_set}
         return render(request, "reports/DAR/list.html", context)
 
@@ -189,10 +203,10 @@ class DARRescheduleList(ListView):
         qs = DARReschedule.objects.filter(
                 is_deleted=False,is_approved=False,is_rejected=False
             ).prefetch_related('dar')
-        if self.request.user.is_coordinator:
+        if self.request.user.is_sales_coordinator:
             qs = qs.filter(dar__executive__region=self.request.user.region,supervisor_approved=True)
         elif self.request.user.is_sales_supervisor:
-            qs = qs.filter(supervisor_approved=False,supervisor_rejected=False,dar__executive__supervisor=self.request.user)
+            qs = qs.filter(supervisor_approved=False,supervisor_rejected=False,dar__executive__supervisor=self.request.user.salessupervisor)
         return qs
 
 class DARAcceptedList(ListView):
@@ -203,10 +217,10 @@ class DARAcceptedList(ListView):
         qs = DARReschedule.objects.filter(
                 is_deleted=False,is_approved=True,is_rejected=False,
             ).prefetch_related('dar')
-        if self.request.user.is_coordinator:
+        if self.request.user.is_sales_coordinator:
             qs = qs.filter(dar__executive__region=self.request.user.region)
         elif self.request.user.is_sales_supervisor:
-            qs = qs.filter(dar__executive__supervisor=self.request.user)
+            qs = qs.filter(dar__executive__supervisor=self.request.user.salessupervisor)
         return qs
 
 
@@ -218,7 +232,7 @@ def accept_reschedule(request,pk):
         data.supervisor_approved = True
         data.supervisor_rejected = False
         data.save()
-    elif request.user.is_coordinator:
+    elif request.user.is_sales_coordinator:
         dar = data.dar
         dar.visit_date = data.reschedule_date
         dar.save()
@@ -240,7 +254,7 @@ def reject_reschedule(request, pk):
         data.supervisor_approved = False
         data.supervisor_rejected = True
         data.save()
-    elif request.user.is_coordinator:
+    elif request.user.is_sales_coordinator:
         data.is_approved=False
         data.is_rejected=True
         data.save()
@@ -258,19 +272,33 @@ def DMRList(request):
     """Returns that belong to the current user region"""
     if request.method == "GET":
         today = datetime.datetime.now().date()
-        query_set = DARTask.objects.filter(
-            is_deleted=False, 
-            executive__region=request.user.region,
-            visit_date=today
-        )
+        if request.user.is_sales_coordinator:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__region=request.user.region,
+                visit_date=today
+            )
+        elif request.user.is_sales_supervisor:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__supervisor=request.user.salessupervisor,
+                visit_date=today
+            )
         context = {"title": "DMR List", "instances": query_set}
     else:
         date = request.POST.get('date')
-        query_set = DARTask.objects.filter(
-            is_deleted=False, 
-            executive__region=request.user.region,
-            visit_date=date
-        )
+        if request.user.is_sales_coordinator:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__region=request.user.region,
+                visit_date=date
+            )
+        elif request.user.is_sales_supervisor:
+            query_set = DARTask.objects.filter(
+                is_deleted=False, 
+                executive__supervisor=request.user.salessupervisor,
+                visit_date=date
+            )
         context = {"title": "DMR List", "instances": query_set}
     return render(request, "reports/DMR/list.html", context)
 
