@@ -1,8 +1,9 @@
 import inspect
 import math
 
+from globalstaffs.models import GlobalManager
 from coordinators.models import SalesCoordinator, SalesManager
-from executives.models import SalesExecutive
+from executives.models import SalesSupervisor
 
 
 def get_distance(origin, destination):
@@ -37,6 +38,10 @@ def get_current_role(request):
             current_role = {
                 "role": "superuser",
             }
+        elif GlobalManager.objects.filter(
+            user=request.user, user__is_global_manager=True
+        ).exists():
+            current_role = {"role": "globalmanager", "user": request.user}
         elif SalesManager.objects.filter(
             user=request.user, user__is_sales_manager=True
         ).exists():
@@ -45,10 +50,10 @@ def get_current_role(request):
             user=request.user, user__is_sales_coordinator=True
         ).exists():
             current_role = {"role": "salescoordinator", "user": request.user}
-        elif SalesExecutive.objects.filter(
-            user=request.user, user__is_sales_executive=True
+        elif SalesSupervisor.objects.filter(
+            user=request.user, user__is_sales_supervisor=True
         ).exists():
-            current_role = {"role": "salesexecutive", "user": request.user}
+            current_role = {"role": "salessupervisor", "user": request.user}
         return current_role
 
 

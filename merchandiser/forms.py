@@ -9,7 +9,7 @@ from django.forms.widgets import (
 )
 
 from accounts.models import User
-
+from executives.models import SalesExecutive
 from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
 
 
@@ -68,9 +68,18 @@ class MerchandiserForm(forms.ModelForm):
                     "type": "date",
                 }
             ),
+            "executive": Select(attrs={"class": "required form-control tt-select2"}),
             "state": Select(attrs={"class": "required form-control tt-select2"}),
             "shop": Select(attrs={"class": "required form-control tt-select2"}),
         }
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not (user.is_superuser or user.is_global_manager):
+            self.fields["executive"].queryset = SalesExecutive.objects.filter(
+                region=user.region
+            )
+
 
 
 class MerchandiserTargetForm(forms.ModelForm):
@@ -89,7 +98,7 @@ class MerchandiserTargetForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not user.is_superuser:
+        if not (user.is_superuser or user.is_global_manager):
             self.fields["user"].queryset = Merchandiser.objects.filter(
                 state__country__region=user.region
             )
@@ -108,7 +117,7 @@ class MerchandiserTaskForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not user.is_superuser:
+        if not (user.is_superuser or user.is_global_manager):
             self.fields["user"].queryset = Merchandiser.objects.filter(
                 state__country__region=user.region
             )

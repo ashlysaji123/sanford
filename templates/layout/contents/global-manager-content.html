@@ -1,0 +1,421 @@
+{% load static %}
+<!--begin::Container-->
+<div class="container-xxl" id="kt_content_container">
+	<div class="row gy-5 g-xl-10">
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
+			<!--begin::Card widget 2-->
+			<a href="{% url 'leave:leave_request_list'%}">
+				<div class="card h-lg-100">
+					<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+							<div class="m-0">
+								<!--begin::Svg Icon | path: icons/duotune/maps/map004.svg-->
+								<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+										<path opacity="0.3" d="M18.4 5.59998C21.9 9.09998 21.9 14.8 18.4 18.3C14.9 21.8 9.2 21.8 5.7 18.3L18.4 5.59998Z" fill="black"></path>
+										<path d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM19.9 11H13V8.8999C14.9 8.6999 16.7 8.00005 18.1 6.80005C19.1 8.00005 19.7 9.4 19.9 11ZM11 19.8999C9.7 19.6999 8.39999 19.2 7.39999 18.5C8.49999 17.7 9.7 17.2001 11 17.1001V19.8999ZM5.89999 6.90002C7.39999 8.10002 9.2 8.8 11 9V11.1001H4.10001C4.30001 9.4001 4.89999 8.00002 5.89999 6.90002ZM7.39999 5.5C8.49999 4.7 9.7 4.19998 11 4.09998V7C9.7 6.8 8.39999 6.3 7.39999 5.5ZM13 17.1001C14.3 17.3001 15.6 17.8 16.6 18.5C15.5 19.3 14.3 19.7999 13 19.8999V17.1001ZM13 4.09998C14.3 4.29998 15.6 4.8 16.6 5.5C15.5 6.3 14.3 6.80002 13 6.90002V4.09998ZM4.10001 13H11V15.1001C9.1 15.3001 7.29999 16 5.89999 17.2C4.89999 16 4.30001 14.6 4.10001 13ZM18.1 17.1001C16.6 15.9001 14.8 15.2 13 15V12.8999H19.9C19.7 14.5999 19.1 16.0001 18.1 17.1001Z" fill="black"></path>
+									</svg>
+								</span>
+								<!--end::Svg Icon-->
+							</div>
+							<!--end::Icon-->
+							<!--begin::Section-->
+							<div class="d-flex flex-column my-7">
+								<!--begin::Number-->
+								<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_leave_request}}</span>
+								<!--end::Number-->
+								<!--begin::Follower-->
+								<div class="mt-2">
+									<span class="fw-bold fs-6 text-gray-400">Leave requests</span>
+								</div>
+								<!--end::Follower-->
+							</div>
+							<!--end::Section-->
+					</div>
+					<!--end::Body-->
+				</div>
+			</a>
+			<!--end::Card widget 2-->
+		</div>
+		<!--end::Col-->
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
+			<a href="{% url 'loans:pending_loan_requests' %}">
+				<!--begin::Card widget 2-->
+				<div class="card h-lg-100">
+				<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+						<div class="m-0">
+							<!--begin::Svg Icon | path: icons/duotune/graphs/gra001.svg-->
+							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M14 3V21H10V3C10 2.4 10.4 2 11 2H13C13.6 2 14 2.4 14 3ZM7 14H5C4.4 14 4 14.4 4 15V21H8V15C8 14.4 7.6 14 7 14Z" fill="black"></path>
+									<path d="M21 20H20V8C20 7.4 19.6 7 19 7H17C16.4 7 16 7.4 16 8V20H3C2.4 20 2 20.4 2 21C2 21.6 2.4 22 3 22H21C21.6 22 22 21.6 22 21C22 20.4 21.6 20 21 20Z" fill="black"></path>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Icon-->
+						<!--begin::Section-->
+						<div class="d-flex flex-column my-7">
+							<!--begin::Number-->
+							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_loan_request}}</span>
+							<!--end::Number-->
+							<!--begin::Follower-->
+							<div class="mt-2">
+								<span class="fw-bold fs-6 text-gray-400">Loan requests</span>
+							</div>
+							<!--end::Follower-->
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+				<!--end::Card widget 2-->
+			</a>
+		</div>
+		<!--end::Col-->
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
+			<a href="{% url 'salaries:pending_salary_advance' %}">
+				<!--begin::Card widget 2-->
+				<div class="card h-lg-100">
+					<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+						<div class="m-0">
+							<!--begin::Svg Icon | path: icons/duotune/abstract/abs048.svg-->
+							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="black"></path>
+									<path d="M8.70001 6C8.10001 5.7 7.39999 5.40001 6.79999 5.10001C7.79999 4.00001 8.90001 3 10.1 2.2C10.7 2.1 11.4 2 12 2C12.7 2 13.3 2.1 13.9 2.2C12 3.2 10.2 4.5 8.70001 6ZM12 8.39999C13.9 6.59999 16.2 5.30001 18.7 4.60001C18.1 4.00001 17.4 3.6 16.7 3.2C14.4 4.1 12.2 5.40001 10.5 7.10001C11 7.50001 11.5 7.89999 12 8.39999ZM7 20C7 20.2 7 20.4 7 20.6C6.2 20.1 5.49999 19.6 4.89999 19C4.59999 18 4.00001 17.2 3.20001 16.6C2.80001 15.8 2.49999 15 2.29999 14.1C4.99999 14.7 7 17.1 7 20ZM10.6 9.89999C8.70001 8.09999 6.39999 6.9 3.79999 6.3C3.39999 6.9 2.99999 7.5 2.79999 8.2C5.39999 8.6 7.7 9.80001 9.5 11.6C9.8 10.9 10.2 10.4 10.6 9.89999ZM2.20001 10.1C2.10001 10.7 2 11.4 2 12C2 12 2 12 2 12.1C4.3 12.4 6.40001 13.7 7.60001 15.6C7.80001 14.8 8.09999 14.1 8.39999 13.4C6.89999 11.6 4.70001 10.4 2.20001 10.1ZM11 20C11 14 15.4 9.00001 21.2 8.10001C20.9 7.40001 20.6 6.8 20.2 6.2C13.8 7.5 9 13.1 9 19.9C9 20.4 9.00001 21 9.10001 21.5C9.80001 21.7 10.5 21.8 11.2 21.9C11.1 21.3 11 20.7 11 20ZM19.1 19C19.4 18 20 17.2 20.8 16.6C21.2 15.8 21.5 15 21.7 14.1C19 14.7 16.9 17.1 16.9 20C16.9 20.2 16.9 20.4 16.9 20.6C17.8 20.2 18.5 19.6 19.1 19ZM15 20C15 15.9 18.1 12.6 22 12.1C22 12.1 22 12.1 22 12C22 11.3 21.9 10.7 21.8 10.1C16.8 10.7 13 14.9 13 20C13 20.7 13.1 21.3 13.2 21.9C13.9 21.8 14.5 21.7 15.2 21.5C15.1 21 15 20.5 15 20Z" fill="black"></path>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Icon-->
+						<!--begin::Section-->
+						<div class="d-flex flex-column my-7">
+							<!--begin::Number-->
+							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{salary_advance_request}}</span>
+							<!--end::Number-->
+							<!--begin::Follower-->
+							<div class="mt-2">
+								<span class="fw-bold fs-6 text-gray-400">Salary advance requests</span>
+							</div>
+							<!--end::Follower-->
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+			</a>
+			<!--end::Card widget 2-->
+		</div>
+		<!--end::Col-->
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-xl-10">
+			<a href="{% url 'documents:pending_documents' %}">
+				<!--begin::Card widget 2-->
+				<div class="card h-lg-100">
+				<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+						<div class="m-0">
+							<!--begin::Svg Icon | path: icons/duotune/maps/map002.svg-->
+							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path d="M8.7 4.19995L4 6.30005V18.8999L8.7 16.8V19L3.1 21.5C2.6 21.7 2 21.4 2 20.8V6C2 5.4 2.3 4.89995 2.9 4.69995L8.7 2.09998V4.19995Z" fill="black"></path>
+									<path d="M15.3 19.8L20 17.6999V5.09992L15.3 7.19989V4.99994L20.9 2.49994C21.4 2.29994 22 2.59989 22 3.19989V17.9999C22 18.5999 21.7 19.1 21.1 19.3L15.3 21.8998V19.8Z" fill="black"></path>
+									<path opacity="0.3" d="M15.3 7.19995L20 5.09998V17.7L15.3 19.8V7.19995Z" fill="black"></path>
+									<path opacity="0.3" d="M8.70001 4.19995V2L15.4 5V7.19995L8.70001 4.19995ZM8.70001 16.8V19L15.4 22V19.8L8.70001 16.8Z" fill="black"></path>
+									<path opacity="0.3" d="M8.7 16.8L4 18.8999V6.30005L8.7 4.19995V16.8Z" fill="black"></path>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Icon-->
+						<!--begin::Section-->
+						<div class="d-flex flex-column my-7">
+							<!--begin::Number-->
+							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_documents_request}}</span>
+							<!--end::Number-->
+							<!--begin::Follower-->
+							<div class="mt-2">
+								<span class="fw-bold fs-6 text-gray-400">Documents requests</span>
+							</div>
+							<!--end::Follower-->
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+			</a>
+			<!--end::Card widget 2-->
+		</div>
+		<!--end::Col-->
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-5 mb-xl-10">
+			<a href="{% url 'sales:pending_sales_requests' %}">
+			<!--begin::Card widget 2-->
+				<div class="card h-lg-100">
+					<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+						<div class="m-0">
+							<!--begin::Svg Icon | path: icons/duotune/abstract/abs037.svg-->
+							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M2.10001 10C3.00001 5.6 6.69998 2.3 11.2 2L8.79999 4.39999L11.1 7C9.60001 7.3 8.30001 8.19999 7.60001 9.59999L4.5 12.4L2.10001 10ZM19.3 11.5L16.4 14C15.7 15.5 14.4 16.6 12.7 16.9L15 19.5L12.6 21.9C17.1 21.6 20.8 18.2 21.7 13.9L19.3 11.5Z" fill="black"></path>
+									<path d="M13.8 2.09998C18.2 2.99998 21.5 6.69998 21.8 11.2L19.4 8.79997L16.8 11C16.5 9.39998 15.5 8.09998 14 7.39998L11.4 4.39998L13.8 2.09998ZM12.3 19.4L9.69998 16.4C8.29998 15.7 7.3 14.4 7 12.8L4.39999 15.1L2 12.7C2.3 17.2 5.7 20.9 10 21.8L12.3 19.4Z" fill="black"></path>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Icon-->
+						<!--begin::Section-->
+						<div class="d-flex flex-column my-7">
+							<!--begin::Number-->
+							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_sales_request}}</span>
+							<!--end::Number-->
+							<!--begin::Follower-->
+							<div class="mt-2">
+								<span class="fw-bold fs-6 text-gray-400">Sales requests</span>
+							</div>
+							<!--end::Follower-->
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+				<!--end::Card widget 2-->
+			</a>
+		</div>
+		<!--end::Col-->
+		<!--begin::Col-->
+		<div class="col-sm-6 col-xl-2 mb-5 mb-xl-10">
+			<a href="{% url 'expenses:pending_claim_requests' %}">
+				<!--begin::Card widget 2-->
+				<div class="card h-lg-100">
+				<!--begin::Body-->
+					<div class="card-body d-flex justify-content-between align-items-start flex-column">
+						<!--begin::Icon-->
+						<div class="m-0">
+							<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+							<span class="svg-icon svg-icon-2hx svg-icon-gray-600">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black"></path>
+									<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black"></path>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Icon-->
+						<!--begin::Section-->
+						<div class="d-flex flex-column my-7">
+							<!--begin::Number-->
+							<span class="fw-bold fs-3x text-danger lh-1 ls-n2">{{pending_expense_claim_request}}</span>
+							<!--end::Number-->
+							<!--begin::Follower-->
+							<div class="mt-2">
+								<span class="fw-bold fs-6 text-gray-400">Expense claim requests</span>
+							</div>
+							<!--end::Follower-->
+						</div>
+					</div>
+					<!--end::Body-->
+				</div>
+			</a>
+			<!--end::Card widget 2-->
+		</div>
+		<!--end::Col-->
+	</div>
+	<div class="row g-5 g-xl-8">
+		<!--Left side ::Row-->
+		<div class="col-xl-4">
+			<!--begin::Misc Widget 1-->
+			<div class="row mb-5 mb-xl-8 g-5 g-xl-8">
+				<!--begin::Col-->
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'coordinators:manager_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"/>
+										<path d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+										<path d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{manager_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Managers</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'coordinators:coordinator_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Communication/Shield-user.svg-->
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#000000" opacity="0.3"/>
+										<path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z" fill="#000000" opacity="0.3"/>
+										<path d="M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 C14.5228466,17 11.463736,17 7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{coordinator_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Coordinators</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'executives:executive_list' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+										<path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{executive_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Executives</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'merchandiser:merchandiser_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24"/>
+										<path d="M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z M21,8 L17,8 C16.4477153,8 16,7.55228475 16,7 C16,6.44771525 16.4477153,6 17,6 L21,6 C21.5522847,6 22,6.44771525 22,7 C22,7.55228475 21.5522847,8 21,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+										<path d="M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{merchandiser_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Merchandisers</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'products:product_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+
+							<span class="svg-icon svg-icon-2x mb-5">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path d="M21 10H13V11C13 11.6 12.6 12 12 12C11.4 12 11 11.6 11 11V10H3C2.4 10 2 10.4 2 11V13H22V11C22 10.4 21.6 10 21 10Z" fill="black"></path>
+									<path opacity="0.3" d="M12 12C11.4 12 11 11.6 11 11V3C11 2.4 11.4 2 12 2C12.6 2 13 2.4 13 3V11C13 11.6 12.6 12 12 12Z" fill="black"></path>
+									<path opacity="0.3" d="M18.1 21H5.9C5.4 21 4.9 20.6 4.8 20.1L3 13H21L19.2 20.1C19.1 20.6 18.6 21 18.1 21ZM13 18V15C13 14.4 12.6 14 12 14C11.4 14 11 14.4 11 15V18C11 18.6 11.4 19 12 19C12.6 19 13 18.6 13 18ZM17 18V15C17 14.4 16.6 14 16 14C15.4 14 15 14.4 15 15V18C15 18.6 15.4 19 16 19C16.6 19 17 18.6 17 18ZM9 18V15C9 14.4 8.6 14 8 14C7.4 14 7 14.4 7 15V18C7 18.6 7.4 19 8 19C8.6 19 9 18.6 9 18Z" fill="black"></path>
+								</svg>
+								<span class="badge badge-light-primary fs-small">{{product_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Products</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'attendance:register_book'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+
+							<span class="svg-icon svg-icon-2x mb-5">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+									<path opacity="0.3" d="M21 10.7192H3C2.4 10.7192 2 11.1192 2 11.7192C2 12.3192 2.4 12.7192 3 12.7192H6V14.7192C6 18.0192 8.7 20.7192 12 20.7192C15.3 20.7192 18 18.0192 18 14.7192V12.7192H21C21.6 12.7192 22 12.3192 22 11.7192C22 11.1192 21.6 10.7192 21 10.7192Z" fill="black"></path>
+									<path d="M11.6 21.9192C11.4 21.9192 11.2 21.8192 11 21.7192C10.6 21.4192 10.5 20.7191 10.8 20.3191C11.7 19.1191 12.3 17.8191 12.7 16.3191C12.8 15.8191 13.4 15.4192 13.9 15.6192C14.4 15.7192 14.8 16.3191 14.6 16.8191C14.2 18.5191 13.4 20.1192 12.4 21.5192C12.2 21.7192 11.9 21.9192 11.6 21.9192ZM8.7 19.7192C10.2 18.1192 11 15.9192 11 13.7192V8.71917C11 8.11917 11.4 7.71917 12 7.71917C12.6 7.71917 13 8.11917 13 8.71917V13.0192C13 13.6192 13.4 14.0192 14 14.0192C14.6 14.0192 15 13.6192 15 13.0192V8.71917C15 7.01917 13.7 5.71917 12 5.71917C10.3 5.71917 9 7.01917 9 8.71917V13.7192C9 15.4192 8.4 17.1191 7.2 18.3191C6.8 18.7191 6.9 19.3192 7.3 19.7192C7.5 19.9192 7.7 20.0192 8 20.0192C8.3 20.0192 8.5 19.9192 8.7 19.7192ZM6 16.7192C6.5 16.7192 7 16.2192 7 15.7192V8.71917C7 8.11917 7.1 7.51918 7.3 6.91918C7.5 6.41918 7.2 5.8192 6.7 5.6192C6.2 5.4192 5.59999 5.71917 5.39999 6.21917C5.09999 7.01917 5 7.81917 5 8.71917V15.7192V15.8191C5 16.3191 5.5 16.7192 6 16.7192ZM9 4.71917C9.5 4.31917 10.1 4.11918 10.7 3.91918C11.2 3.81918 11.5 3.21917 11.4 2.71917C11.3 2.21917 10.7 1.91916 10.2 2.01916C9.4 2.21916 8.59999 2.6192 7.89999 3.1192C7.49999 3.4192 7.4 4.11916 7.7 4.51916C7.9 4.81916 8.2 4.91918 8.5 4.91918C8.6 4.91918 8.8 4.81917 9 4.71917ZM18.2 18.9192C18.7 17.2192 19 15.5192 19 13.7192V8.71917C19 5.71917 17.1 3.1192 14.3 2.1192C13.8 1.9192 13.2 2.21917 13 2.71917C12.8 3.21917 13.1 3.81916 13.6 4.01916C15.6 4.71916 17 6.61917 17 8.71917V13.7192C17 15.3192 16.8 16.8191 16.3 18.3191C16.1 18.8191 16.4 19.4192 16.9 19.6192C17 19.6192 17.1 19.6192 17.2 19.6192C17.7 19.6192 18 19.3192 18.2 18.9192Z" fill="black"></path>
+								</svg>
+							</span>
+							<span class="fs-4 fw-bolder">Attendance</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'core:shop_list'%}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M3.95709826,8.41510662 L11.47855,3.81866389 C11.7986624,3.62303967 12.2013376,3.62303967 12.52145,3.81866389 L20.0429,8.41510557 C20.6374094,8.77841684 21,9.42493654 21,10.1216692 L21,19.0000642 C21,20.1046337 20.1045695,21.0000642 19,21.0000642 L4.99998155,21.0000673 C3.89541205,21.0000673 2.99998155,20.1046368 2.99998155,19.0000673 L2.99999828,10.1216672 C2.99999935,9.42493561 3.36258984,8.77841732 3.95709826,8.41510662 Z M10,13 C9.44771525,13 9,13.4477153 9,14 L9,17 C9,17.5522847 9.44771525,18 10,18 L14,18 C14.5522847,18 15,17.5522847 15,17 L15,14 C15,13.4477153 14.5522847,13 14,13 L10,13 Z" fill="#000000"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+								<span class="badge badge-light-primary fs-small">{{shope_count}}</span>
+							</span>
+							<span class="fs-4 fw-bolder">Shops</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="card card-stretch">
+						<a href="{% url 'sales:total_sales' %}" class="btn btn-flex btn-text-gray-800 btn-icon-gray-400 btn-active-color-primary bg-body flex-column justfiy-content-start align-items-start text-start w-100 p-10">
+							<span class="svg-icon svg-icon-primary svg-icon-2x mb-3">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<rect x="0" y="0" width="24" height="24"/>
+										<path d="M3,4 L20,4 C20.5522847,4 21,4.44771525 21,5 L21,7 C21,7.55228475 20.5522847,8 20,8 L3,8 C2.44771525,8 2,7.55228475 2,7 L2,5 C2,4.44771525 2.44771525,4 3,4 Z M3,10 L13,10 C13.5522847,10 14,10.4477153 14,11 L14,19 C14,19.5522847 13.5522847,20 13,20 L3,20 C2.44771525,20 2,19.5522847 2,19 L2,11 C2,10.4477153 2.44771525,10 3,10 Z" fill="#000000"/>
+										<rect fill="#000000" opacity="0.3" x="16" y="10" width="5" height="10" rx="1"/>
+									</g>
+								</svg><!--end::Svg Icon-->
+							</span>
+							<span class="fs-4 fw-bolder">Sales</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--begin::List Widget 4-->
+
+		</div>
+		<!-- Right side column -->
+		<div class="col-xl-8">
+			<!--begin::Card-->
+			<div class="card card-custom gutter-b ">
+				<div class="card-header">
+					<div class="card-title">
+						<h3 class="card-label">Last six month sales</h3>
+					</div>
+				</div>
+				<div class="card-body">
+					<canvas id="myChart" data-url="{% url 'core:last_month_sales' %}"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row g-5 g-xl-8">
+		{% if hot_products %}
+		<div class="card mb-5 mb-xl-8">
+			<div class="card-header border-0 pt-5">
+				<h3 class="card-title align-items-start flex-column">
+					<span class="card-label fw-bolder text-dark">Hot products</span>
+				</h3>
+			</div>
+			<div class="card-body pt-5">
+				{% for p in hot_products %}
+				<div class="d-flex align-items-sm-center mb-7">
+					<div class="symbol symbol-50px me-5">
+						<span class="symbol-label">
+							<img src="{{p.primary_image.url}}" class="h-50 align-self-center" alt="">
+						</span>
+					</div>
+					<div class="d-flex align-items-center flex-row-fluid flex-wrap">
+						<div class="flex-grow-1 me-2">
+							<a href="{% url 'products:product_single' pk=p.pk %}" class="text-gray-800 text-hover-primary fs-6 fw-bolder">{{p.name}}</a>
+							<span class="text-muted fw-bold d-block fs-7">Barcode - {{p.barcode}}</span>
+						</div>
+						<span class="badge badge-light fw-bolder my-2">Rs. {{p.list_price}}</span>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<!--end::Container-->

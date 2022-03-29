@@ -16,8 +16,9 @@ from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
 
 @login_required
 def create_merchandiser(request):
+    user = request.user
     if request.method == "POST":
-        form = MerchandiserForm(request.POST, request.FILES)
+        form = MerchandiserForm(user,request.POST, request.FILES)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -35,7 +36,7 @@ def create_merchandiser(request):
                 json.dumps(response_data), content_type="application/javascript"
             )
     else:
-        form = MerchandiserForm()
+        form = MerchandiserForm(user)
         context = {"form": form, "title": "Add Merchandiser", "alert_type": "showalert"}
         return render(request, "merchandiser/create.html", context)
 
@@ -64,9 +65,10 @@ def merchandiser_single(request, pk):
 
 @login_required
 def update_merchandiser(request, pk):
+    user = request.user
     instance = get_object_or_404(Merchandiser, pk=pk)
     if request.method == "POST":
-        form = MerchandiserForm(request.POST, request.FILES, instance=instance)
+        form = MerchandiserForm(user,request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -81,7 +83,7 @@ def update_merchandiser(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = MerchandiserForm(instance=instance)
+        form = MerchandiserForm(user,instance=instance)
         context = {
             "title": "Edit Merchandiser :- " + instance.name,
             "form": form,

@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'documents',
     'salaries',
     'loans',
+    'globalstaffs',
 ]
 
 MIDDLEWARE = [

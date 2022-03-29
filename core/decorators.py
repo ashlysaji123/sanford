@@ -8,6 +8,15 @@ def superuser_only(function):
                 return render(None, "403.html")
             return function(request, *args, **kwargs)
 
-    return _inner 
+    return _inner
 
 
+def checking_dashboard_access(function):
+    def _inner(request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+            if (user.is_sales_executive or user.is_merchandiser):
+                return render(None, "403.html")
+            return function(request, *args, **kwargs)
+
+    return _inner

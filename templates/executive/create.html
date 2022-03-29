@@ -15,6 +15,26 @@
 				{%csrf_token%}
 				<div class="card-body">
 					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.supervisor.label}}
+								{% if form.supervisor.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+
+								{% if form.supervisor.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.supervisor.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.supervisor}}
+							{% if form.supervisor.errors %}
+							<label class="error">{{ form.supervisor.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row mb-2">
 						<div class="form-group col-lg-6">
 							<label>{{form.name.label}}
 								{% if form.name.field.required %}

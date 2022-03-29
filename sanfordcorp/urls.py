@@ -63,6 +63,11 @@ urlpatterns = (
             "api/v1/loans/",
             include("api.v1.loans.urls", namespace="api_v1_loans"),
         ),
+
+        path(
+            "api/v1/reports/",
+            include("api.v1.reports.urls", namespace="api_v1_reports"),
+        ),
         
         path(
             "api/v1/votings/",
@@ -79,6 +84,7 @@ urlpatterns = (
         path("leave/", include("leave.urls", namespace="leave")),
         path("merchandiser/", include("merchandiser.urls", namespace="merchandiser")),
         path("coordinators/", include("coordinators.urls", namespace="coordinators")),
+        path("globalstaffs/", include("globalstaffs.urls", namespace="globalstaffs")),
         path("executives/", include("executives.urls", namespace="executives")),
         path(
             "notifications/", include("notifications.urls", namespace="notifications")

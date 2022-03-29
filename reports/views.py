@@ -1,4 +1,5 @@
 import json
+from queue import Empty
 from django.contrib.auth.decorators import login_required
 from django.forms.formsets import formset_factory
 from django.forms.models import inlineformset_factory
@@ -11,7 +12,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 
 from core.functions import generate_form_errors, get_response_data
 from .forms import DARNotesForm, DARTaskForm
-from .models import DARNotes, DARTask,DARReschedule
+from .models import CollectMoney, DARNotes, DARTask,DARReschedule,Order, OrderItem,UploadPhoto
 
 
 """DAR"""
@@ -28,10 +29,10 @@ def create_DAR(request):
             data.save()
 
             for form in DAR_formset:
-                title = form.cleaned_data["title"]
+                type = form.cleaned_data["type"]
                 note = form.cleaned_data["note"]
                 DARNotes.objects.create(
-                    title=title,
+                    type=type,
                     note=note,
                     dar=data,
                     creator=request.user,
@@ -134,9 +135,26 @@ def delete_DAR(request, pk):
 def DAR_single(request, pk):
     DAR = DARTask.objects.get(pk=pk)
     DAR_data = DARNotes.objects.filter(dar=DAR)
+    query_set=[]
+    order=[]
+    order_item=[]
+    photos=[]
+    for i in DAR_data:
+        if i.type == 'money':
+            query_set = CollectMoney.objects.get(dar_note=i)
+        elif i.type == 'order':
+            order = Order.objects.get(dar_note=i)
+            order_item = OrderItem.objects.get(order=query_set)
+        elif i.type == 'photo':
+            photos = UploadPhoto.objects.get(dar_note=i)
+
     context = {
         "instance": DAR,
         "DAR_data": DAR_data,
+        "query_set":query_set,
+        "order":order,
+        "order_item":order_item,
+        "photos":photos,
         "title": "DAR Single Page",
     }
     return render(request, "reports/DAR/single.html", context)

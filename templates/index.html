@@ -7,12 +7,20 @@
 		{% include 'layout/contents/superuser-content.html' %}
 	{% endif %}
 
+	{% if is_global_manager %}
+		{% include 'layout/contents/global-manager-content.html' %}
+	{% endif %}
+
 	{% if is_sales_manager %}
 		{% include 'layout/contents/manager-content.html' %}
 	{% endif %}
 
 	{% if is_sales_coordinator %}
 		{% include 'layout/contents/coordinator-content.html' %}
+	{% endif %}
+
+	{% if is_sales_supervisor %}
+		{% include 'layout/contents/supervisor-content.html' %}
 	{% endif %}
 
 {% endblock %}

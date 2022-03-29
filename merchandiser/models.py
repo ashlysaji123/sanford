@@ -28,6 +28,7 @@ class Merchandiser(BaseModel):
         "Passport Number", max_length=30, blank=True, null=True
     )
     passport_expiry = models.DateField("Passport Expiry Date Number", blank=True, null=True)
+    executive = models.ForeignKey("executives.SalesExecutive", on_delete=models.CASCADE, blank=True, null=True)
     state = models.ForeignKey("core.State", on_delete=models.CASCADE, db_index=True)
     shop = models.ForeignKey("core.Shop", on_delete=models.CASCADE, db_index=True)
     user = models.OneToOneField(

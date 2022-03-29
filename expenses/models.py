@@ -28,12 +28,10 @@ class Expenses(BaseModel):
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
     # Higher RQ model fields
-    manager_approved = models.BooleanField(default=False)
-    manager_rejected = models.BooleanField(default=False)
     coordinator_approved = models.BooleanField(default=False)
     coordinator_rejected = models.BooleanField(default=False)
-    executive_approved = models.BooleanField(default=False)
-    executive_rejected = models.BooleanField(default=False)
+    supervisor_approved = models.BooleanField(default=False)
+    supervisor_rejected = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.expense_type} - {self.user}"

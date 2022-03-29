@@ -20,7 +20,7 @@ class SelectStaffForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not user.is_superuser:
+        if not (user.is_superuser or user.is_global_manager):
             queryset = User.objects.filter(Q(is_sales_executive=True) | Q(is_merchandiser=True))
             self.fields["user"].queryset = queryset.filter(
                 region=user.region
@@ -43,7 +43,7 @@ class OpeningStockForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not user.is_superuser:
+        if not (user.is_superuser or user.is_global_manager):
             self.fields["merchandiser"].queryset = Merchandiser.objects.filter(
                 user__region=user.region
             )
