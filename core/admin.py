@@ -3,7 +3,12 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import BlockedIP, Country, Language, Region, Shop, State, Year
+from .models import BlockedIP, Country, Language, Region, Shop, State, Year,UserLog
+
+
+@admin.register(UserLog)
+class UserLogAdmin(ImportExportActionModelAdmin):
+    list_display = ["title", "description"]
 
 
 @admin.register(Year)

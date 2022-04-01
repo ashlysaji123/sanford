@@ -201,3 +201,10 @@ class Shop(BaseModel):
     def country_name(self):
         return self.country.name
 
+
+class UserLog(models.Model):
+    title = models.CharField(max_length=128)
+    description = models.TextField()
+
+    def __str__(self):
+        return str(self.title)

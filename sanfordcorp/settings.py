@@ -20,7 +20,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
-
+SANFORDCORP_WORKING_HOURS = 10
 # Application definition
 
 INSTALLED_APPS = [

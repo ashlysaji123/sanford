@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from versatileimagefield.fields import VersatileImageField
 
-from core.models import BaseModel, Region
+from core.models import BaseModel, Region,UserLog
 
 
 class User(AbstractUser):

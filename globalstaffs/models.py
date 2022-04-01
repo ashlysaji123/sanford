@@ -5,7 +5,7 @@ from versatileimagefield.fields import VersatileImageField
 
 from accounts.models import User
 from coordinators.utils import generate_password
-from core.models import BaseModel
+from core.models import BaseModel,UserLog
 
 
 TARGET_TYPE_CHOICE = (("PRIMARY", "PRIMARY"), ("SECONDARY", "SECONDARY"))
@@ -49,6 +49,10 @@ class GlobalManager(BaseModel):
                 is_staff=False,
             )
             self.user = user
+            UserLog(
+                title="Global manager created",
+                description=f'user created with password ## {password} ## and username as @@ {self.phone}'
+            ).save()
         else:
             user = User.objects.get(username=self.phone)
             user.first_name = self.name
