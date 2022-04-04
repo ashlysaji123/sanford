@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Country, Language, Region, State, Year
+from core.models import SubRegion, Language, Region, Area, Year,LocalArea
 
 
 class YearSerializer(serializers.ModelSerializer):
@@ -15,32 +15,47 @@ class LanguageSerializer(serializers.ModelSerializer):
         fields = ("pk", "family", "name", "native_name", "lang_code")
 
 
-class CountrySerializer(serializers.ModelSerializer):
+class SubRegionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Country
-        fields = ("pk", "name", "slug", "country_code")
+        model = SubRegion
+        fields = ("pk", "name", "slug", "sub_region_code")
 
 
-class StateSerializer(serializers.ModelSerializer):
-    country_name = serializers.ReadOnlyField()
+class AreaSerializer(serializers.ModelSerializer):
+    sub_region_name = serializers.ReadOnlyField()
 
     class Meta:
-        model = State
+        model = Area
         fields = (
             "pk",
             "name",
             "type",
-            "country",
-            "country_name",
+            "sub_region",
+            "sub_region_name",
             "slug",
-            "state_code",
+            "area_code",
+            "tin_number",
+        )
+
+class LocalAreaSerializer(serializers.ModelSerializer):
+    area_name = serializers.ReadOnlyField()
+
+    class Meta:
+        model = LocalArea
+        fields = (
+            "pk",
+            "name",
+            "area",
+            "area_name",
+            "slug",
+            "local_area_code",
             "tin_number",
         )
 
 
 class RegionSerializer(serializers.ModelSerializer):
-    state_name = serializers.ReadOnlyField()
+    area_name = serializers.ReadOnlyField()
 
     class Meta:
         model = Region
-        fields = ("pk", "name", "state_name")
+        fields = ("pk", "name", "area_name")

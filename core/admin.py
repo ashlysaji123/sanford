@@ -3,7 +3,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import BlockedIP, Country, Language, Region, Shop, State, Year,UserLog
+from .models import BlockedIP, SubRegion, Language, Region, Shop, Area,LocalArea, Year,UserLog
 
 
 @admin.register(UserLog)
@@ -26,22 +26,29 @@ class LanguageAdmin(ImportExportActionModelAdmin):
     actions = [mark_deleted, mark_active]
 
 
-@admin.register(Country)
-class CountryAdmin(ImportExportActionModelAdmin):
-    list_display = ["name", "is_deleted"]
-    list_filter = ["is_deleted"]
+@admin.register(SubRegion)
+class SubRegionAdmin(ImportExportActionModelAdmin):
+    list_display = ["name", "is_deleted","sub_region_type","region"]
+    list_filter = ["is_deleted","sub_region_type"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ("name",)}
     actions = [mark_deleted, mark_active]
 
 
-@admin.register(State)
-class StateAdmin(ImportExportActionModelAdmin):
-    list_display = ["name", "state_code", "tin_number", "country", "type", "is_deleted"]
-    list_filter = ["country", "type", "is_deleted"]
+@admin.register(Area)
+class AreaAdmin(ImportExportActionModelAdmin):
+    list_display = ["name", "area_code", "sub_region","is_deleted"]
+    list_filter = ["sub_region","is_deleted"]
     search_fields = ["name"]
-    autocomplete_fields = ["country"]
-    prepopulated_fields = {"slug": ("name",)}
+    autocomplete_fields = ["sub_region"]
+    actions = [mark_deleted, mark_active]
+
+@admin.register(LocalArea)
+class LocalAreaAdmin(ImportExportActionModelAdmin):
+    list_display = ["name", "local_area_code", "area", "is_deleted"]
+    list_filter = ["area", "is_deleted"]
+    search_fields = ["name"]
+    autocomplete_fields = ["area"]
     actions = [mark_deleted, mark_active]
 
 

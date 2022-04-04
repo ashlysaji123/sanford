@@ -69,7 +69,7 @@ class MerchandiserForm(forms.ModelForm):
                 }
             ),
             "executive": Select(attrs={"class": "required form-control tt-select2"}),
-            "state": Select(attrs={"class": "required form-control tt-select2"}),
+            "area": Select(attrs={"class": "required form-control tt-select2"}),
             "shop": Select(attrs={"class": "required form-control tt-select2"}),
         }
 

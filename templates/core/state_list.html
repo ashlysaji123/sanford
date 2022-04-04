@@ -16,8 +16,8 @@
 
         <div class="card-header border-0 pt-6">
             <div class="d-flex justify-content-between align-items-center w-100" data-kt-customer-table-toolbar="base">
-                <h3 class="card-label m-0">States</h3>
-                <a href="{% url 'core:new_state' %}" class="btn btn-primary">Add New</a>
+                <h3 class="card-label m-0">Area list</h3>
+                <a href="{% url 'core:new_area' %}" class="btn btn-primary">Add New</a>
             </div>
         </div>
 
@@ -28,8 +28,8 @@
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="min-w-125px">Name</th>
                             <th class="min-w-125px">Type</th>
-                            <th class="min-w-125px">State code</th>
-                            <th class="min-w-125px">Country</th>
+                            <th class="min-w-125px">Area code</th>
+                            <th class="min-w-125px">Sub region</th>
                             <th class="text-end min-w-70px">Actions</th>
                         </tr>
                     </thead>
@@ -43,8 +43,8 @@
                             <td>
                                 <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.type}}</a>
                             </td>
-                            <td>{{object.state_code}}</td>
-                            <td>{{object.country}}</td>
+                            <td>{{object.area_code}}</td>
+                            <td>{{object.sub_region}}</td>
 
                             <td class="text-end">
                                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

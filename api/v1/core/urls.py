@@ -2,34 +2,44 @@ from django.urls import path
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import Country, Language, Region, State, Year
+from core.models import SubRegion, Language, Region, Area, Year,LocalArea
 from core.pagination import StandardResultsSetPagination
 
 from .serializers import (
-    CountrySerializer,
+    SubRegionSerializer,
     LanguageSerializer,
     RegionSerializer,
-    StateSerializer,
+    AreaSerializer,
     YearSerializer,
+    LocalAreaSerializer
 )
 
 app_name = "core"
 
 urlpatterns = [
     path(
-        "countries/",
+        "sub-regions/",
         ListAPIView.as_view(
-            queryset=Country.objects.filter(is_deleted=False),
-            serializer_class=CountrySerializer,
+            queryset=SubRegion.objects.filter(is_deleted=False),
+            serializer_class=SubRegionSerializer,
             pagination_class=StandardResultsSetPagination,
             permission_classes=[IsAuthenticated],
         ),
     ),
     path(
-        "states/",
+        "area-list/",
         ListAPIView.as_view(
-            queryset=State.objects.filter(is_deleted=False),
-            serializer_class=StateSerializer,
+            queryset=Area.objects.filter(is_deleted=False),
+            serializer_class=AreaSerializer,
+            pagination_class=StandardResultsSetPagination,
+            permission_classes=[IsAuthenticated],
+        ),
+    ),
+    path(
+        "local-area-list/",
+        ListAPIView.as_view(
+            queryset=LocalArea.objects.filter(is_deleted=False),
+            serializer_class=LocalAreaSerializer,
             pagination_class=StandardResultsSetPagination,
             permission_classes=[IsAuthenticated],
         ),
@@ -62,18 +72,26 @@ urlpatterns = [
         ),
     ),
     path(
-        "countries/view/<str:pk>/",
+        "sub-region/view/<str:pk>/",
         RetrieveAPIView.as_view(
-            queryset=Country.objects.filter(is_deleted=False),
-            serializer_class=CountrySerializer,
+            queryset=SubRegion.objects.filter(is_deleted=False),
+            serializer_class=SubRegionSerializer,
             permission_classes=[IsAuthenticated],
         ),
     ),
     path(
-        "states/view/<str:pk>/",
+        "area/view/<str:pk>/",
         RetrieveAPIView.as_view(
-            queryset=State.objects.filter(is_deleted=False),
-            serializer_class=StateSerializer,
+            queryset=Area.objects.filter(is_deleted=False),
+            serializer_class=AreaSerializer,
+            permission_classes=[IsAuthenticated],
+        ),
+    ),
+    path(
+        "local-area/view/<str:pk>/",
+        RetrieveAPIView.as_view(
+            queryset=LocalArea.objects.filter(is_deleted=False),
+            serializer_class=LocalAreaSerializer,
             permission_classes=[IsAuthenticated],
         ),
     ),

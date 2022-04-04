@@ -24,24 +24,30 @@ urlpatterns = [
     path("view/language/<str:pk>/", login_required(views.LanguageDetail.as_view()), name="view_language",),
     path("update/language/<str:pk>/", login_required(views.LanguageUpdate.as_view()), name="update_language",),
     path("delete/language/<str:pk>/", login_required(views.LanguageDelete.as_view()), name="delete_language",),
-    # Countrys
-    path("countries/", login_required(views.CountryList.as_view()), name="country_list"),
-    path("new/country/", login_required(views.CountryForm.as_view()), name="new_country"),
-    path("view/country/<str:pk>/", login_required(views.CountryDetail.as_view()), name="view_country",),
-    path("update/country/<str:pk>/", login_required(views.CountryUpdate.as_view()), name="update_country",),
-    path("delete/country/<str:pk>/", login_required(views.CountryDelete.as_view()), name="delete_country",),
+    # sub_region
+    path("sub_regions/", login_required(views.SubRegionList.as_view()), name="sub_region_list"),
+    path("new/sub_region/", login_required(views.SubRegionForm.as_view()), name="new_sub_region"),
+    path("view/sub_region/<str:pk>/", login_required(views.SubRegionDetail.as_view()), name="view_sub_region",),
+    path("update/sub_region/<str:pk>/", login_required(views.SubRegionUpdate.as_view()), name="update_sub_region",),
+    path("delete/sub_region/<str:pk>/", login_required(views.SubRegionDelete.as_view()), name="delete_sub_region",),
     # Shops
     path("shops/", login_required(views.ShopList.as_view()), name="shop_list"),
     path("new/shop/", login_required(views.ShopForm.as_view()), name="new_shop"),
     path("view/shop/<str:pk>/", login_required(views.ShopDetail.as_view()), name="view_shop",),
     path("update/shop/<str:pk>/", login_required(views.ShopUpdate.as_view()), name="update_shop",),
     path("delete/shop/<str:pk>/", login_required(views.ShopDelete.as_view()), name="delete_shop",),
-    # States
-    path("states/", login_required(views.StateList.as_view()), name="state_list"),
-    path("new/state/", login_required(views.StateForm.as_view()), name="new_state"),
-    path("view/state/<str:pk>/", login_required(views.StateDetail.as_view()), name="view_state",),
-    path("update/state/<str:pk>/", login_required(views.StateUpdate.as_view()), name="update_state",),
-    path("delete/state/<str:pk>/", login_required(views.StateDelete.as_view()), name="delete_state",),
+    # Area
+    path("area-list/", login_required(views.AreaList.as_view()), name="area_list"),
+    path("new/area/", login_required(views.AreaForm.as_view()), name="new_area"),
+    path("view/area/<str:pk>/", login_required(views.AreaDetail.as_view()), name="view_area",),
+    path("update/area/<str:pk>/", login_required(views.AreaUpdate.as_view()), name="update_area",),
+    path("delete/area/<str:pk>/", login_required(views.AreaDelete.as_view()), name="delete_area",),
+    # Local Area
+    path("local-area-list/", login_required(views.LocalAreaList.as_view()), name="local_area_list"),
+    path("new/local-area/", login_required(views.LocalAreaForm.as_view()), name="new_local_area"),
+    path("view/local-area/<str:pk>/", login_required(views.LocalAreaDetail.as_view()), name="view_local_area",),
+    path("update/local-area/<str:pk>/", login_required(views.LocalAreaUpdate.as_view()), name="update_local_area",),
+    path("delete/local-area/<str:pk>/", login_required(views.LocalAreaDelete.as_view()), name="delete_local_area",),
     # Dashbord urlpatterns
     path("last-month-sales", superuserviews.last_month_sales, name="last_month_sales"),
     path("my-profile", views.my_profile, name="my_profile"),

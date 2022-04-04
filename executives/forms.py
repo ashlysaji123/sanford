@@ -73,7 +73,7 @@ class SalesSupervisorForm(forms.ModelForm):
                 }
             ),
             "region": Select(attrs={"class": "required form-control tt-select2"}),
-            "country": Select(attrs={"class": "required form-control tt-select2"}),
+            "sub_region": Select(attrs={"class": "required form-control tt-select2"}),
         }
 
 
@@ -171,7 +171,7 @@ class SalesExecutiveForm(forms.ModelForm):
             ),
             "supervisor": Select(attrs={"class": "required form-control tt-select2"}),
             "region": Select(attrs={"class": "required form-control tt-select2"}),
-            "country": Select(attrs={"class": "required form-control tt-select2"}),
+            "sub_region": Select(attrs={"class": "required form-control tt-select2"}),
         }
 
     def __init__(self, user, *args, **kwargs):

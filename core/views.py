@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 from coordinators.models import SalesCoordinator, SalesManager
 from globalstaffs.models import GlobalManager
 from core.functions import generate_form_errors, get_response_data
-from core.models import Country, Language, Region, Shop, State, Year
+from core.models import SubRegion, Language, Region, Shop, Area, Year,LocalArea
 from executives.models import SalesSupervisor
 
 
@@ -118,39 +118,42 @@ class LanguageDelete(DeleteView):
     success_url = reverse_lazy("core:language_list")
 
 
-class CountryList(ListView):
-    queryset = Country.objects.filter(is_deleted=False)
+class SubRegionList(ListView):
+    template_name = "core/country_list.html"
+    queryset = SubRegion.objects.filter(is_deleted=False)
 
 
-class CountryDetail(DetailView):
-    model = Country
+class SubRegionDetail(DetailView):
+    template_name = "core/country_detail.html"
+    model = SubRegion
 
 
-class CountryForm(CreateView):
-    model = Country
-    fields = ["name","country_code","region"]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "New Country"
-        return context
-
-
-class CountryUpdate(UpdateView):
-    model = Country
-    fields = ["name","country_code","region"]
-    template_name_suffix = "_form"
+class SubRegionForm(CreateView):
+    template_name = "core/country_form.html"
+    model = SubRegion
+    fields = ["name","sub_region_code","region","sub_region_type"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Edit Country -"
+        context["title"] = "New SubRegion"
         return context
 
 
-class CountryDelete(DeleteView):
-    model = Country
+class SubRegionUpdate(UpdateView):
+    template_name = "core/country_form.html"
+    model = SubRegion
+    fields = ["name","sub_region_code","region","sub_region_type"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit SubRegion -"
+        return context
+
+
+class SubRegionDelete(DeleteView):
+    model = SubRegion
     template_name = "core/confirm_delete.html"
-    success_url = reverse_lazy("core:country_list")
+    success_url = reverse_lazy("core:SubRegionList")
 
 
 class ShopList(ListView):
@@ -159,7 +162,7 @@ class ShopList(ListView):
         if self.request.user.is_superuser or self.request.user.is_global_manager:
             queryset = Shop.objects.filter(is_deleted=False)
         else:
-            queryset = Shop.objects.filter(is_deleted=False,country__region=self.request.user.region)
+            queryset = Shop.objects.filter(is_deleted=False,area__sub_region__region=self.request.user.region)
         return queryset
             
 
@@ -170,7 +173,7 @@ class ShopDetail(DetailView):
 
 class ShopForm(CreateView):
     model = Shop
-    fields = ["name","location", "contact_number", "contact_number2", "country", "state"]
+    fields = ["name","location", "contact_number", "contact_number2", "area","local_area"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -180,7 +183,7 @@ class ShopForm(CreateView):
 
 class ShopUpdate(UpdateView):
     model = Shop
-    fields = ["name","location", "contact_number", "contact_number2", "country", "state"]
+    fields = ["name","location", "contact_number", "contact_number2","area","local_area"]
     template_name_suffix = "_form"
 
     def get_context_data(self, **kwargs):
@@ -195,39 +198,80 @@ class ShopDelete(DeleteView):
     success_url = reverse_lazy("core:shop_list")
 
 
-class StateList(ListView):
-    queryset = State.objects.filter(is_deleted=False)
+class AreaList(ListView):
+    template_name = "core/state_list.html"
+    queryset = Area.objects.filter(is_deleted=False)
 
 
-class StateDetail(DetailView):
-    model = State
+class AreaDetail(DetailView):
+    template_name = "core/state_detail.html"
+    model = Area
 
 
-class StateForm(CreateView):
-    model = State
-    fields = ["name","type", "country", "state_code", "tin_number"]
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "New State"
-        return context
-
-
-class StateUpdate(UpdateView):
-    model = State
-    fields = ["name","type", "country", "state_code", "tin_number"]
-    template_name_suffix = "_form"
+class AreaForm(CreateView):
+    template_name = "core/state_form.html"
+    model = Area
+    fields = ["name", "sub_region", "area_code"]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Edit State -"
+        context["title"] = "New Area"
         return context
 
 
-class StateDelete(DeleteView):
-    model = State
+class AreaUpdate(UpdateView):
+    model = Area
+    fields = ["name", "sub_region", "area_code"]
+    template_name = "core/state_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Area -"
+        return context
+
+
+class AreaDelete(DeleteView):
+    model = Area
     template_name = "core/confirm_delete.html"
-    success_url = reverse_lazy("core:state_list")
+    success_url = reverse_lazy("core:area_list")
+
+# Local  area
+class LocalAreaList(ListView):
+    template_name = "core/local_area_list.html"
+    queryset = LocalArea.objects.filter(is_deleted=False)
+
+
+class LocalAreaDetail(DetailView):
+    template_name = "core/local_area_detail.html"
+    model = LocalArea
+
+
+class LocalAreaForm(CreateView):
+    template_name = "core/local_area_form.html"
+    model = LocalArea
+    fields = ["name","area","local_area_code"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Area"
+        return context
+
+
+class LocalAreaUpdate(UpdateView):
+    model = LocalArea
+    fields = ["name","area", "local_area_code"]
+    template_name = "core/local_area_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Area -"
+        return context
+
+
+class LocalAreaDelete(DeleteView):
+    model = Area
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:local_area_list")
 
 
 @login_required

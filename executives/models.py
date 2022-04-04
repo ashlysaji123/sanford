@@ -29,7 +29,7 @@ class SalesSupervisor(BaseModel):
     )
     passport_expiry = models.DateField("Passport Expiry Date Number", blank=True, null=True)
     region = models.ForeignKey("core.Region", on_delete=models.CASCADE, db_index=True)
-    country = models.ForeignKey("core.Country", on_delete=models.CASCADE, db_index=True)
+    sub_region = models.ForeignKey("core.SubRegion", on_delete=models.CASCADE, db_index=True)
     user = models.OneToOneField(
         "accounts.User", on_delete=models.SET_NULL, blank=True, null=True
     )
@@ -123,7 +123,7 @@ class SalesExecutive(BaseModel):
     passport_expiry = models.DateField("Passport Expiry Date Number", blank=True, null=True)
     supervisor = models.ForeignKey(SalesSupervisor, on_delete=models.CASCADE, blank=True, null=True)
     region = models.ForeignKey("core.Region", on_delete=models.CASCADE, db_index=True)
-    country = models.ForeignKey("core.Country", on_delete=models.CASCADE, db_index=True)
+    sub_region = models.ForeignKey("core.SubRegion", on_delete=models.CASCADE, db_index=True)
     user = models.OneToOneField(
         "accounts.User", on_delete=models.SET_NULL, blank=True, null=True
     )

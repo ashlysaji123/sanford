@@ -83,14 +83,18 @@ class Region(BaseModel):
         return str(self.name)
 
 
-class Country(BaseModel):
+class SubRegion(BaseModel):
+    TYPE_CHOICES = (
+        ("EMIRATE", "EMIRATE"),
+        ("STATE", "STATE"),
+        ("UNION TERRITORY", "UNION TERRITORY"),
+    )
+    sub_region_type = models.CharField(max_length=128, default="STATE", choices=TYPE_CHOICES)
     name = models.CharField(max_length=128)
     slug = models.SlugField(unique=True, blank=True, null=True)
-    country_code = models.CharField(max_length=128, blank=True, null=True)
+    sub_region_code = models.CharField(max_length=128, blank=True, null=True)
     region = models.ForeignKey(
         Region,
-        blank=True,
-        null=True,
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
         related_name="region",
@@ -98,61 +102,69 @@ class Country(BaseModel):
 
     class Meta:
         ordering = ("name",)
-        verbose_name = "Country"
-        verbose_name_plural = "Countries"
+        verbose_name = "SubRegion"
 
     def get_absolute_url(self):
-        return reverse("core:view_country", kwargs={"pk": self.pk})
+        return reverse("core:view_sub_region", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_country", kwargs={"pk": self.pk})
+        return reverse("core:update_sub_region", kwargs={"pk": self.pk})
 
     def get_delete_url(self):
-        return reverse("core:delete_country", kwargs={"pk": self.pk})
+        return reverse("core:delete_sub_region", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
 
 
-class State(BaseModel):
-    TYPE_CHOICES = (
-        ("EMIRATE", "EMIRATE"),
-        ("STATE", "STATE"),
-        ("UNION TERRITORY", "UNION TERRITORY"),
-    )
-
+class Area(BaseModel):
     name = models.CharField(max_length=128)
-    type = models.CharField(max_length=128, default="STATE", choices=TYPE_CHOICES)
-    country = models.ForeignKey(
-        Country,
-        blank=True,
-        null=True,
+    sub_region = models.ForeignKey(
+        SubRegion,
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
-        related_name="state_country",
     )
-    slug = models.SlugField(unique=True, blank=True, null=True)
-    state_code = models.CharField(max_length=21, blank=True, null=True)
-    tin_number = models.CharField(max_length=21, blank=True, null=True)
-
+    area_code = models.CharField(max_length=21, blank=True, null=True)
     class Meta:
         ordering = ("name",)
 
     def get_absolute_url(self):
-        return reverse("core:view_state", kwargs={"pk": self.pk})
+        return reverse("core:view_area", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        return reverse("core:update_state", kwargs={"pk": self.pk})
+        return reverse("core:update_area", kwargs={"pk": self.pk})
 
     def get_delete_url(self):
-        return reverse("core:delete_state", kwargs={"pk": self.pk})
+        return reverse("core:delete_area", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)
 
-    @property
-    def country_name(self):
-        return self.country.name
+
+
+class LocalArea(BaseModel):
+    name = models.CharField(max_length=128)
+    area = models.ForeignKey(
+        Area,
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.PROTECT,
+    )
+    local_area_code = models.CharField(max_length=21, blank=True, null=True)
+    class Meta:
+        ordering = ("name",)
+
+    def get_absolute_url(self):
+        return reverse("core:view_local_area", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_local_area", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_local_area", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return str(self.name)
+
 
 
 class BlockedIP(BaseModel):
@@ -167,17 +179,13 @@ class Shop(BaseModel):
     location = PlainLocationField(based_fields=["city"], zoom=1)
     contact_number = models.CharField(max_length=18)
     contact_number2 = models.CharField(max_length=18, blank=True, null=True)
-    country = models.ForeignKey(
-        Country,
-        blank=True,
-        null=True,
+    area = models.ForeignKey(
+        Area,
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
     )
-    state = models.ForeignKey(
-        State,
-        blank=True,
-        null=True,
+    local_area = models.ForeignKey(
+        LocalArea,
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
     )
@@ -197,9 +205,6 @@ class Shop(BaseModel):
     def __str__(self):
         return str(self.name)
 
-    @property
-    def country_name(self):
-        return self.country.name
 
 
 class UserLog(models.Model):

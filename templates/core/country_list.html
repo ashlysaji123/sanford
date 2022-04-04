@@ -16,8 +16,8 @@
 
         <div class="card-header border-0 pt-6">
             <div class="d-flex justify-content-between align-items-center w-100" data-kt-customer-table-toolbar="base">
-                <h3 class="card-label m-0">Countries</h3>
-                <a href="{% url 'core:new_country' %}" class="btn btn-primary">Add New</a>
+                <h3 class="card-label m-0">Sub regions</h3>
+                <a href="{% url 'core:new_sub_region' %}" class="btn btn-primary">Add New</a>
             </div>
         </div>
 
@@ -27,7 +27,8 @@
                     <thead>
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="min-w-125px">Name</th>
-                            <th class="min-w-125px">Country code</th>
+                            <th class="min-w-125px">Type</th>
+                            <th class="min-w-125px">Sub region code</th>
                             <th class="min-w-125px">Region</th>
                             <th class="text-end min-w-70px">Actions</th>
                         </tr>
@@ -39,8 +40,9 @@
                             <td>
                                 <a href="{{object.get_absolute_url}}" class="text-gray-800 text-hover-primary mb-1">{{object.name}}</a>
                             </td>
+                            <td>{{object.sub_region_type}}</td>
                             <td>
-                                <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.country_code}}</a>
+                                <a href="#" class="text-gray-600 text-hover-primary mb-1">{{object.sub_region_code}}</a>
                             </td>
                             <td>{{object.region}}</td>
 
