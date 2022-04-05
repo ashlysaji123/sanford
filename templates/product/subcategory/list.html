@@ -35,6 +35,7 @@
                                 <th class="min-w-125px">#</th>
                                 <th class="min-w-125px">Sub category name</th>
                                 <th class="min-w-125px">Sub category code</th>
+                                <th class="min-w-125px">Group</th>
                                 <th class="min-w-125px">Category</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
@@ -45,7 +46,8 @@
                                 <td>{{forloop.counter}}</td>
                                 <td>{{i.name}}</td>
                                 <td>{{i.code}}</td>
-                                <td>{{i.category.name}}</td>
+                                <td>{{i.group.name}}</td>
+                                <td>{{i.group.category.name}}</td>
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
                                         <a href="{% url 'products:update_product_sub_category' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">

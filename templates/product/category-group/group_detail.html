@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!--begin::Container-->
+    <div class="container-xxl" id="kt_content_container">
+        <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+            <div class="card-header cursor-pointer">
+                <div class="card-title m-0">
+                    <h3 class="fw-bolder m-0">Category Group: {{object}}</h3>
+                </div>
+            </div>
+            <div class="card-body p-9">
+
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Name</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{object.name}}</span>
+                    </div>
+                </div>
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-bold text-muted">Category</label>
+                    <div class="col-lg-8">
+                        <span class="fw-bolder fs-6 text-gray-800">{{object.category.name}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex align-items-center rounded col-lg-6">
+                        <div class="me-7 mb-4">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                {% if object.icon %}
+                                <img src="{{object.icon.url}}" alt="image">
+                                {% else %}
+                                <p>Image not found</p>
+                                {% endif%}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center rounded col-lg-6">
+                        <div class="me-7 mb-4">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                {% if object.image %}
+                                <img src="{{object.image.url}}" alt="image">
+                                {% else %}
+                                <p>Image not found</p>
+                                {% endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::details View-->
+    </div>
+    <!--end::Container-->
+
+{% endblock %}

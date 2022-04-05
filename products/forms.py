@@ -16,7 +16,7 @@ class CategoryForm(forms.ModelForm):
             "icon": FileInput(attrs={"class": "required form-control"}),
             "image": FileInput(attrs={"class": "required form-control"}),
             "code": TextInput(
-                attrs={"class": "required form-control", "placeholder": "Category Code"}
+                attrs={"class": "form-control", "placeholder": "Category Code"}
             ),
         }
 
@@ -24,9 +24,9 @@ class CategoryForm(forms.ModelForm):
 class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = SubCategory
-        fields = ("category", "name", "code")
+        fields = ("group", "name", "code")
         widgets = {
-            "category": Select(attrs={"class": "required form-control tt-select2"}),
+            "group": Select(attrs={"class": "required form-control tt-select2"}),
             "name": TextInput(
                 attrs={
                     "class": "required form-control",
@@ -35,7 +35,7 @@ class SubCategoryForm(forms.ModelForm):
             ),
             "code": TextInput(
                 attrs={
-                    "class": "required form-control",
+                    "class": "form-control",
                     "placeholder": "Sub Category Code",
                 }
             ),
@@ -85,7 +85,6 @@ class ProductForm(forms.ModelForm):
             "summary": Textarea(
                 attrs={"class": " form-control", "placeholder": "Summary"}
             ),
-            "group": Select(attrs={"class": "required form-control tt-select2"}),
             "subcategory": Select(attrs={"class": "required form-control tt-select2"}),
             "list_price": TextInput(
                 attrs={"class": "required form-control", "placeholder": "List price"}

@@ -7,17 +7,15 @@ from versatileimagefield.fields import VersatileImageField
 
 from core.models import BaseModel, Region
 
-
 class Category(BaseModel):
     name = models.CharField(max_length=128)
-    code = models.CharField(max_length=128, unique=True)
+    code = models.CharField(max_length=128, unique=True,blank=True,null=True)
     icon = VersatileImageField(
         "Category Icon", upload_to="images/products/categories/icon/"
     )
     image = VersatileImageField(
         "Category Image", upload_to="images/products/categories/image/"
     )
-
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
@@ -25,16 +23,45 @@ class Category(BaseModel):
     def __str__(self):
         return str(self.name)
 
-
-class SubCategory(BaseModel):
+class CategoryGroup(BaseModel):
     category = models.ForeignKey(
-        "Category",
+        Category,
         limit_choices_to={"is_deleted": False},
-        related_name="subcategory_category",
+        related_name="subcategory_group",
         on_delete=models.CASCADE,
     )
-    code = models.CharField(max_length=128, unique=True)
     name = models.CharField(max_length=128)
+    icon = VersatileImageField(
+        "Category Icon", upload_to="images/products/categories/group/icon/",
+        blank=True,null=True
+    )
+    image = VersatileImageField(
+        "Category Image", upload_to="images/products/categories/group/image/",
+        blank=True,null=True
+    )
+
+    def get_absolute_url(self):
+        return reverse("products:view_category_group", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("products:update_category_group", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("products:delete_category_group", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return str(self.name)
+
+
+class SubCategory(BaseModel):
+    group = models.ForeignKey(
+        CategoryGroup,
+        limit_choices_to={"is_deleted": False},
+        related_name="subcategory_category_group",
+        on_delete=models.CASCADE,
+    )
+    name = models.CharField(max_length=128)
+    code = models.CharField(max_length=128, unique=True,blank=True,null=True)
 
     class Meta:
         verbose_name = "Sub Category"
@@ -45,7 +72,7 @@ class SubCategory(BaseModel):
 
     @property
     def category_name(self):
-        return str(self.category.name)
+        return str(self.group.category.name)
 
 
 class ProductGroup(BaseModel):
@@ -99,11 +126,8 @@ class Product(BaseModel):
 
     @property
     def group_name(self):
-        return str(self.group.name)
+        return str(self.subcategory.group.name)
 
-    @property
-    def subcategory_name(self):
-        return str(self.subcategory.name)
 
 
 class ProductWishList(models.Model):

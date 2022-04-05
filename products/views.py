@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 from core.functions import generate_form_errors, get_response_data
 
 from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm
-from .models import Category, Product, ProductGroup, SubCategory,ProductSpecialPrice
+from .models import Category, Product, ProductGroup, SubCategory,ProductSpecialPrice,CategoryGroup
 from core.models import Shop
 
 # Create your views here.
@@ -91,6 +91,43 @@ def delete_product_category(request, pk):
 
 
 """Product category"""
+
+class CategoryGroupList(ListView):
+    template_name = "products/category-group/group_list.html"
+    queryset = CategoryGroup.objects.filter(is_deleted=False)
+
+
+class CategoryGroupDetail(DetailView):
+    template_name = "products/category-group/group_detail.html"
+    model = CategoryGroup
+
+
+class CategoryGroupForm(CreateView):
+    template_name = "products/category-group/group_form.html"
+    model = CategoryGroup
+    fields = ["name","category","icon","image"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New CategoryGroup"
+        return context
+
+
+class CategoryGroupUpdate(UpdateView):
+    template_name = "products/category-group/group_form.html"
+    model = CategoryGroup
+    fields = ["name","category","icon","image"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit CategoryGroup -"
+        return context
+
+
+class CategoryGroupDelete(DeleteView):
+    model = CategoryGroup
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("products:category_group_list")
 
 
 """Produc subt category"""

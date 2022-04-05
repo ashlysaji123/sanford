@@ -188,7 +188,7 @@ class SubRegionUpdate(UpdateView):
 class SubRegionDelete(DeleteView):
     model = SubRegion
     template_name = "core/confirm_delete.html"
-    success_url = reverse_lazy("core:SubRegionList")
+    success_url = reverse_lazy("core:sub_region_list")
 
 
 class ShopList(ListView):

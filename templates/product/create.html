@@ -89,24 +89,7 @@
 						</div>
 					</div>
 					<div class="row mb-2">
-						<div class="form-group col-lg-6">
-							<label>{{form.group.label}}
-								{% if form.group.field.required %}
-								<small class="text-danger">*</small>
-								{% endif %}
-								{% if form.group.help_text %}
-								<span data-original-title="Field Info" title=""
-									data-content="{{ form.group.help_text }}" data-placement="left"
-									data-toggle="popover" data-trigger="hover"
-									class="help-text-icon zmdi zmdi-info-outline"></span>
-								{% endif %}
-							</label>
-							{{form.group}}
-							{% if form.group.errors %}
-							<label class="error">{{ form.group.errors.as_text }}</label>
-							{% endif %}
-						</div>
-						<div class="form-group col-lg-6">
+						<div class="form-group col-lg-12">
 							<label>{{form.subcategory.label}}
 								{% if form.subcategory.field.required %}
 								<small class="text-danger">*</small>
