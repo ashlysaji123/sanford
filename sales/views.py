@@ -410,31 +410,49 @@ def sales_report(request):
     current_year =  datetime.datetime.now().year
     current_month =  datetime.datetime.now().month
 
-    sales_return = SaleReturn.objects.filter(user=user,created__year=current_year,created__month=current_month)
-    sales_return_amount = 0
-    for i in sales_return:
-        sales_return_amount += i.total_amount
+    if user.is_sales_manager or user.is_sales_coordinator:
+        sales_return = SaleReturn.objects.filter(user__region=user.region,created__year=current_year,created__month=current_month)
+        sales_return_amount = 0
+        for i in sales_return:
+            sales_return_amount += i.total_amount
 
-    sales_data = Sales.objects.filter(user=user,created__year=current_year,created__month=current_month,is_approved=True)
-    sales_amount = 0
-    for i in sales_data:
-        sales_amount += i.total_amount
+        sales_data = Sales.objects.filter(user__region=user.region,created__year=current_year,created__month=current_month,is_approved=True)
+        sales_amount = 0
+        for i in sales_data:
+            sales_amount += i.total_amount
+        context = {
+            "title": "Sale Report ",
+            "user": user,
+            "sales_return_amount":sales_return_amount,
+            "sales_amount":sales_amount
+        }
+        return render(request, "sales/sale/sales-report.html", context)
+    else:
+        sales_return = SaleReturn.objects.filter(user=user,created__year=current_year,created__month=current_month)
+        sales_return_amount = 0
+        for i in sales_return:
+            sales_return_amount += i.total_amount
 
-    target_data = []
-    if Merchandiser.objects.filter(user=user).exists():
-        print("merchant")
-        merchant = Merchandiser.objects.get(user=user)
-        target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month,user=merchant)
-    elif SalesExecutive.objects.filter(user=user).exists():
-        print("executives")
-        executive = SalesExecutive.objects.get(user=user)
-        target_data = SalesExecutiveTarget.objects.filter(year=current_year,month=current_month,user=executive)
+        sales_data = Sales.objects.filter(user=user,created__year=current_year,created__month=current_month,is_approved=True)
+        sales_amount = 0
+        for i in sales_data:
+            sales_amount += i.total_amount
 
-    context = {
-        "title": "Sale Report ",
-        "user": user,
-        "target_data":target_data,
-        "sales_return_amount":sales_return_amount,
-        "sales_amount":sales_amount
-    }
-    return render(request, "sales/sale/sales-report.html", context)
+        target_data = []
+        if Merchandiser.objects.filter(user=user).exists():
+            print("merchant")
+            merchant = Merchandiser.objects.get(user=user)
+            target_data = MerchandiserTarget.objects.filter(year=current_year,month=current_month,user=merchant)
+        elif SalesExecutive.objects.filter(user=user).exists():
+            print("executives")
+            executive = SalesExecutive.objects.get(user=user)
+            target_data = SalesExecutiveTarget.objects.filter(year=current_year,month=current_month,user=executive)
+
+        context = {
+            "title": "Sale Report ",
+            "user": user,
+            "target_data":target_data,
+            "sales_return_amount":sales_return_amount,
+            "sales_amount":sales_amount
+        }
+        return render(request, "sales/sale/sales-report.html", context)

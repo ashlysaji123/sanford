@@ -53,21 +53,21 @@
 					</div>
 					<div class="row mb-2">
 						<div class="form-group col-lg-6">
-							<label>{{form.barcode.label}}
-								{% if form.barcode.field.required %}
+							<label>{{form.subcategory.label}}
+								{% if form.subcategory.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
 
-								{% if form.barcode.help_text %}
+								{% if form.subcategory.help_text %}
 								<span data-original-title="Field Info" title=""
-									data-content="{{ form.barcode.help_text }}" data-placement="left"
+									data-content="{{ form.subcategory.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"
 									class="help-text-icon zmdi zmdi-info-outline"></span>
 								{% endif %}
 							</label>
-							{{form.barcode}}
-							{% if form.barcode.errors %}
-							<label class="error">{{ form.barcode.errors.as_text }}</label>
+							{{form.subcategory}}
+							{% if form.subcategory.errors %}
+							<label class="error">{{ form.subcategory.errors.as_text }}</label>
 							{% endif %}
 						</div>
 						<div class="form-group col-lg-6">
@@ -89,21 +89,38 @@
 						</div>
 					</div>
 					<div class="row mb-2">
-						<div class="form-group col-lg-12">
-							<label>{{form.subcategory.label}}
-								{% if form.subcategory.field.required %}
+						<div class="form-group col-lg-6">
+							<label>{{form.ecommerse_barcode.label}}
+								{% if form.ecommerse_barcode.field.required %}
 								<small class="text-danger">*</small>
 								{% endif %}
-								{% if form.subcategory.help_text %}
+								{% if form.ecommerse_barcode.help_text %}
 								<span data-original-title="Field Info" title=""
-									data-content="{{ form.subcategory.help_text }}" data-placement="left"
+									data-content="{{ form.ecommerse_barcode.help_text }}" data-placement="left"
 									data-toggle="popover" data-trigger="hover"
 									class="help-text-icon zmdi zmdi-info-outline"></span>
 								{% endif %}
 							</label>
-							{{form.subcategory}}
-							{% if form.subcategory.errors %}
-							<label class="error">{{ form.subcategory.errors.as_text }}</label>
+							{{form.ecommerse_barcode}}
+							{% if form.ecommerse_barcode.errors %}
+							<label class="error">{{ form.ecommerse_barcode.errors.as_text }}</label>
+							{% endif %}
+						</div>
+						<div class="form-group col-lg-6">
+							<label>{{form.retail_barcode.label}}
+								{% if form.retail_barcode.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.retail_barcode.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.retail_barcode.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.retail_barcode}}
+							{% if form.retail_barcode.errors %}
+							<label class="error">{{ form.retail_barcode.errors.as_text }}</label>
 							{% endif %}
 						</div>
 					</div>

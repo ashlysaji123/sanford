@@ -11,7 +11,7 @@
                     <h3 class="card-title w-100">
                         {{title}} 
                     </h3>
-                    <span>Code No : {{instance.barcode}}</span>
+                    <span>Code No : {{instance.retail_barcode}}</span>
                 </div>
             </div>
 
@@ -22,10 +22,18 @@
                         <h6 class=" font-weight-bold">{{instance.name}}</h6>
                     </div>
                 </div>
+            </div>
+            <div class="card-body row">
                 <div class="d-flex align-items-center rounded   col-lg-6">
                     <div class="d-flex flex-column flex-grow-1 mr-2">
-                        <span class="font-weight-bold text-dark-75 text-hover-primary  mb-3">Barcode</span>
-                        <h6 class=" font-weight-bold">{{instance.barcode}}</h6>
+                        <span class="font-weight-bold text-dark-75 text-hover-primary  mb-3">Retail Barcode</span>
+                        <h6 class=" font-weight-bold">{{instance.retail_barcode}}</h6>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center rounded   col-lg-6">
+                    <div class="d-flex flex-column flex-grow-1 mr-2">
+                        <span class="font-weight-bold text-dark-75 text-hover-primary  mb-3">E-commerse Barcode</span>
+                        <h6 class=" font-weight-bold">{{instance.ecommerse_barcode}}</h6>
                     </div>
                 </div>
             </div>
@@ -37,12 +45,7 @@
                         <h6 class=" font-weight-bold">{{instance.item_number}}</h6>
                     </div>
                 </div>
-                <div class="d-flex align-items-center rounded col-lg-6">
-                    <div class="d-flex flex-column flex-grow-1 mr-2">
-                        <span class="font-weight-bold text-dark-75 text-hover-primary  mb-3">Group</span>
-                        <h6 class=" font-weight-bold">{{instance.group}}</h6>
-                    </div>
-                </div>
+                
             </div>
         
             <div class="card-body row">

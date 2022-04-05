@@ -62,7 +62,7 @@ class Merchandiser(BaseModel):
                 first_name=self.name,
                 employe_id=self.employe_id,
                 photo=self.photo,
-                region=self.state.country.region,
+                region=self.area.sub_region.region,
                 password=password,
                 is_merchandiser=True,
                 is_staff=False,
@@ -79,7 +79,7 @@ class Merchandiser(BaseModel):
             user.first_name = self.name
             user.employe_id = self.employe_id
             user.photo = self.photo
-            user.region = self.state.country.region
+            user.region = self.area.sub_region.region
             user.designation=self.designation
             user.department=self.department
             user.save()

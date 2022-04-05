@@ -41,7 +41,6 @@ class ProductAdmin(ImportExportActionModelAdmin):
     actions = [mark_deleted, mark_active]
     list_display = [
         "name",
-        "barcode",
         "item_number",
         "subcategory",
         "list_price",
@@ -54,7 +53,7 @@ class ProductAdmin(ImportExportActionModelAdmin):
         "is_new_arrival",
         "is_deleted",
     ]
-    search_fields = ["name", "barcode", "item_number"]
+    search_fields = ["name", "retail_barcode", "item_number"]
     autocomplete_fields = ["creator", "subcategory", "available_regions"]
     something = [ "subcategory_name", "available_regions_list"]
 

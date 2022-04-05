@@ -8,7 +8,7 @@ from django.urls import reverse
 from itertools import chain
 
 from core.functions import generate_form_errors, get_response_data
-from .models import Loan
+from .models import Loan,LoanLog
 # Create your views here.
 
 @login_required
@@ -64,9 +64,11 @@ def pending_loan_requests(request):
 @login_required
 def loan_single(request, pk):
     instance = get_object_or_404(Loan, pk=pk)
+    loan_log = LoanLog.objects.filter(loan=instance)
     context = {
         "title": "Loan single page ",
         "instance": instance,
+        "loan_log":loan_log
     }
     return render(request, "loan/single.html", context)
 

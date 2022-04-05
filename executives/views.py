@@ -14,7 +14,9 @@ from .forms import (
     SalesExecutiveTaskForm,
     SalesSupervisorForm, 
     SalesSupervisorTargetForm, 
-    SalesSupervisorTaskForm
+    SalesSupervisorTaskForm,
+    SalesSupervisorUpdateForm,
+    SalesExecutiveUpdateForm
 )
 from .models import (
     SalesExecutive, 
@@ -84,7 +86,7 @@ def supervisor_single(request, pk):
 def update_supervisor(request, pk):
     instance = get_object_or_404(SalesSupervisor, pk=pk)
     if request.method == "POST":
-        form = SalesSupervisorForm(request.POST, request.FILES, instance=instance)
+        form = SalesSupervisorUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -97,7 +99,7 @@ def update_supervisor(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = SalesSupervisorForm(instance=instance)
+        form = SalesSupervisorUpdateForm(instance=instance)
         context = {
             "title": "Edit Sales Supervisor " + instance.name,
             "form": form,
@@ -342,7 +344,7 @@ def update_executive(request, pk):
     user = request.user
     instance = get_object_or_404(SalesExecutive, pk=pk)
     if request.method == "POST":
-        form = SalesExecutiveForm(user,request.POST, request.FILES, instance=instance)
+        form = SalesExecutiveUpdateForm(user,request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -355,7 +357,7 @@ def update_executive(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = SalesExecutiveForm(user,instance=instance)
+        form = SalesExecutiveUpdateForm(user,instance=instance)
         context = {
             "title": "Edit Sales executive " + instance.name,
             "form": form,

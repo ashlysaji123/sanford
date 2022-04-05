@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import MerchandiserForm, MerchandiserTargetForm, MerchandiserTaskForm
+from .forms import MerchandiserForm, MerchandiserTargetForm, MerchandiserTaskForm,MerchandiserUpdateForm
 from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
 
 """Manager"""
@@ -68,7 +68,7 @@ def update_merchandiser(request, pk):
     user = request.user
     instance = get_object_or_404(Merchandiser, pk=pk)
     if request.method == "POST":
-        form = MerchandiserForm(user,request.POST, request.FILES, instance=instance)
+        form = MerchandiserUpdateForm(user,request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -83,7 +83,7 @@ def update_merchandiser(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = MerchandiserForm(user,instance=instance)
+        form = MerchandiserUpdateForm(user,instance=instance)
         context = {
             "title": "Edit Merchandiser :- " + instance.name,
             "form": form,
