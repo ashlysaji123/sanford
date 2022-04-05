@@ -84,8 +84,8 @@
                                 <th class="min-w-125px">Name</th>
                                 <th class="min-w-125px">Employe ID</th>
                                 <th class="min-w-125px">Phone</th>
-                                <th class="min-w-125px">Visa number</th>
-                                <th class="min-w-125px">Visa expiry</th>
+                                <th class="min-w-125px">E-maily</th>
+                                <th class="min-w-125px">Designation</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
                         </thead>
@@ -105,8 +105,8 @@
                                 <td>{{i.name}}</td>
                                 <td>{{i.employe_id}}</td>
                                 <td>{{i.phone}}</td>
-                                <td>{{i.visa_number}}</td>
-                                <td>{{i.visa_expiry}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.designation}}</td>
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
                                         <a href="{% url 'globalstaffs:global_manager_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">

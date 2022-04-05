@@ -65,12 +65,6 @@ class Product(BaseModel):
     item_number = models.CharField(max_length=128, unique=True)
     summary = models.TextField(blank=True, null=True)
     description = HTMLField(blank=True, null=True)
-    group = models.ForeignKey(
-        "ProductGroup",
-        limit_choices_to={"is_deleted": False},
-        related_name="product_productgroup",
-        on_delete=models.CASCADE,
-    )
     subcategory = models.ForeignKey(
         "SubCategory",
         limit_choices_to={"is_deleted": False},

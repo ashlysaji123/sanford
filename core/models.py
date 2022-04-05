@@ -1,5 +1,4 @@
 import uuid
-
 from django.db import models
 from django.urls import reverse
 from location_field.models.plain import PlainLocationField
@@ -78,6 +77,29 @@ class Region(BaseModel):
 
     def get_delete_url(self):
         return reverse("core:delete_region", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Company(BaseModel):
+    name = models.CharField(max_length=258)
+    address = models.TextField()
+    gst = models.CharField(max_length=158,blank=True,null=True)
+    region = models.ForeignKey(
+        Region,
+        limit_choices_to={"is_deleted": False},
+        on_delete=models.PROTECT,
+    )
+
+    def get_absolute_url(self):
+        return reverse("core:view_company", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("core:update_company", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("core:delete_company", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)

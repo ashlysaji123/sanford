@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 from coordinators.models import SalesCoordinator, SalesManager
 from globalstaffs.models import GlobalManager
 from core.functions import generate_form_errors, get_response_data
-from core.models import SubRegion, Language, Region, Shop, Area, Year,LocalArea
+from core.models import SubRegion, Language, Region, Shop, Area, Year,LocalArea,Company
 from executives.models import SalesSupervisor
 
 
@@ -81,6 +81,41 @@ class RegionDelete(DeleteView):
     model = Region
     template_name = "core/confirm_delete.html"
     success_url = reverse_lazy("core:region_list")
+
+#Company
+class CompanyList(ListView):
+    queryset = Company.objects.filter(is_deleted=False)
+
+
+class CompanyDetail(DetailView):
+    model = Company
+
+
+class CompanyForm(CreateView):
+    model = Company
+    fields = ["region","name","gst","address"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Company"
+        return context
+
+
+class CompanyUpdate(UpdateView):
+    model = Company
+    fields = ["region","name","gst","address"]
+    template_name_suffix = "_form"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Company -"
+        return context
+
+
+class CompanyDelete(DeleteView):
+    model = Company
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("core:company_list")
 
 
 class LanguageList(ListView):

@@ -83,8 +83,8 @@
                                 <th class="min-w-125px">Employe ID</th>
                                 <th class="min-w-125px">Phone</th>
                                 <th class="min-w-125px">Region</th>
-                                <th class="min-w-125px">Visa number</th>
-                                <th class="min-w-125px">Visa expiry</th>
+                                <th class="min-w-125px">Company name</th>
+                                <th class="min-w-125px">Designation</th>
                                 <th class="min-w-125px">Actions</th>
                             </tr>
                         </thead>
@@ -104,8 +104,8 @@
                                 <td>{{i.employe_id}}</td>
                                 <td>{{i.phone}}</td>
                                 <td>{{i.region}}</td>
-                                <td>{{i.visa_number}}</td>
-                                <td>{{i.visa_expiry}}</td>
+                                <td>{{i.company.name}}</td>
+                                <td>{{i.designation}}</td>
                                 <td>
                                     <div class="d-flex justify-content-start flex-shrink-0">
                                         <a href="{% url 'executives:supervisor_single' pk=i.pk %}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">

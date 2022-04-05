@@ -11,6 +11,8 @@ class User(AbstractUser):
         primary_key=True, default=uuid.uuid4, editable=False, blank=True
     )
 
+    designation = models.CharField(max_length=150, blank=True, null=True)
+    department = models.CharField(max_length=128,blank=True, null=True)
     is_global_manager = models.BooleanField(default=False)
     is_sales_manager = models.BooleanField(default=False)
     is_sales_coordinator = models.BooleanField(default=False)

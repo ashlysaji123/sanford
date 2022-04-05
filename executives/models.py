@@ -1,24 +1,39 @@
 import datetime
-
+from django.core.validators import MinValueValidator
 from django.db import models
+from decimal import Decimal
 from location_field.models.plain import PlainLocationField
 from versatileimagefield.fields import VersatileImageField
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from accounts.models import User
 from coordinators.utils import generate_password
 from core.models import BaseModel,UserLog
-
+from core.utils import EMPLOYEE_TYPE_CHOICE,EMPLOYEE_DESIGNATION_CHOICE,EMPLOYEE_DEPARTMENT_CHOICE
+from staffs.models import Staff
 TARGET_TYPE_CHOICE = (("PRIMARY", "PRIMARY"), ("SECONDARY", "SECONDARY"))
 
 
 class SalesSupervisor(BaseModel):
-    name = models.CharField(max_length=128)
+    company = models.ForeignKey("core.Company", on_delete=models.CASCADE)
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="permanent")
+    department = models.CharField(max_length=128,choices=EMPLOYEE_DEPARTMENT_CHOICE,default="SALES")
+    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="SS")
     employe_id = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
+    email = models.EmailField(unique=True)
     phone = models.CharField("Phone Number", max_length=30, unique=True)
-    location = PlainLocationField(based_fields=["city"], zoom=1)
-    city = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField("User Address", blank=True, null=True)
     dob = models.DateField("Date of Birth")
+    salary = models.DecimalField(
+        default=0.0,
+        decimal_places=2,
+        max_digits=15,
+        validators=[MinValueValidator(Decimal("0.00"))],
+    )
+    address = models.TextField("User Address", blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    location = PlainLocationField(based_fields=["city"], zoom=1)
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
@@ -51,6 +66,8 @@ class SalesSupervisor(BaseModel):
                 password=password,
                 is_sales_supervisor=True,
                 is_staff=False,
+                designation=self.designation,
+                department=self.department
             )
             self.user = user
             UserLog(
@@ -63,9 +80,64 @@ class SalesSupervisor(BaseModel):
             user.employe_id = self.employe_id
             user.photo = self.photo
             user.region = self.region
+            user.designation=self.designation
+            user.department=self.department
             user.save()
         # call the save() method of the parent
         super().save(*args, **kwargs)
+
+
+""" signal functions for creating Staffs """
+@receiver(post_save, sender=SalesSupervisor)
+def create_staff_table(sender, instance, created, **kwargs):
+    if not Staff.objects.filter(phone=instance.phone).exists():
+        # creating staff model data
+        Staff(
+            company=instance.company,
+            staff_type=instance.staff_type,
+            department=instance.department,
+            designation=instance.designation,
+            employe_id=instance.employe_id,
+            name=instance.name,
+            email=instance.email,
+            phone=instance.phone,
+            dob=instance.dob,
+            city=instance.city,
+            address=instance.address,
+            salary=instance.salary,
+            location=instance.location,
+            photo=instance.photo,
+            visa_number=instance.visa_number,
+            visa_expiry=instance.visa_expiry,
+            passport_number=instance.passport_number,
+            passport_expiry=instance.passport_expiry,
+            region=instance.region,
+            user=instance.user
+        ).save()
+    else:
+        staff = Staff.objects.get(phone=instance.phone)
+        staff.company=instance.company,
+        staff.staff_type=instance.staff_type,
+        staff.department=instance.department,
+        staff.designation=instance.designation,
+        staff.employe_id=instance.employe_id,
+        staff.name=instance.name,
+        staff.email=instance.email,
+        staff.phone=instance.phone,
+        staff.dob=instance.dob,
+        staff.city=instance.city,
+        staff.address=instance.address,
+        staff.salary=instance.salary,
+        staff.location=instance.location,
+        staff.photo=instance.photo,
+        staff.visa_number=instance.visa_number,
+        staff.visa_expiry=instance.visa_expiry,
+        staff.passport_number=instance.passport_number,
+        staff.passport_expiry=instance.passport_expiry,
+        staff.region=instance.region,
+        staff.save()
+
+""" end signals """
 
 
 class SalesSupervisorTarget(BaseModel):
@@ -105,13 +177,24 @@ class SalesSupervisorTask(BaseModel):
 
 
 class SalesExecutive(BaseModel):
-    name = models.CharField(max_length=128)
+    company = models.ForeignKey("core.Company", on_delete=models.CASCADE)
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="permanent")
+    department = models.CharField(max_length=128,choices=EMPLOYEE_DEPARTMENT_CHOICE,default="SALES")
+    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="SE")
     employe_id = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
+    email = models.EmailField(unique=True)
     phone = models.CharField("Phone Number", max_length=30, unique=True)
-    location = PlainLocationField(based_fields=["city"], zoom=1)
+    dob = models.DateField("Date of Birth")
     city = models.CharField(max_length=255, blank=True, null=True)
     address = models.TextField("User Address", blank=True, null=True)
-    dob = models.DateField("Date of Birth")
+    salary = models.DecimalField(
+        default=0.0,
+        decimal_places=2,
+        max_digits=15,
+        validators=[MinValueValidator(Decimal("0.00"))],
+    )
+    location = PlainLocationField(based_fields=["city"], zoom=1)
     photo = VersatileImageField(
         "User Profile Photo", blank=True, null=True, upload_to="accounts/user/photo/"
     )
@@ -145,6 +228,8 @@ class SalesExecutive(BaseModel):
                 password=password,
                 is_sales_executive=True,
                 is_staff=False,
+                designation=self.designation,
+                department=self.department
             )
             self.user = user
             UserLog(
@@ -157,10 +242,64 @@ class SalesExecutive(BaseModel):
             user.employe_id = self.employe_id
             user.photo = self.photo
             user.region = self.region
+            user.designation=self.designation
+            user.department=self.department
             user.save()
         # call the save() method of the parent
         super().save(*args, **kwargs)
 
+
+""" signal functions for creating Staffs """
+@receiver(post_save, sender=SalesExecutive)
+def create_staff_table(sender, instance, created, **kwargs):
+    if not Staff.objects.filter(phone=instance.phone).exists():
+        # creating staff model data
+        Staff(
+            company=instance.company,
+            staff_type=instance.staff_type,
+            department=instance.department,
+            designation=instance.designation,
+            employe_id=instance.employe_id,
+            name=instance.name,
+            email=instance.email,
+            phone=instance.phone,
+            dob=instance.dob,
+            city=instance.city,
+            address=instance.address,
+            salary=instance.salary,
+            location=instance.location,
+            photo=instance.photo,
+            visa_number=instance.visa_number,
+            visa_expiry=instance.visa_expiry,
+            passport_number=instance.passport_number,
+            passport_expiry=instance.passport_expiry,
+            region=instance.region,
+            user=instance.user
+        ).save()
+    else:
+        staff = Staff.objects.get(phone=instance.phone)
+        staff.company=instance.company,
+        staff.staff_type=instance.staff_type,
+        staff.department=instance.department,
+        staff.designation=instance.designation,
+        staff.employe_id=instance.employe_id,
+        staff.name=instance.name,
+        staff.email=instance.email,
+        staff.phone=instance.phone,
+        staff.dob=instance.dob,
+        staff.city=instance.city,
+        staff.address=instance.address,
+        staff.salary=instance.salary,
+        staff.location=instance.location,
+        staff.photo=instance.photo,
+        staff.visa_number=instance.visa_number,
+        staff.visa_expiry=instance.visa_expiry,
+        staff.passport_number=instance.passport_number,
+        staff.passport_expiry=instance.passport_expiry,
+        staff.region=instance.region,
+        staff.save()
+
+""" end signals """
 
 class SalesExecutiveTarget(BaseModel):
     YEAR_CHOICES = [(y, y) for y in range(1950, datetime.date.today().year + 2)]

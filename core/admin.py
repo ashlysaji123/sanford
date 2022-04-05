@@ -3,7 +3,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import BlockedIP, SubRegion, Language, Region, Shop, Area,LocalArea, Year,UserLog
+from .models import BlockedIP, SubRegion, Language, Region, Shop, Area,LocalArea, Year,UserLog,Company
 
 
 @admin.register(UserLog)
@@ -58,6 +58,13 @@ class RegionAdmin(ImportExportActionModelAdmin):
     list_filter = ["is_deleted"]
     search_fields = ["name"]
     actions = [mark_deleted, mark_active]
+
+
+@admin.register(Company)
+class CompanyAdmin(ImportExportActionModelAdmin):
+    list_display = ["name", "is_deleted"]
+    list_filter = ["is_deleted"]
+    search_fields = ["name"]
 
 
 @admin.register(BlockedIP)

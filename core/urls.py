@@ -18,6 +18,12 @@ urlpatterns = [
     path("view/region/<str:pk>/", login_required(views.RegionDetail.as_view()), name="view_region",),
     path("update/region/<str:pk>/", login_required(views.RegionUpdate.as_view()), name="update_region",),
     path("delete/region/<str:pk>/", login_required(views.RegionDelete.as_view()), name="delete_region",),
+    # Company
+    path("company-list/", login_required(views.CompanyList.as_view()), name="company_list"),
+    path("new/company/", login_required(views.CompanyForm.as_view()), name="new_company"),
+    path("view/company/<str:pk>/", login_required(views.CompanyDetail.as_view()), name="view_company",),
+    path("update/company/<str:pk>/", login_required(views.CompanyUpdate.as_view()), name="update_company",),
+    path("delete/company/<str:pk>/", login_required(views.CompanyDelete.as_view()), name="delete_company",),
     # Languages
     path("languages/", login_required(views.LanguageList.as_view()), name="language_list"),
     path("new/language/", login_required(views.LanguageForm.as_view()), name="new_language",),

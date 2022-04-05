@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block vendor_css %}
+<link href="{% static 'app/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+{% endblock vendor_css %}
+{% block vendor_js %}
+<script src="{% static 'app/plugins/custom/datatables/datatables.bundle.js' %}"></script>
+<script src="{% static 'app/js/custom/apps/customers/list/list.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block content %}
+
+<div class="container-xxl" id="kt_content_container">
+    <div class="card">
+
+        <div class="card-header border-0 pt-6">
+            <div class="d-flex justify-content-between align-items-center w-100" data-kt-customer-table-toolbar="base">
+                <h3 class="card-label m-0">Company list</h3>
+                <a href="{% url 'core:new_company' %}" class="btn btn-primary">Add New</a>
+            </div>
+        </div>
+
+        <div class="card-body pt-0">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+                    <thead>
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px">Name</th>
+                            <th class="min-w-125px">Region</th>
+                            <th class="min-w-125px">Created at</th>
+                            <th class="text-end min-w-70px">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="fw-bold text-gray-600">
+                        {% for object in object_list %}
+                        <tr>
+                            <td>
+                                <a href="{{object.get_absolute_url}}" class="text-gray-800 text-hover-primary mb-1">{{object.name}}</a>
+                            </td>
+                            <td>{{object.region}}</td>
+                            <td>{{object.created}}</td>
+
+                            <td class="text-end">
+                                <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                    <span class="svg-icon svg-icon-5 m-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <path
+                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                fill="black" />
+                                        </svg>
+                                    </span>
+                                </a>
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                    <div class="menu-item px-3">
+                                        <a href="{{object.get_absolute_url}}" class="menu-link px-3">View</a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <a href="{{object.get_update_url}}" class="menu-link px-3">Update</a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <a href="{{object.get_delete_url}}" class="menu-link px-3">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

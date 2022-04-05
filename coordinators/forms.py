@@ -6,6 +6,7 @@ from django.forms.widgets import (
     Select,
     Textarea,
     TextInput,
+    EmailInput
 )
 
 from accounts.models import User
@@ -76,6 +77,17 @@ class SalesManagerForm(forms.ModelForm):
                 }
             ),
             "region": Select(attrs={"class": "required form-control tt-select2"}),
+
+            "company": Select(attrs={"class": "required form-control tt-select2"}),
+            "staff_type": Select(attrs={"class": "required form-control tt-select2"}),
+            "department": Select(attrs={"class": "required form-control tt-select2"}),
+            "designation": Select(attrs={"class": "required form-control tt-select2"}),
+            "email": EmailInput(
+                attrs={"class": "required form-control", "placeholder": "E-mail"}
+            ),
+            "salary": TextInput(
+                attrs={"class": "required form-control", "placeholder": "Salary amount"}
+            ),
         }
 
 
@@ -159,6 +171,17 @@ class SalesCoordinatorForm(forms.ModelForm):
                 }
             ),
             "region": Select(attrs={"class": "required form-control tt-select2"}),
+
+            "company": Select(attrs={"class": "required form-control tt-select2"}),
+            "staff_type": Select(attrs={"class": "required form-control tt-select2"}),
+            "department": Select(attrs={"class": "required form-control tt-select2"}),
+            "designation": Select(attrs={"class": "required form-control tt-select2"}),
+            "email": EmailInput(
+                attrs={"class": "required form-control", "placeholder": "E-mail"}
+            ),
+            "salary": TextInput(
+                attrs={"class": "required form-control", "placeholder": "Salary amount"}
+            ),
         }
 
 
