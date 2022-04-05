@@ -116,27 +116,27 @@ def create_staff_table(sender, instance, created, **kwargs):
         ).save()
     else:
         staff = Staff.objects.get(phone=instance.phone)
-        staff.company=instance.company,
-        staff.staff_type=instance.staff_type,
-        staff.department=instance.department,
-        staff.designation=instance.designation,
-        staff.employe_id=instance.employe_id,
-        staff.name=instance.name,
-        staff.email=instance.email,
-        staff.phone=instance.phone,
-        staff.dob=instance.dob,
-        staff.city=instance.city,
-        staff.address=instance.address,
-        staff.salary=instance.salary,
-        staff.location=instance.location,
-        staff.photo=instance.photo,
-        staff.visa_number=instance.visa_number,
-        staff.visa_expiry=instance.visa_expiry,
-        staff.passport_number=instance.passport_number,
-        staff.passport_expiry=instance.passport_expiry,
-        staff.region=instance.region,
+        staff.company=instance.company
+        staff.staff_type=instance.staff_type
+        staff.department=instance.department
+        staff.designation=instance.designation
+        staff.employe_id=instance.employe_id
+        staff.name=instance.name
+        staff.email=instance.email
+        staff.phone=instance.phone
+        staff.dob=instance.dob
+        staff.city=instance.city
+        staff.address=instance.address
+        staff.salary=instance.salary
+        staff.location=instance.location
+        staff.photo=instance.photo
+        staff.visa_number=instance.visa_number
+        staff.visa_expiry=instance.visa_expiry
+        staff.passport_number=instance.passport_number
+        staff.passport_expiry=instance.passport_expiry
+        staff.region=instance.region
         staff.save()
-
+        
 """ end signals """
 
 
@@ -278,25 +278,25 @@ def create_staff_table(sender, instance, created, **kwargs):
         ).save()
     else:
         staff = Staff.objects.get(phone=instance.phone)
-        staff.company=instance.company,
-        staff.staff_type=instance.staff_type,
-        staff.department=instance.department,
-        staff.designation=instance.designation,
-        staff.employe_id=instance.employe_id,
-        staff.name=instance.name,
-        staff.email=instance.email,
-        staff.phone=instance.phone,
-        staff.dob=instance.dob,
-        staff.city=instance.city,
-        staff.address=instance.address,
-        staff.salary=instance.salary,
-        staff.location=instance.location,
-        staff.photo=instance.photo,
-        staff.visa_number=instance.visa_number,
-        staff.visa_expiry=instance.visa_expiry,
-        staff.passport_number=instance.passport_number,
-        staff.passport_expiry=instance.passport_expiry,
-        staff.region=instance.region,
+        staff.company=instance.company
+        staff.staff_type=instance.staff_type
+        staff.department=instance.department
+        staff.designation=instance.designation
+        staff.employe_id=instance.employe_id
+        staff.name=instance.name
+        staff.email=instance.email
+        staff.phone=instance.phone
+        staff.dob=instance.dob
+        staff.city=instance.city
+        staff.address=instance.address
+        staff.salary=instance.salary
+        staff.location=instance.location
+        staff.photo=instance.photo
+        staff.visa_number=instance.visa_number
+        staff.visa_expiry=instance.visa_expiry
+        staff.passport_number=instance.passport_number
+        staff.passport_expiry=instance.passport_expiry
+        staff.region=instance.region
         staff.save()
 
 """ end signals """
