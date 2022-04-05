@@ -70,6 +70,25 @@
 							{% endif %}
 						</div>
 					</div>
+					<div class="row mb-2">
+						<div class="form-group col-lg-12">
+							<label>{{form.image.label}}
+								{% if form.image.field.required %}
+								<small class="text-danger">*</small>
+								{% endif %}
+								{% if form.image.help_text %}
+								<span data-original-title="Field Info" title=""
+									data-content="{{ form.image.help_text }}" data-placement="left"
+									data-toggle="popover" data-trigger="hover"
+									class="help-text-icon zmdi zmdi-info-outline"></span>
+								{% endif %}
+							</label>
+							{{form.image}}
+							{% if form.image.errors %}
+							<label class="error">{{ form.image.errors.as_text }}</label>
+							{% endif %}
+						</div>
+					</div>
 					<input type="submit" value="Submit" class="btn btn-sm btn-primary mt-4">
 				</div>
 			</form>

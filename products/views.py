@@ -1,5 +1,4 @@
 import json
-
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -9,7 +8,7 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm
+from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm,CategoryGroupForm
 from .models import Category, Product, ProductGroup, SubCategory,ProductSpecialPrice,CategoryGroup
 from core.models import Shop
 
@@ -93,35 +92,66 @@ def delete_product_category(request, pk):
 """Product category"""
 
 class CategoryGroupList(ListView):
-    template_name = "products/category-group/group_list.html"
+    template_name = "product/category-group/group_list.html"
     queryset = CategoryGroup.objects.filter(is_deleted=False)
 
 
 class CategoryGroupDetail(DetailView):
-    template_name = "products/category-group/group_detail.html"
+    template_name = "product/category-group/group_detail.html"
     model = CategoryGroup
 
 
-class CategoryGroupForm(CreateView):
-    template_name = "products/category-group/group_form.html"
-    model = CategoryGroup
-    fields = ["name","category","icon","image"]
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "New CategoryGroup"
-        return context
+@login_required
+def create_product_category_group(request):
+    if request.method == "POST":
+        form = CategoryGroupForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            response_data = get_response_data(
+                1,
+                redirect_url=reverse("products:category_group_list"),
+                message="Added Successfully.",
+            )
+            return HttpResponse(
+                json.dumps(response_data), content_type="application/javascript"
+            )
+        else:
+            message = generate_form_errors(form)
+            response_data = get_response_data(0, message=message)
+            return HttpResponse(
+                json.dumps(response_data), content_type="application/javascript"
+            )
+    else:
+        form = CategoryGroupForm()
+        context = {"form": form, "title": "New Category Group", "alert_type": "showalert"}
+        return render(request, "product/category-group/group_form.html", context)
 
 
-class CategoryGroupUpdate(UpdateView):
-    template_name = "products/category-group/group_form.html"
-    model = CategoryGroup
-    fields = ["name","category","icon","image"]
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Edit CategoryGroup -"
-        return context
+@login_required
+def update_product_category_group(request, pk):
+    instance = get_object_or_404(CategoryGroup, pk=pk)
+    if request.method == "POST":
+        form = CategoryGroupForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            response_data = get_response_data(
+                1,
+                redirect_url=reverse("products:category_group_list"),
+                message="Updated",
+            )
+        else:
+            message = generate_form_errors(form, formset=False)
+            response_data = get_response_data(0, message=message)
+        return HttpResponse(
+            json.dumps(response_data), content_type="application/javascript"
+        )
+    else:
+        form = CategoryGroupForm(instance=instance)
+        context = {"title": "Edit Category Group -", "form": form, "instance": instance}
+        return render(request, "product/category-group/group_form.html", context)
+
 
 
 class CategoryGroupDelete(DeleteView):

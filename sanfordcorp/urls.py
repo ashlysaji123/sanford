@@ -90,6 +90,7 @@ urlpatterns = (
             "notifications/", include("notifications.urls", namespace="notifications")
         ),
         path("products/", include("products.urls", namespace="products")),
+        path("staffs/", include("staffs.urls", namespace="staffs")),
         path("sales/", include("sales.urls", namespace="sales")),
         path("rewards/", include("rewards.urls", namespace="rewards")),
         path("expenses/", include("expenses.urls", namespace="expenses")),

@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.db import models
 from location_field.models.plain import PlainLocationField
 from versatileimagefield.fields import VersatileImageField
+from django.urls import reverse
 
 from core.models import BaseModel
 from core.utils import EMPLOYEE_TYPE_CHOICE,EMPLOYEE_DESIGNATION_CHOICE,EMPLOYEE_DEPARTMENT_CHOICE
@@ -42,6 +43,9 @@ class Staff(BaseModel):
     user = models.OneToOneField(
         "accounts.User", on_delete=models.SET_NULL, blank=True, null=True
     )
+
+    def get_absolute_url(self):
+        return reverse("staffs:view_staff", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.name)

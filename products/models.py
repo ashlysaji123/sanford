@@ -27,18 +27,11 @@ class CategoryGroup(BaseModel):
     category = models.ForeignKey(
         Category,
         limit_choices_to={"is_deleted": False},
-        related_name="subcategory_group",
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE
     )
     name = models.CharField(max_length=128)
-    icon = VersatileImageField(
-        "Category Icon", upload_to="images/products/categories/group/icon/",
-        blank=True,null=True
-    )
-    image = VersatileImageField(
-        "Category Image", upload_to="images/products/categories/group/image/",
-        blank=True,null=True
-    )
+    icon = VersatileImageField(upload_to="images/products/categories/group/icon/", blank=True,null=True)
+    image = VersatileImageField(upload_to="images/products/categories/group/image/")
 
     def get_absolute_url(self):
         return reverse("products:view_category_group", kwargs={"pk": self.pk})
@@ -57,11 +50,11 @@ class SubCategory(BaseModel):
     group = models.ForeignKey(
         CategoryGroup,
         limit_choices_to={"is_deleted": False},
-        related_name="subcategory_category_group",
-        on_delete=models.CASCADE,
+        on_delete=models.CASCADE
     )
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=128, unique=True,blank=True,null=True)
+    image = VersatileImageField(upload_to="images/products/categories/group/image/")
 
     class Meta:
         verbose_name = "Sub Category"

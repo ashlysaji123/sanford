@@ -29,9 +29,9 @@ urlpatterns = [
     ),
     # category group
     path("category-group/", login_required(views.CategoryGroupList.as_view()), name="category_group_list"),
-    path("new/category-group/", login_required(views.CategoryGroupForm.as_view()), name="new_category_group"),
+    path("new/category-group/", views.create_product_category_group, name="new_category_group"),
     path("view/category-group/<str:pk>/", login_required(views.CategoryGroupDetail.as_view()), name="view_category_group",),
-    path("update/category-group/<str:pk>/", login_required(views.CategoryGroupUpdate.as_view()), name="update_category_group",),
+    path("update/category-group/<str:pk>/", views.update_product_category_group, name="update_category_group",),
     path("delete/category-group/<str:pk>/", login_required(views.CategoryGroupDelete.as_view()), name="delete_category_group",),
     # Product sub category
     path(

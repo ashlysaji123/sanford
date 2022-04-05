@@ -2,7 +2,7 @@ from django import forms
 from django.forms.widgets import CheckboxInput, FileInput, Select, Textarea, TextInput
 from tinymce.widgets import TinyMCE
 
-from .models import Category, Product, ProductGroup, SubCategory
+from .models import Category, Product, ProductGroup, SubCategory,CategoryGroup
 
 
 class CategoryForm(forms.ModelForm):
@@ -21,10 +21,27 @@ class CategoryForm(forms.ModelForm):
         }
 
 
+class CategoryGroupForm(forms.ModelForm):
+    class Meta:
+        model = CategoryGroup
+        fields = ("category", "name", "icon","image")
+        widgets = {
+            "category": Select(attrs={"class": "required form-control tt-select2"}),
+            "name": TextInput(
+                attrs={
+                    "class": "required form-control",
+                    "placeholder": "Sub Category Name",
+                }
+            ),
+            "icon": FileInput(attrs={"class": "required form-control"}),
+            "image": FileInput(attrs={"class": "required form-control"}),
+            
+        }
+
 class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = SubCategory
-        fields = ("group", "name", "code")
+        fields = ("group", "name", "code","image")
         widgets = {
             "group": Select(attrs={"class": "required form-control tt-select2"}),
             "name": TextInput(
@@ -33,6 +50,7 @@ class SubCategoryForm(forms.ModelForm):
                     "placeholder": "Sub Category Name",
                 }
             ),
+            "image": FileInput(attrs={"class": "required form-control"}),
             "code": TextInput(
                 attrs={
                     "class": "form-control",

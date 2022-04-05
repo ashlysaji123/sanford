@@ -1164,6 +1164,47 @@
 			</div>
 		</div>
         <!-- Menu card end -->
+		<!-- Staff Menu card -->
+		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
+			<span class="menu-link" title="Staffs" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+				<span class="menu-icon">
+					<!--begin::Svg Icon | path: icons/duotune/ecommerce/ecm007.svg-->
+					<span class="svg-icon svg-icon-2x">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+							<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</span>
+			</span>
+			<div class="menu-sub menu-sub-dropdown w-225px w-lg-275px px-1 py-4">
+				<!-- Global manager  -->
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+					<span class="menu-link">
+						<span class="menu-bullet">
+							<span class="bullet bullet-dot"></span>
+						</span>
+						<span class="menu-title fs-5 text-gray-900 fw-bolder">Staffs</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion menu-active-bg">
+						<div class="menu-item">
+							<a class="menu-link" href="{% url 'staffs:staff_list'%}">
+								<span class="menu-bullet">
+									<span class="bullet bullet-dot"></span>
+								</span>
+								<span class="menu-title">list</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Manager  -->
+			</div>
+		</div>
+        <!--  data Menu card end -->
 		<!-- Notifications Menu card -->
 		<div data-kt-menu-trigger="click" data-kt-menu-placement="right-start" class="menu-item py-3">
 			<span class="menu-link" title="Notifications" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
