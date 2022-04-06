@@ -8,7 +8,8 @@ from django.urls import reverse
 from globalstaffs.forms import (
     GlobalManagerForm,
     GlobalManagerTargetForm,
-    GlobalManagerTaskForm
+    GlobalManagerTaskForm,
+    GlobalManagerUpdateForm
 )
 from globalstaffs.models import (
     GlobalManager,
@@ -69,7 +70,7 @@ def global_manager_single(request, pk):
 def update_global_manager(request, pk):
     instance = get_object_or_404(GlobalManager, pk=pk)
     if request.method == "POST":
-        form = GlobalManagerForm(request.POST, request.FILES, instance=instance)
+        form = GlobalManagerUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -82,7 +83,7 @@ def update_global_manager(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = GlobalManagerForm(instance=instance)
+        form = GlobalManagerUpdateForm(instance=instance)
         context = {
             "title": "Edit Global manager :- " + instance.name,
             "form": form,

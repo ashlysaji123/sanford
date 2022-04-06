@@ -13,6 +13,8 @@ from coordinators.forms import (
     SalesManagerForm,
     SalesManagerTargetForm,
     SalesManagerTaskForm,
+    SalesManagerUpdateForm,
+    SalesCoordinatorUpdateForm
 )
 from coordinators.models import (
     SalesCoordinator,
@@ -78,7 +80,7 @@ def manager_single(request, pk):
 def update_manager(request, pk):
     instance = get_object_or_404(SalesManager, pk=pk)
     if request.method == "POST":
-        form = SalesManagerForm(request.POST, request.FILES, instance=instance)
+        form = SalesManagerUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -91,7 +93,7 @@ def update_manager(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = SalesManagerForm(instance=instance)
+        form = SalesManagerUpdateForm(instance=instance)
         context = {
             "title": "Edit Sales manager :- " + instance.name,
             "form": form,
@@ -338,7 +340,7 @@ def coordinator_single(request, pk):
 def update_coordinator(request, pk):
     instance = get_object_or_404(SalesCoordinator, pk=pk)
     if request.method == "POST":
-        form = SalesCoordinatorForm(request.POST, request.FILES, instance=instance)
+        form = SalesCoordinatorUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             response_data = get_response_data(
@@ -353,7 +355,7 @@ def update_coordinator(request, pk):
             json.dumps(response_data), content_type="application/javascript"
         )
     else:
-        form = SalesCoordinatorForm(instance=instance)
+        form = SalesCoordinatorUpdateForm(instance=instance)
         context = {
             "title": "Edit Sales Coordinator :- " + instance.name,
             "form": form,

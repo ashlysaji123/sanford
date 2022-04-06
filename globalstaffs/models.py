@@ -17,9 +17,9 @@ from staffs.models import Staff
 TARGET_TYPE_CHOICE = (("PRIMARY", "PRIMARY"), ("SECONDARY", "SECONDARY"))
 
 class GlobalManager(BaseModel):
-    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="permanent")
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="PERMANENT")
     department = models.CharField(max_length=128,choices=EMPLOYEE_DEPARTMENT_CHOICE,default="SALES")
-    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="GM")
+    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="GLOBAL-MANAGER")
     employe_id = models.CharField(max_length=128, unique=True)
     name = models.CharField(max_length=128)
     email = models.EmailField(unique=True)

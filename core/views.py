@@ -304,7 +304,7 @@ class LocalAreaUpdate(UpdateView):
 
 
 class LocalAreaDelete(DeleteView):
-    model = Area
+    model = LocalArea
     template_name = "core/confirm_delete.html"
     success_url = reverse_lazy("core:local_area_list")
 

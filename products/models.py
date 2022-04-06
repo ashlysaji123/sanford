@@ -81,7 +81,8 @@ class ProductGroup(BaseModel):
 
 class Product(BaseModel):
     name = models.CharField(max_length=128)
-    barcode = models.CharField(max_length=128, unique=True)
+    retail_barcode = models.CharField("Retail-Barcode",max_length=128, unique=True)
+    ecommerse_barcode = models.CharField("E-commerse-Barcode",max_length=128, unique=True)
     item_number = models.CharField(max_length=128, unique=True)
     summary = models.TextField(blank=True, null=True)
     description = HTMLField(blank=True, null=True)

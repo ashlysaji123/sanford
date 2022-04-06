@@ -17,9 +17,9 @@ TARGET_TYPE_CHOICE = (("PRIMARY", "PRIMARY"), ("SECONDARY", "SECONDARY"))
 
 class Merchandiser(BaseModel):
     company = models.ForeignKey("core.Company", on_delete=models.CASCADE)
-    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="permanent")
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="PERMANENT")
     department = models.CharField(max_length=128,choices=EMPLOYEE_DEPARTMENT_CHOICE,default="SALES")
-    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="MER")
+    designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE,default="SALES-MERCHANDISER")
     employe_id = models.CharField(max_length=128, unique=True)
     name = models.CharField(max_length=128)
     email = models.EmailField(unique=True)
@@ -62,7 +62,7 @@ class Merchandiser(BaseModel):
                 first_name=self.name,
                 employe_id=self.employe_id,
                 photo=self.photo,
-                region=self.state.country.region,
+                region=self.area.sub_region.region,
                 password=password,
                 is_merchandiser=True,
                 is_staff=False,
@@ -79,7 +79,7 @@ class Merchandiser(BaseModel):
             user.first_name = self.name
             user.employe_id = self.employe_id
             user.photo = self.photo
-            user.region = self.state.country.region
+            user.region = self.area.sub_region.region
             user.designation=self.designation
             user.department=self.department
             user.save()
