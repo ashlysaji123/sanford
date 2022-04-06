@@ -47,7 +47,7 @@ def merchandiser_list(request):
         query_set = Merchandiser.objects.filter(is_deleted=False)
     else:
         query_set = Merchandiser.objects.filter(
-            is_deleted=False, state__country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         )
     context = {
         "title": "Merchandiser list",
@@ -139,7 +139,7 @@ def create_merchandiser_task(request):
 
 @login_required
 def merchandiser_task_list(request):
-    if request.user.is_superuser:
+    if request.user.is_superuser or request.user.is_global_manager:
         query_set = MerchandiserTask.objects.filter(
             is_deleted=False, is_completed=False
         )
@@ -147,7 +147,7 @@ def merchandiser_task_list(request):
         query_set = MerchandiserTask.objects.filter(
             is_deleted=False,
             is_completed=False,
-            user__state__country__region=request.user.region,
+            user__area__sub_region__region=request.user.region,
         )
     context = {"title": "Task list", "instances": query_set}
     return render(request, "merchandiser/task/list.html", context)
@@ -239,7 +239,7 @@ def merchandiser_target_list(request):
             is_deleted=False,
             year=year,
             month=month,
-            user__state__country__region=request.user.region,
+            user__area__sub_region__region=request.user.region,
         )
     context = {
         "title": "Target list",

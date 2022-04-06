@@ -6,13 +6,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import FavouriteGroup, User
-
-
-@admin.register(FavouriteGroup)
-class FavouriteGroupAdmin(ImportExportActionModelAdmin):
-    list_display = ["__str__", "user", "group", "is_deleted"]
-    actions = [mark_deleted, mark_active]
+from .models import User
 
 
 class MyUserChangeForm(UserChangeForm):

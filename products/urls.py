@@ -54,21 +54,13 @@ urlpatterns = [
         views.delete_product_sub_category,
         name="delete_product_sub_category",
     ),
-    # Product sub category
-    path(
-        "create-product_group", views.create_product_group, name="create_product_group"
-    ),
-    path("product_group-list", views.product_group_list, name="product_group_list"),
-    path(
-        "update-product_group/<str:pk>/",
-        views.update_product_group,
-        name="update_product_group",
-    ),
-    path(
-        "delete-product_group/<str:pk>/",
-        views.delete_product_group,
-        name="delete_product_group",
-    ),
+    # Shop group
+    path("shop-group/", login_required(views.ShopGroupList.as_view()), name="shop_group_list"),
+    path("new/shop-group/", login_required(views.ShopGroupForm.as_view()), name="new_shop_group"),
+    path("view/shop-group/<str:pk>/", login_required(views.ShopGroupDetail.as_view()), name="view_shop_group",),
+    path("update/shop-group/<str:pk>/", login_required(views.ShopGroupUpdate.as_view()), name="update_shop_group",),
+    path("delete/shop-group/<str:pk>/", login_required(views.ShopGroupDelete.as_view()), name="delete_shop_group",),
+    
     # Product
     path("create-product", views.create_product, name="create_product"),
     path("product-list", views.product_list, name="product_list"),
@@ -76,7 +68,7 @@ urlpatterns = [
     path("update-product/<str:pk>/", views.update_product, name="update_product"),
     path("delete-product/<str:pk>/", views.delete_product, name="delete_product"),
 
-    #Product special price3
+    #Product special price
     path("specialprice/list/", login_required(views.ProductSpecialPriceList.as_view()), name="special_price_list"),
     path("create/specialprice/", login_required(views.ProductSpecialPriceForm.as_view()), name="add_special_price"),
     path("view/specialprice/<str:pk>/", login_required(views.ProductSpecialPriceDetail.as_view()), name="view_special_price",),

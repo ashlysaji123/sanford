@@ -3,8 +3,17 @@ from import_export.admin import ImportExportActionModelAdmin
 
 from core.actions import mark_active, mark_deleted
 
-from .models import Category, Product, ProductWishList, SubCategory,CategoryGroup
+from .models import (
+    Category, 
+    Product, 
+    ProductWishList, 
+    SubCategory,
+    CategoryGroup,
+    ShopGroup
+)
 
+
+admin.site.register(ShopGroup)
 
 @admin.register(Category)
 class CategoryAdmin(ImportExportActionModelAdmin):

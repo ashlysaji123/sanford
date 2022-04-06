@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import SubRegion, Language, Region, Area, Year,LocalArea
+from core.models import SubRegion, Language, Region, Area, Year,LocalArea,Shop
 
 
 class YearSerializer(serializers.ModelSerializer):
@@ -13,6 +13,11 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ("pk", "family", "name", "native_name", "lang_code")
+
+class ShopSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shop
+        fields = ("pk", "location", "name", "contact_number", "contact_number2","area","local_area")
 
 
 class SubRegionSerializer(serializers.ModelSerializer):

@@ -38,23 +38,24 @@ class MerchandiserTaskSerializer(serializers.ModelSerializer):
 
 
 class MerchandiserProfileSerializer(serializers.ModelSerializer):
-    country = serializers.SerializerMethodField()
+    region = serializers.SerializerMethodField()
+    sub_region = serializers.SerializerMethodField()
+    area = serializers.SerializerMethodField()
     shop = serializers.SerializerMethodField()
-    state = serializers.SerializerMethodField()
     region = serializers.SerializerMethodField()
 
     class Meta:
         model = Merchandiser
         fields = "__all__"
 
-    def get_country(self, obj):
-        return obj.state.country.name
+    def get_region(self, obj):
+        return obj.area.sub_region.region.name
 
     def get_shop(self, obj):
         return obj.shop.name
 
-    def get_state(self, obj):
-        return obj.state.name
+    def get_sub_region(self, obj):
+        return obj.area.sub_region.name
 
-    def get_region(self, obj):
-        return obj.state.country.region.name
+    def get_area(self, obj):
+        return obj.area.name

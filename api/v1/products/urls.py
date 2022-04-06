@@ -4,11 +4,11 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 
 from core.pagination import StandardResultsSetPagination
-from products.models import Category, Product, ProductGroup, SubCategory
+from products.models import Category, Product, ShopGroup, SubCategory
 
 from .serializers import (
     CategorySerializer,
-    ProductGroupSerializer,
+    ShopGroupSerializer,
     ProductSerializer,
     SubCategorySerializer,
 )
@@ -36,10 +36,10 @@ urlpatterns = [
         ),
     ),
     path(
-        "product_groups/",
+        "shop_groups/",
         ListAPIView.as_view(
-            queryset=ProductGroup.objects.filter(is_deleted=False),
-            serializer_class=ProductGroupSerializer,
+            queryset=ShopGroup.objects.filter(is_deleted=False),
+            serializer_class=ShopGroupSerializer,
             pagination_class=StandardResultsSetPagination,
             permission_classes=[IsAuthenticated],
         ),
@@ -89,10 +89,10 @@ urlpatterns = [
         ),
     ),
     path(
-        "product_groups/view/<str:pk>/",
+        "shop_group/view/<str:pk>/",
         RetrieveAPIView.as_view(
-            queryset=ProductGroup.objects.filter(is_deleted=False),
-            serializer_class=ProductGroupSerializer,
+            queryset=ShopGroup.objects.filter(is_deleted=False),
+            serializer_class=ShopGroupSerializer,
             permission_classes=[IsAuthenticated],
         ),
     ),

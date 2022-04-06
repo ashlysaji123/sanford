@@ -72,7 +72,7 @@ class Merchandiser(BaseModel):
             self.user = user
             UserLog(
                 title="Merchandiser created",
-                description=f'user created with password ## {password} ## and username as @@ {self.phone} @@ region $$ {self.state.country.region}'
+                description=f'user created with password ## {password} ## and username as @@ {self.phone} @@ region $$ {self.area.sub_region.region}'
             ).save()
         else:
             user = User.objects.get(username=self.phone)

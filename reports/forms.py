@@ -38,7 +38,7 @@ class DARTaskForm(forms.ModelForm):
                 region=user.region, is_deleted=False
             )
             self.fields["shop"].queryset = Shop.objects.filter(
-                country__region=user.region, is_deleted=False
+                area__sub_region__region=user.region, is_deleted=False
             )
 
 

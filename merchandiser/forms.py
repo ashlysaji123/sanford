@@ -188,7 +188,7 @@ class MerchandiserTargetForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if not (user.is_superuser or user.is_global_manager):
             self.fields["user"].queryset = Merchandiser.objects.filter(
-                state__country__region=user.region
+                area__sub_region__region=user.region
             )
 
 
@@ -207,5 +207,5 @@ class MerchandiserTaskForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if not (user.is_superuser or user.is_global_manager):
             self.fields["user"].queryset = Merchandiser.objects.filter(
-                state__country__region=user.region
+                area__sub_region__region=user.region
             )

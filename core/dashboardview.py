@@ -150,10 +150,10 @@ def app(request):
             is_deleted=False, region=request.user.region
         ).count()
         merchandiser_count = Merchandiser.objects.filter(
-            is_deleted=False, state__country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         shope_count = Shop.objects.filter(
-            is_deleted=False, country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         pending_leave_request = LeaveRequest.objects.filter(
             is_deleted=False,
@@ -204,10 +204,10 @@ def app(request):
             is_deleted=False, region=request.user.region
         ).count()
         merchandiser_count = Merchandiser.objects.filter(
-            is_deleted=False, state__country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         shope_count = Shop.objects.filter(
-            is_deleted=False, country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         pending_leave_request = LeaveRequest.objects.filter(
             is_deleted=False,
@@ -258,10 +258,10 @@ def app(request):
             is_deleted=False, region=request.user.region
         ).count()
         merchandiser_count = Merchandiser.objects.filter(
-            is_deleted=False, state__country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         shope_count = Shop.objects.filter(
-            is_deleted=False, country__region=request.user.region
+            is_deleted=False, area__sub_region__region=request.user.region
         ).count()
         """ Sales request query joining """
         qs = Sales.objects.filter(

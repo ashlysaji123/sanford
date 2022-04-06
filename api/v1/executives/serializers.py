@@ -36,15 +36,11 @@ class SalesExecutiveTaskSerializer(serializers.ModelSerializer):
         fields = ("id", "task", "is_completed")
 
 class SalesExecutiveProfileSerializer(serializers.ModelSerializer):
-    country = serializers.SerializerMethodField()
     region = serializers.SerializerMethodField()
     
     class Meta:
         model = SalesExecutive
         fields = "__all__"
-
-    def get_country(self, obj):
-        return obj.country.name
 
     def get_region(self, obj):
         return obj.region.name

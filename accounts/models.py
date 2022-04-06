@@ -35,19 +35,3 @@ class User(AbstractUser):
         if self.first_name:
             return str(self.first_name)
         return str(self.username)
-
-
-class FavouriteGroup(BaseModel):
-    user = models.ForeignKey(
-        "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
-    )
-    group = models.ForeignKey(
-        "products.ProductGroup",
-        limit_choices_to={"is_deleted": False},
-        related_name="accounts_favourite_group",
-        on_delete=models.CASCADE,
-    )
-    is_active = models.BooleanField("Mark as Active", default=False)
-
-    def __str__(self):
-        return str(self.user)

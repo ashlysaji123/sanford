@@ -8,8 +8,8 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 
 from core.functions import generate_form_errors, get_response_data
 
-from .forms import CategoryForm, ProductForm, ProductGroupForm, SubCategoryForm,CategoryGroupForm
-from .models import Category, Product, ProductGroup, SubCategory,ProductSpecialPrice,CategoryGroup
+from .forms import CategoryForm, ProductForm, SubCategoryForm,CategoryGroupForm
+from .models import Category, Product, ShopGroup, SubCategory,ProductSpecialPrice,CategoryGroup
 from core.models import Shop
 
 # Create your views here.
@@ -241,75 +241,49 @@ def delete_product_sub_category(request, pk):
 """Product sub category"""
 
 """Produc group"""
-
-
-@login_required
-def create_product_group(request):
-    if request.method == "POST":
-        form = ProductGroupForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("products:product_group_list"),
-                message="Added Successfully.",
-            )
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
+class ShopGroupList(ListView):
+    queryset = ShopGroup.objects.filter(is_deleted=False)
+    template_name = "product/group/list.html"
+    def get_queryset(self,**kwargs):
+        if self.request.user.is_superuser or self.request.user.is_global_manager:
+            queryset = ShopGroup.objects.filter(is_deleted=False)
         else:
-            message = generate_form_errors(form)
-            response_data = get_response_data(0, message=message)
-            return HttpResponse(
-                json.dumps(response_data), content_type="application/javascript"
-            )
-    else:
-        form = ProductGroupForm()
-        context = {"form": form, "title": "Add Group", "alert_type": "showalert"}
-        return render(request, "product/group/create.html", context)
+            queryset = ShopGroup.objects.filter(is_deleted=False,region=self.request.user.region)
+        return queryset
+            
+class ShopGroupDetail(DetailView):
+    model = ShopGroup
+    template_name = "product/group/single.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = context['object']
+        context["shop_list"] = data.shops.all()
+        return context
 
+class ShopGroupForm(CreateView):
+    model = ShopGroup
+    template_name = "product/group/create.html"
+    fields = ["name","region", "shops"]
 
-@login_required
-def product_group_list(request):
-    query_set = ProductGroup.objects.filter(is_deleted=False)
-    context = {"title": "Group list", "instances": query_set}
-    return render(request, "product/group/list.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "New Customer Group"
+        return context
 
+class ShopGroupUpdate(UpdateView):
+    model = ShopGroup
+    template_name = "product/group/create.html"
+    fields = ["name","region", "shops"]
 
-@login_required
-def update_product_group(request, pk):
-    instance = get_object_or_404(ProductGroup, pk=pk)
-    if request.method == "POST":
-        form = ProductGroupForm(request.POST, request.FILES, instance=instance)
-        if form.is_valid():
-            form.save()
-            response_data = get_response_data(
-                1,
-                redirect_url=reverse("products:product_group_list"),
-                message="Updated",
-            )
-        else:
-            message = generate_form_errors(form, formset=False)
-            response_data = get_response_data(0, message=message)
-        return HttpResponse(
-            json.dumps(response_data), content_type="application/javascript"
-        )
-    else:
-        form = ProductGroupForm(instance=instance)
-        context = {"title": "Edit Group", "form": form, "instance": instance}
-        return render(request, "product/group/create.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Edit Customer group -"
+        return context
 
-
-@login_required
-def delete_product_group(request, pk):
-    ProductGroup.objects.filter(pk=pk).update(is_deleted=True)
-    response_data = get_response_data(
-        1, redirect_url=reverse("products:product_group_list"), message="Deleted"
-    )
-    return HttpResponse(
-        json.dumps(response_data), content_type="application/javascript"
-    )
-
+class ShopGroupDelete(DeleteView):
+    model = ShopGroup
+    template_name = "core/confirm_delete.html"
+    success_url = reverse_lazy("products:shop_group_list")
 
 """Product group"""
 
@@ -416,25 +390,25 @@ class ProductSpecialPriceDetail(DetailView):
 
 class ProductSpecialPriceForm(CreateView):
     model = ProductSpecialPrice
-    fields = ["product","shop","special_price"]
+    fields = ["group","product","special_price"]
     template_name = 'product/specialprice/productspecialprice_form.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Add Special Price for shop"
-        if self.request.user.is_superuser:
-            qs = Shop.objects.filter(is_deleted=False)
+        context["title"] = "Add Special Price for Group"
+        if self.request.user.is_superuser or self.request.user.is_global_manager:
+            qs = ShopGroup.objects.filter(is_deleted=False)
         else:
-            qs = Shop.objects.filter(state__country__region=self.request.user.region,is_deleted=False)
+            qs = ShopGroup.objects.filter(region=self.request.user.region,is_deleted=False)
         form = context['form']
-        form_shop = form.fields['shop']
-        form_shop.queryset = qs
+        form_group = form.fields['group']
+        form_group.queryset = qs
         return context
 
 
 class ProductSpecialPriceUpdate(UpdateView):
     model = ProductSpecialPrice
-    fields = ["product","shop","special_price"]
+    fields = ["group","product","special_price"]
     template_name = 'product/specialprice/productspecialprice_form.html'
 
     def get_context_data(self, **kwargs):

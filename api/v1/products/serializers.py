@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
-from api.v1.core.serializers import RegionSerializer
+from api.v1.core.serializers import RegionSerializer,ShopSerializer
 from products.models import (
     Category,
     Product,
-    ProductGroup,
+    ShopGroup,
     ProductWishList,
     SubCategory,
 )
@@ -32,12 +32,11 @@ class SubCategorySerializer(serializers.ModelSerializer):
         fields = ("pk", "code", "name", "category", "category_name")
 
 
-class ProductGroupSerializer(serializers.ModelSerializer):
-    subcategory_name = serializers.ReadOnlyField()
-
+class ShopGroupSerializer(serializers.ModelSerializer):
+    shops = ShopSerializer(read_only=True, many=True)
     class Meta:
-        model = ProductGroup
-        fields = ("pk", "name", "code", "icon", "subcategory_name")
+        model = ShopGroup
+        fields = ("pk", "name", "region", "shops")
 
 
 class ProductSerializer(serializers.ModelSerializer):

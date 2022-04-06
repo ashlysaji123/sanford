@@ -1,10 +1,12 @@
-import datetime
+from datetime import date
 from django.core.validators import MinValueValidator
 from decimal import Decimal
 from django.db import models
 from location_field.models.plain import PlainLocationField
 from versatileimagefield.fields import VersatileImageField
 from django.urls import reverse
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from core.models import BaseModel
 from core.utils import EMPLOYEE_TYPE_CHOICE,EMPLOYEE_DESIGNATION_CHOICE,EMPLOYEE_DEPARTMENT_CHOICE
@@ -12,7 +14,7 @@ from core.utils import EMPLOYEE_TYPE_CHOICE,EMPLOYEE_DESIGNATION_CHOICE,EMPLOYEE
 
 class Staff(BaseModel):
     company = models.ForeignKey("core.Company", on_delete=models.CASCADE,blank=True,null=True)
-    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE,default="permanent")
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE)
     department = models.CharField(max_length=128,choices=EMPLOYEE_DEPARTMENT_CHOICE)
     designation = models.CharField(max_length=128,choices=EMPLOYEE_DESIGNATION_CHOICE)
     employe_id = models.CharField(max_length=128, unique=True)
@@ -49,3 +51,26 @@ class Staff(BaseModel):
 
     def __str__(self):
         return str(self.name)
+
+
+class StaffHistoryLog(BaseModel):
+    date = models.DateField()
+    staff_type = models.CharField(max_length=128,choices=EMPLOYEE_TYPE_CHOICE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.staff.name} - {self.staff_type}"
+
+
+""" signal functions for creating StaffHistoryLog """
+@receiver(post_save, sender=Staff)
+def create_daily_attendance(sender, instance, created, **kwargs):
+    if not StaffHistoryLog.objects.filter(staff=instance,staff_type=instance.staff_type).exists():
+        StaffHistoryLog(
+            date=date.today(),
+            staff_type=instance.staff_type,
+            staff=instance
+        ).save()
+
+""" end signals """
+

@@ -67,18 +67,6 @@ class SubCategory(BaseModel):
     def category_name(self):
         return str(self.group.category.name)
 
-
-class ProductGroup(BaseModel):
-    name = models.CharField(max_length=128)
-    code = models.CharField(max_length=128, unique=True)
-    icon = VersatileImageField(
-        "Product Group Icon", upload_to="images/products/productgroup/icon/"
-    )
-
-    def __str__(self):
-        return str(self.name)
-
-
 class Product(BaseModel):
     name = models.CharField(max_length=128)
     retail_barcode = models.CharField("Retail-Barcode",max_length=128, unique=True)
@@ -139,6 +127,24 @@ class ProductWishList(models.Model):
 
 
 
+class ShopGroup(BaseModel):
+    name = models.CharField(max_length=128)
+    shops = models.ManyToManyField('core.Shop', limit_choices_to={"is_deleted": False})
+    region = models.ForeignKey('core.Region',on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("products:view_shop_group", kwargs={"pk": self.pk})
+
+    def get_update_url(self):
+        return reverse("products:update_shop_group", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("products:delete_shop_group", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return str(self.name)
+
+
 
 class ProductSpecialPrice(BaseModel):
     product = models.ForeignKey(
@@ -146,11 +152,7 @@ class ProductSpecialPrice(BaseModel):
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
     )
-    shop = models.ForeignKey(
-        'core.Shop',
-        limit_choices_to={"is_deleted": False},
-        on_delete=models.PROTECT,
-    )
+    group = models.OneToOneField(ShopGroup, on_delete=models.CASCADE)
     special_price = models.DecimalField(
         default=0.0,
         decimal_places=2,
