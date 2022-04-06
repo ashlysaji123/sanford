@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from merchandiser.models import Merchandiser, MerchandiserTarget, MerchandiserTask
-from sales.models import Sales
+from sales.models import Sales,SaleReturn
 
 from .serializers import (
     MerchandiserProfileSerializer,
@@ -130,15 +130,23 @@ def merchandiser_sale_status(request):
             month=current_month,
             target_type="SECONDARY",
         )
-        primary_target = target.target_amount
+        secondry_target = target.target_amount
         current_amount = target.current_amount
         is_target_achieved = False
-        if current_amount >= primary_target:
+        if current_amount >= secondry_target:
             is_target_achieved = True
     except MerchandiserTarget.DoesNotExist:
         is_target_achieved = False
+        secondry_target = 0
+    """Primary target data"""
+    if MerchandiserTarget.objects.filter(user=merchandiser, year=current_year, month=current_month,target_type="PRIMARY").exists():
+        primary_target_data = MerchandiserTarget.objects.get(user=merchandiser, year=current_year, month=current_month,target_type="PRIMARY")
+        primary_target = primary_target_data.target_amount
+    else:
         primary_target = 0
 
+    """Primary target data end"""
+    """monthly sales data"""
     monthly_sales = Sales.objects.filter(
         user=user,
         created__year=current_year,
@@ -148,23 +156,38 @@ def merchandiser_sale_status(request):
     current_month_sale = 0
     for sale in monthly_sales:
         current_month_sale += sale.total_amount
+    """montlys sales avarage"""
     monthly_avarage_sale = Sales.objects.filter(
         user=user,
         created__year=current_year,
         created__month=current_month,
         is_approved=True,
     ).aggregate(Avg("total_amount"))
+    """Today sales"""
     today_sale = Sales.objects.filter(user=user, created__date=today)
     today_sale_amount = 0
     for sale in today_sale:
         today_sale_amount += sale.total_amount
+    """Monthly sales data end"""
+    """Monthly Sales return data """
+    total_sales_return = SaleReturn.objects.filter(
+        user=user,
+        created__month=current_month,
+    )
+    total_month_sale_return = 0
+    for salereturn in total_sales_return:
+        total_month_sale_return += salereturn.total_amount
+    """Monthly sales return data end"""
 
     response_data = {
         "status": True,
         "is_target_achieved": is_target_achieved,
+        "secondry_target": secondry_target,
         "primary_target": primary_target,
         "current_month_sale": current_month_sale,
         "today_sale_amount": today_sale_amount,
         "monthly_avarage_sale": monthly_avarage_sale,
+        "total_month_sale_return":total_month_sale_return
     }
     return Response(response_data)
+

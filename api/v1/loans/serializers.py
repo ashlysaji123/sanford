@@ -13,10 +13,10 @@ class LoanListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Loan
-        fields = ('id','first_name','amount', 'reason', 'approved_date','duration', 'is_approved', 'is_rejected','guarntee')
+        fields = ('id','first_name','amount', 'reason', 'approved_date','duration', 'is_approved', 'is_rejected','guarantee')
 
 
     def get_first_name(self,obj):
-        if obj.guarntee:
-            return obj.guarntee.first_name
+        if obj.guarantee:
+            return obj.guarantee.first_name
 
