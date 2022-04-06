@@ -111,7 +111,7 @@ def create_staff_table(sender, instance, created, **kwargs):
             visa_expiry=instance.visa_expiry,
             passport_number=instance.passport_number,
             passport_expiry=instance.passport_expiry,
-            region=instance.region,
+            region=instance.area.sub_region.region,
             user=instance.user
         ).save()
     else:
@@ -134,7 +134,7 @@ def create_staff_table(sender, instance, created, **kwargs):
         staff.visa_expiry=instance.visa_expiry
         staff.passport_number=instance.passport_number
         staff.passport_expiry=instance.passport_expiry
-        staff.region=instance.region
+        staff.region=instance.area.sub_region.region
         staff.save()
 
 """ end signals """
