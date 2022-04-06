@@ -17,8 +17,8 @@ class LoanListSerializer(serializers.ModelSerializer):
 
 
     def get_first_name(self,obj):
-        if obj.guarntee:
-            return obj.guarntee.first_name
+        if obj.guarantee:
+            return obj.guarantee.first_name
 
 
 class CreateLoanLogSerializer(serializers.ModelSerializer):
