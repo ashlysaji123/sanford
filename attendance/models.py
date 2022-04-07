@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 from location_field.models.plain import PlainLocationField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import datetime
 
 from core.models import BaseModel
 from accounts.models import User
@@ -18,8 +19,8 @@ class DailyAttendance(models.Model):
         "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
     )
     date = models.DateField()
-    working_hours = models.TimeField(blank=True, null=True)
-    missing_hours = models.TimeField(blank=True, null=True)
+    working_hours = models.DurationField(blank=True, null=True)
+    missing_hours = models.DurationField(blank=True, null=True)
     late_reason = models.TextField(null=True,blank=True)
     is_leave = models.BooleanField(default=False)
     is_late = models.BooleanField(default=False)
@@ -46,7 +47,7 @@ class Attendance(BaseModel):
     )
     is_late = models.BooleanField(default=False)
     is_leave = models.BooleanField(default=False)
-    working_hours = models.TimeField(blank=True, null=True)
+    working_hours = models.DurationField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.user}"
@@ -68,7 +69,7 @@ def create_daily_attendance(sender, instance, created, **kwargs):
     else:
         daily_attendance = DailyAttendance.objects.get(user=instance.user,date=instance.date)
         daily_attendance.last_check_out = instance.check_out_time
-        daily_attendance.working_hours += instance.working_hours
+        daily_attendance.working_hours += int(datetime.time(instance.working_hours))
         daily_attendance.missing_hours = settings.SANFORDCORP_WORKING_HOURS - daily_attendance.working_hours
         daily_attendance.save()
 
