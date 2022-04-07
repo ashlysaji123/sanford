@@ -1,4 +1,5 @@
 import json
+from tokenize import group
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -258,6 +259,7 @@ class ShopGroupDetail(DetailView):
         context = super().get_context_data(**kwargs)
         data = context['object']
         context["shop_list"] = data.shops.all()
+        context["special_price_list"] = ProductSpecialPrice.objects.filter(group=data,is_deleted=False)
         return context
 
 class ShopGroupForm(CreateView):

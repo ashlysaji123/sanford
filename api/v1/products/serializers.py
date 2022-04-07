@@ -25,11 +25,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
-    category_name = serializers.ReadOnlyField()
+    group_name = serializers.SerializerMethodField()
 
     class Meta:
         model = SubCategory
-        fields = ("pk", "code", "name", "category", "category_name")
+        fields = ("pk", "code", "name", "group", "group_name")
+    
+    def get_group_name(self,obj):
+        return obj.group.name
+
 
 
 class ShopGroupSerializer(serializers.ModelSerializer):
@@ -40,7 +44,6 @@ class ShopGroupSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    group_name = serializers.ReadOnlyField()
     subcategory_name = serializers.ReadOnlyField()
     available_regions = RegionSerializer(read_only=True, many=True)
 
@@ -49,12 +52,11 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             "pk",
             "name",
-            "barcode",
+            "retail_barcode",
+            "ecommerse_barcode",
             "item_number",
             "summary",
             "description",
-            "group",
-            "group_name",
             "subcategory",
             "subcategory_name",
             "product_pdf",

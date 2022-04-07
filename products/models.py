@@ -152,7 +152,7 @@ class ProductSpecialPrice(BaseModel):
         limit_choices_to={"is_deleted": False},
         on_delete=models.PROTECT,
     )
-    group = models.OneToOneField(ShopGroup, on_delete=models.CASCADE)
+    group = models.ForeignKey(ShopGroup, on_delete=models.CASCADE)
     special_price = models.DecimalField(
         default=0.0,
         decimal_places=2,
@@ -170,5 +170,5 @@ class ProductSpecialPrice(BaseModel):
         return reverse("products:delete_special_price", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return str(self.shop.name)
+        return f'{self.group.name} - {self.product.name}' 
 
