@@ -322,7 +322,10 @@ def create_product(request):
 
 @login_required
 def product_list(request):
-    query_set = Product.objects.filter(is_deleted=False)
+    if request.user.is_superuser or request.user.is_global_manager:
+        query_set = Product.objects.filter(is_deleted=False)
+    else:
+        query_set = Product.objects.filter(is_deleted=False,available_regions__id__exact=request.user.region,allowed=True)
     context = {
         "title": "Product list",
         "instances": query_set,

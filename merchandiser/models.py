@@ -146,6 +146,10 @@ class MerchandiserTarget(BaseModel):
     user = models.ForeignKey(
         Merchandiser, limit_choices_to={"is_deleted": False}, on_delete=models.CASCADE
     )
+    shop = models.ForeignKey(
+        'core.Shop', limit_choices_to={"is_deleted": False}, on_delete=models.CASCADE,
+        blank=True,null=True
+    )
     year = models.PositiveIntegerField(
         choices=YEAR_CHOICES,
         default=datetime.datetime.now().year,
@@ -164,6 +168,11 @@ class MerchandiserTarget(BaseModel):
             f"{self.month}/{self.year} with {self.target_amount} target to {self.user}"
         )
 
+    @property
+    def get_daily_target(self):
+        monthly_target = self.target_amount
+        daily_target = (monthly_target/26)
+        return daily_target
 
 class MerchandiserTask(BaseModel):
     task = models.CharField(max_length=350)

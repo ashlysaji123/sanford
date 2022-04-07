@@ -30,6 +30,10 @@ class Loan(BaseModel):
     supervisor_approved = models.BooleanField(default=False)
     supervisor_rejected = models.BooleanField(default=False)
 
+    @property
+    def get_payable_amount(self):
+        return self.amount - self.paid_amount
+
     def __str__(self):
         return f"{self.creator.first_name} - {self.amount}"
 

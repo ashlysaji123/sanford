@@ -11,6 +11,8 @@ from globalstaffs.models import GlobalManager
 from core.functions import generate_form_errors, get_response_data
 from core.models import SubRegion, Language, Region, Shop, Area, Year,LocalArea,Company
 from executives.models import SalesSupervisor
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 
 
 class YearList(ListView):
@@ -311,25 +313,42 @@ class LocalAreaDelete(DeleteView):
 
 @login_required
 def my_profile(request):
+    context = {}
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=request.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=request.user)
+        context.update({
+            "loan":loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=request.user).exists():
+        salary_advance = SalaryAdavance.objects.get(is_approved=True,is_returned_completely=False,user=request.user)
+        context.update({
+            "salary_advance":salary_advance,
+        })
     if request.user.is_global_manager:
         instance = GlobalManager.objects.get(user=request.user)
-        context = {"title": "Global manager :- " + instance.name, "instance": instance}
+        context.update({
+            "title": "Global manager :- " + instance.name, 
+            "instance": instance,
+        })
         return render(request, "global-manager/single.html", context)
     if request.user.is_sales_manager:
         instance = SalesManager.objects.get(user=request.user)
-        context = {"title": "Sales manager :- " + instance.name, "instance": instance}
+        context.update({
+            "title": "Sales manager :- " + instance.name, 
+            "instance": instance,
+        })
         return render(request, "manager/single.html", context)
     elif request.user.is_sales_coordinator:
         instance = SalesCoordinator.objects.get(user=request.user)
-        context = {
+        context.update({
             "title": "Sales Coordinator :- " + instance.name,
             "instance": instance,
-        }
+        })
         return render(request, "coordinator/single.html", context)
     elif request.user.is_sales_supervisor:
         instance = SalesSupervisor.objects.get(user=request.user)
-        context = {
+        context.update({
             "title": "Sales Coordinator :- " + instance.name,
             "instance": instance,
-        }
+        })
         return render(request, "supervisor/single.html", context)
