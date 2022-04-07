@@ -18,8 +18,8 @@ class DailyAttendance(models.Model):
         "accounts.User", limit_choices_to={"is_active": True}, on_delete=models.CASCADE
     )
     date = models.DateField()
-    working_hours = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    missing_hours = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    working_hours = models.TimeField(blank=True, null=True)
+    missing_hours = models.TimeField(blank=True, null=True)
     late_reason = models.TextField(null=True,blank=True)
     is_leave = models.BooleanField(default=False)
     is_late = models.BooleanField(default=False)
@@ -46,7 +46,7 @@ class Attendance(BaseModel):
     )
     is_late = models.BooleanField(default=False)
     is_leave = models.BooleanField(default=False)
-    working_hours = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+    working_hours = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.user}"

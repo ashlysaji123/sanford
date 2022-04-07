@@ -1,5 +1,4 @@
 import datetime
-
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -7,9 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.v1.attendance.utils import get_daily_attendance_sum
-from attendance.models import Attendance
+from attendance.models import Attendance,DailyAttendance
 from django.conf import settings
-from .serializers import AttendanceSerializer, MarkAttendanceSerializer
+from .serializers import AttendanceSerializer, MarkAttendanceSerializer,DailyAttendanceSerializer
 
 
 class MarkAttendanceIn(APIView):
@@ -52,7 +51,13 @@ def MarkAttendanceOut(request, pk):
         # Calculating daily worked hours of current user
         check_in = attandance.check_in_time
         check_out = serializer.validated_data["check_out_time"]
-        working_hours = (check_in - check_out).seconds / (60 * 60)
+
+        t1 = datetime.datetime.combine(datetime.date.today(), check_in)
+        t2 = datetime.datetime.combine(datetime.date.today(), check_out)
+        t = (t2 - t1)
+        working_hours = datetime.timedelta(days=0, seconds=t.seconds, microseconds=t.microseconds)
+        print(working_hours,"///////////////////////")
+        # working_hours = (check_in - check_out).seconds / (60 * 60)
         serializer.save(working_hours=working_hours)
         response_data = {"status": True, "data": serializer.data}
         return Response(response_data, status=status.HTTP_201_CREATED)
