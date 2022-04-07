@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 from globalstaffs.forms import (
     GlobalManagerForm,
     GlobalManagerTargetForm,
@@ -62,7 +63,20 @@ def global_manager_list(request):
 @login_required
 def global_manager_single(request, pk):
     instance = get_object_or_404(GlobalManager, pk=pk)
-    context = {"title": "Global manager :- " + instance.name, "instance": instance}
+    context = {
+        "title": "Global manager :- " + instance.name, 
+        "instance": instance,
+    }
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "global-manager/single.html", context)
 
 

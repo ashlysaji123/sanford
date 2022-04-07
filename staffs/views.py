@@ -8,6 +8,8 @@ from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateVi
 
 from core.functions import generate_form_errors, get_response_data
 from .models import Staff
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 
 
 
@@ -18,3 +20,14 @@ class StaffList(ListView):
 class StaffDetail(DetailView):
     template_name = "staffs/single.html"
     model = Staff
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = context['object']
+        if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+            loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+            context["loan"] = loan
+        if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+            salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+            context["salary_advance"] = salary_advance
+        return context
+

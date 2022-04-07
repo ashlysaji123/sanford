@@ -7,7 +7,8 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
 from core.functions import generate_form_errors, get_response_data
-
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 from .forms import (
     SalesExecutiveForm, 
     SalesExecutiveTargetForm, 
@@ -79,6 +80,16 @@ def supervisor_list(request):
 def supervisor_single(request, pk):
     instance = get_object_or_404(SalesSupervisor, pk=pk)
     context = {"title": "Sales Supervisor :- " + instance.name, "instance": instance}
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "supervisor/single.html", context)
 
 
@@ -336,6 +347,16 @@ def executive_list(request):
 def executive_single(request, pk):
     instance = get_object_or_404(SalesExecutive, pk=pk)
     context = {"title": "Sales Executive :- " + instance.name, "instance": instance}
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "executive/single.html", context)
 
 

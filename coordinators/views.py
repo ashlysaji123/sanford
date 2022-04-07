@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 
 from coordinators.forms import (
     SalesCoordinatorForm,
@@ -72,7 +74,20 @@ def manager_list(request):
 @login_required
 def manager_single(request, pk):
     instance = get_object_or_404(SalesManager, pk=pk)
-    context = {"title": "Sales manager :- " + instance.name, "instance": instance}
+    context = {
+        "title": "Sales manager :- " + instance.name, 
+        "instance": instance,
+    }
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "manager/single.html", context)
 
 
@@ -333,6 +348,16 @@ def coordinator_list(request):
 def coordinator_single(request, pk):
     instance = get_object_or_404(SalesCoordinator, pk=pk)
     context = {"title": "Sales Coordinator :- " + instance.name, "instance": instance}
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "coordinator/single.html", context)
 
 

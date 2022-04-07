@@ -12,6 +12,7 @@ class SalaryAdavance(BaseModel):
     approved_date = models.DateField(blank=True,null=True)
     is_approved = models.BooleanField(default=False)
     is_rejected = models.BooleanField(default=False)
+    is_returned_completely = models.BooleanField(default=False)
     # Higher RQ model fields
     global_manager_approved = models.BooleanField(default=False)
     global_manager_rejected = models.BooleanField(default=False)

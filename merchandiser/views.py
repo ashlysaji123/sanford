@@ -10,6 +10,8 @@ from core.functions import generate_form_errors, get_response_data
 
 from .forms import MerchandiserForm, MerchandiserTargetForm, MerchandiserTaskForm,MerchandiserUpdateForm
 from .models import Merchandiser, MerchandiserTarget, MerchandiserTask
+from loans.models import Loan
+from salaries.models import SalaryAdavance
 
 """Manager"""
 
@@ -60,6 +62,16 @@ def merchandiser_list(request):
 def merchandiser_single(request, pk):
     instance = get_object_or_404(Merchandiser, pk=pk)
     context = {"title": "Merchandiser :- " + instance.name, "instance": instance}
+    if Loan.objects.filter(is_approved=True,is_returned_completely=False,creator=instance.user).exists():
+        loan = Loan.objects.get(is_approved=True,is_returned_completely=False,creator=instance.user)
+        context.update({
+            "loan" : loan,
+        })
+    if SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user).exists():
+        salary_advance = SalaryAdavance.objects.filter(is_approved=True,is_returned_completely=False,user=instance.user)
+        context.update({
+            "salary_advance" : salary_advance,
+        })
     return render(request, "merchandiser/single.html", context)
 
 
