@@ -8,17 +8,15 @@ from rest_framework.views import APIView
 
 from api.v1.attendance.utils import get_daily_attendance_sum
 from attendance.models import Attendance
-
+from django.conf import settings
 from .serializers import AttendanceSerializer, MarkAttendanceSerializer
 
 
 class MarkAttendanceIn(APIView):
-
     """
     * mark Check in of current user
     * Method: POST Only
     """
-
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format=None):
@@ -32,9 +30,14 @@ class MarkAttendanceIn(APIView):
             if today != check_in_day:
                 response_data = {"status": False, "data": "Please Check the date."}
                 return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-            serializer.save(user=user, creator=user)
-            response_data = {"status": True, "data": serializer.data}
-            return Response(response_data, status=status.HTTP_201_CREATED)
+            if check_in > settings.SANFORDCORP_ENTRY_TIME:
+                serializer.save(user=user, creator=user,is_late=True)
+                response_data = {"status": True, "data": serializer.data}
+                return Response(response_data, status=status.HTTP_201_CREATED)
+            else:
+                serializer.save(user=user, creator=user)
+                response_data = {"status": True, "data": serializer.data}
+                return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

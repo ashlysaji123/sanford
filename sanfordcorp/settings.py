@@ -1,6 +1,5 @@
-from datetime import timedelta
+from datetime import timedelta,time
 from pathlib import Path
-
 from decouple import config
 from django_archive import archivers
 
@@ -21,7 +20,8 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = ["*"]
 
 SANFORDCORP_WORKING_HOURS = 10
-# Application definition
+SANFORDCORP_ENTRY_TIME = time(9, 00, 00)
+  
 
 INSTALLED_APPS = [
     "registration",
