@@ -25,17 +25,13 @@ class MarkAttendanceIn(APIView):
             user = request.user
             today = datetime.date.today()
             check_in = serializer.validated_data["check_in_time"]
-            check_in_day = check_in.date()
 
-            if today != check_in_day:
-                response_data = {"status": False, "data": "Please Check the date."}
-                return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
             if check_in > settings.SANFORDCORP_ENTRY_TIME:
-                serializer.save(user=user, creator=user,is_late=True)
+                serializer.save(user=user, creator=user,is_late=True,date=today)
                 response_data = {"status": True, "data": serializer.data}
                 return Response(response_data, status=status.HTTP_201_CREATED)
             else:
-                serializer.save(user=user, creator=user)
+                serializer.save(user=user, creator=user,date=today)
                 response_data = {"status": True, "data": serializer.data}
                 return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -66,10 +62,20 @@ def MarkAttendanceOut(request, pk):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def MyAttandanceSummaryView(request):
+    user = request.user
+    attandance = DailyAttendance.objects.filter(user=user)
+    serializer = DailyAttendanceSerializer(attandance, context={"request": request}, many=True)
+    response_data = {"status": "true", "attendance": serializer.data}
+    return Response(response_data, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def old_MyAttandanceSummaryView(request):
     """
     View to list all Attendace of current user
     """
-    request.user
+    user = request.user
     date = datetime.date.today()
     start_week = date - datetime.timedelta(date.weekday())
     end_week = start_week + datetime.timedelta(7)
