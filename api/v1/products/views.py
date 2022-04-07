@@ -13,25 +13,6 @@ from products.models import Product, ProductWishList
 
 from .serializers import ProductSerializer, ProductWishListSerializer
 
-# def product_filtering(request):
-#     query = request.GET.get('q')
-#     queryset = Product.objects.filter(is_deleted=False)
-
-#     # paginator = PageNumberPagination()
-#     if query:
-#         queryset = queryset.filter(
-#             Q(name__icontains=query) |
-#             Q(subcategory__category__icontains=query)
-#         )
-
-# result_page = paginator.paginate_queryset(queryset, request)
-# serializer = PostListSerializer(
-#     result_page, context={"request": request}, many=True, read_only=True)
-# data = serializer.data
-
-
-# return paginator.get_paginated_response(data)
-
 
 class ProductFilterView(ListAPIView):
     """
@@ -43,9 +24,9 @@ class ProductFilterView(ListAPIView):
     pagination_class = StandardResultsSetPagination
     permission_classes = (IsAuthenticated,)
     filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
-    filterset_fields = ("name", "subcategory__category", "barcode", "item_number")
+    filterset_fields = ("name", "subcategory__group", "ecommerse_barcode","retail_barcode", "item_number")
     ordering_fields = ("name", "created", "-name", "list_price", "-list_price")
-    search_fields = ("name", "barcode", "item_number")
+    search_fields = ("name", "ecommerse_barcode","retail_barcode", "item_number")
 
 
 class ProductWishListView(APIView):

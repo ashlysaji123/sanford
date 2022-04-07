@@ -104,18 +104,7 @@ urlpatterns = [
             permission_classes=[IsAuthenticated],
         ),
     ),
-    # path(
-    #     "wishlist/",
-    #     ListAPIView.as_view(
-    #         queryset=ProductWishList.objects.filter(user=request.user),
-    #         serializer_class=ProductWishListSerializer,
-    #         pagination_class=StandardResultsSetPagination,
-    #         permission_classes =[IsAuthenticated],
-    #         filter_backends = [OrderingFilter],
-    #     ),
-    # ),
     path("wishlist/", ProductWishListView.as_view()),
     path("add/wishlist/<str:pk>/", AddToWishlist.as_view()),
     path("product-filter/", ProductFilterView.as_view()),
-    # path('product-filter',product_filtering),
 ]

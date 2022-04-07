@@ -6,14 +6,14 @@ from loans.models import Loan,LoanLog
 class CreateLoanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loan
-        fields = ('amount', 'reason', 'duration', 'guarntee')
+        fields = ('amount', 'reason', 'duration', 'guarantee')
 
 class LoanListSerializer(serializers.ModelSerializer):
     first_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Loan
-        fields = ('id','first_name','amount', 'reason', 'approved_date','duration', 'is_approved', 'is_rejected','guarntee','paid_amount','is_returned_completely')
+        fields = ('id','first_name','amount', 'reason', 'approved_date','duration', 'is_approved', 'is_rejected','guarantee','paid_amount','is_returned_completely')
 
 
     def get_first_name(self,obj):
